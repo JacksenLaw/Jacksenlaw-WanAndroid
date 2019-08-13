@@ -12,11 +12,13 @@ import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
 import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
+import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
 import com.jacksen.wanandroid.model.db.DbHelperImpl;
 import com.jacksen.wanandroid.model.http.HttpImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 
@@ -257,6 +259,11 @@ public class DataManager implements PreferenceImpl, DbHelperImpl, HttpImpl {
     @Override
     public Observable<BaseResponse<List<BannerBean>>> getBannerData() {
         return mHttpImpl.getBannerData();
+    }
+
+    @Override
+    public Observable<BaseResponse<TodoBean>> getTodoData(int pageNo, Map<String, String> params) {
+        return mHttpImpl.getTodoData(pageNo, params);
     }
 
     /* HttpImpl */

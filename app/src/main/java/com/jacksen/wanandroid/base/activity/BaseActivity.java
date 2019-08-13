@@ -5,13 +5,17 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatDelegate;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.bar.library.StatusBarUtil;
+import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.presenter.AbstractPresenter;
 import com.jacksen.wanandroid.base.view.AbstractView;
 import com.jacksen.wanandroid.core.manager.PermissionManager;
 import com.jacksen.wanandroid.util.CommonUtils;
+import com.jacksen.wanandroid.view.ui.main.activity.SearchActivity;
+import com.jacksen.wanandroid.view.ui.main.activity.SearchListActivity;
 
 import javax.inject.Inject;
 
@@ -77,34 +81,19 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     protected void initToolbar() {
-
+        StatusBarUtil.setColor(mActivity, getStatusBarColor());
     }
 
     @Override
-    public void useNightModel(boolean isNightMode) {
-        if (isNightMode) {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES);
+    protected int getStatusBarColor() {
+        if (!mPresenter.isNightMode()) {
+            if (mActivity instanceof SearchActivity || mActivity instanceof SearchListActivity) {
+                return ContextCompat.getColor(mActivity, R.color.colorPrimarySearchDark);
+            }
+            return ContextCompat.getColor(mActivity, R.color.colorPrimaryDark);
         } else {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_NO);
+            return ContextCompat.getColor(mActivity, R.color.colorPrimaryDark_Night);
         }
-        recreate();
-    }
-
-    @Override
-    public void showErrorMsg(String errorMsg) {
-        CommonUtils.showMessage(errorMsg);
-    }
-
-    @Override
-    public void showLoginView() {
-
-    }
-
-    @Override
-    public void showLoginOutView() {
-
     }
 
     @Override

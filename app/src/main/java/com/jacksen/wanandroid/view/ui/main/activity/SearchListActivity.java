@@ -1,7 +1,6 @@
 package com.jacksen.wanandroid.view.ui.main.activity;
 
 import android.arch.lifecycle.Observer;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,20 +8,19 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.bar.library.StatusBarUtil;
 import com.jacksen.wanandroid.R;
-import com.jacksen.wanandroid.base.activity.BaseRootActivity;
+import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.model.bus.BusConstant;
 import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.search.SearchListContract;
 import com.jacksen.wanandroid.presenter.search.SearchListPresenter;
-import com.jacksen.wanandroid.util.StatusBarUtil;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 import com.jacksen.wanandroid.view.ui.mainpager.adapter.ArticleListAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -40,11 +38,11 @@ import butterknife.BindView;
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
-public class SearchListActivity extends BaseRootActivity<SearchListPresenter> implements SearchListContract.View, OnRefreshLoadMoreListener {
+public class SearchListActivity extends BaseActivity<SearchListPresenter> implements SearchListContract.View, OnRefreshLoadMoreListener {
 
-    @BindView(R.id.common_toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.common_toolbar_title_tv)
+    @BindView(R.id.toolbar_title_tv)
     TextView mTitleTv;
     @BindView(R.id.normal_view)
     RefreshLayout mRefreshLayout;
@@ -69,7 +67,6 @@ public class SearchListActivity extends BaseRootActivity<SearchListPresenter> im
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         super.onCreateView(savedInstanceState);
-        StatusBarUtil.getStatusBarHeight(this);
         initRecyclerView();
     }
 
@@ -82,21 +79,8 @@ public class SearchListActivity extends BaseRootActivity<SearchListPresenter> im
 
     @Override
     protected void initToolbar() {
-        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.search_status_bar_white), 1f);
-        StatusBarUtil.setStatusDarkColor(getWindow());
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
+        super.initToolbar();
         mTitleTv.setText(mPresenter.getSearchText());
-        if (!mPresenter.isNightMode()) {
-            mTitleTv.setTextColor(ContextCompat.getColor(this, R.color.black));
-            mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.search_status_bar_white));
-        } else {
-            mTitleTv.setTextColor(Color.parseColor("#EEEEEE"));
-            mToolbar.setBackgroundColor(Color.parseColor("#262626"));
-        }
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_grey_24dp));
     }
 
     @Override

@@ -15,6 +15,17 @@ import com.jacksen.wanandroid.base.view.AbstractView;
  */
 public interface MainContract {
     interface View extends AbstractView {
+
+        /**
+         * 显示登录的view
+         */
+        void showLoginView();
+
+        /**
+         * 显示登出的view
+         */
+        void showLoginOutView();
+
         /**
          * 选择项目栏目
          */
@@ -26,7 +37,7 @@ public interface MainContract {
         void selectNavigationTab();
 
         /**
-         * Show auto login view
+         * 显示自动登录的view
          */
         void showAutoLoginView();
 

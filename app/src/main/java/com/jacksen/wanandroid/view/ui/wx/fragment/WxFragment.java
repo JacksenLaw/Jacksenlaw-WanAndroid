@@ -3,6 +3,7 @@ package com.jacksen.wanandroid.view.ui.wx.fragment;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -33,7 +34,7 @@ import butterknife.BindView;
 public class WxFragment extends BaseRootFragment<WxPresenter> implements WxContract.View {
 
     @BindView(R.id.wx_detail_tab_layout)
-    SlidingTabLayout mTabLayout;
+    TabLayout mTabLayout;
     @BindView(R.id.wx_detail_viewpager)
     ViewPager mViewPager;
 
@@ -112,6 +113,6 @@ public class WxFragment extends BaseRootFragment<WxPresenter> implements WxContr
                 return itemBeans.get(position).getAuthorName();
             }
         });
-        mTabLayout.setViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 }

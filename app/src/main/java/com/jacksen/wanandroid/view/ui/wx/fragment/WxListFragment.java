@@ -8,12 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.KeyboardUtils;
@@ -51,14 +51,14 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.we_detail_list_recycler_view)
     RecyclerView mRecyclerView;
-    @BindView(R.id.search_back_ib)
-    ImageButton mBackIb;
     @BindView(R.id.search_tint_tv)
     TextView mSearchTintTv;
     @BindView(R.id.search_edit)
     EditText mSearchEdit;
     @BindView(R.id.search_tv)
     TextView mSearchTv;
+    @BindView(R.id.search_toolbar)
+    Toolbar mToolbar;
 
     private ArticleListAdapter mAdapter;
     private List<ViewFeedArticleListData.ViewFeedArticleItem> data;
@@ -84,7 +84,7 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
 
     @Override
     protected void initOnCreateView() {
-        mBackIb.setVisibility(View.GONE);
+        mToolbar.setNavigationIcon(null);
         initRecyclerView();
     }
 

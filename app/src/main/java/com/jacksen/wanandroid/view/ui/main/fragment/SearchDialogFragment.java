@@ -21,7 +21,6 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.KeyboardUtils;
@@ -53,8 +52,6 @@ import butterknife.BindView;
  */
 public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> implements SearchContract.View {
 
-    @BindView(R.id.search_back_ib)
-    ImageButton mBackIb;
     @BindView(R.id.search_tint_tv)
     TextView mTintTv;
     @BindView(R.id.search_edit)
@@ -86,10 +83,6 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
 
     @Override
     public void initListener() {
-        mBackIb.setOnClickListener(v -> {
-            KeyboardUtils.hideSoftInput(getActivity());
-            mCircularRevealAnim.hide(mSearchEdit, mRootView);
-        });
         mSearchTv.setOnClickListener(v ->
                 mPresenter.doSearchClick(mSearchEdit.getText().toString().trim())
         );

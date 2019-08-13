@@ -49,13 +49,13 @@ public abstract class BaseSubscribe <T> extends ResourceSubscriber<T> {
         }
         KLog.e(e.toString());
         if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-            mView.showErrorMsg(mErrorMsg);
+            mView.showToast(mErrorMsg);
         } else if (e instanceof ServerException) {
-            mView.showErrorMsg(e.toString());
+            mView.showToast(e.toString());
         } else if (e instanceof HttpException) {
-            mView.showErrorMsg(WanAndroidApp.getInstance().getString(R.string.http_error));
+            mView.showToast(WanAndroidApp.getInstance().getString(R.string.http_error));
         } else {
-            mView.showErrorMsg(WanAndroidApp.getInstance().getString(R.string.unKnown_error));
+            mView.showToast(WanAndroidApp.getInstance().getString(R.string.unKnown_error));
         }
         if (isShowError) {
             mView.showError();

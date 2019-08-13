@@ -2,6 +2,7 @@ package com.jacksen.wanandroid.base.activity;
 
 import android.arch.lifecycle.LifecycleObserver;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 
 import com.jacksen.wanandroid.core.manager.ActivityCollector;
@@ -74,6 +75,12 @@ public abstract class AbstractSimpleActivity extends SkinBaseActivity implements
      * 初始化ToolBar
      */
     protected abstract void initToolbar();
+
+    /**
+     * 获取状态栏的颜色
+     * @return int
+     */
+    protected abstract int getStatusBarColor();
 
     /**
      * 初始化数据

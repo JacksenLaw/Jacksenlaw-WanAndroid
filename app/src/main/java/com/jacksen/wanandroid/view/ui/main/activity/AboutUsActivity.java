@@ -19,8 +19,8 @@ import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.presenter.about.AboutUsContract;
 import com.jacksen.wanandroid.presenter.about.AboutUsPresenter;
-import com.jacksen.wanandroid.util.StatusBarUtils;
 import com.jacksen.wanandroid.widget.interpolator.ElasticOutInterpolator;
+import com.bar.library.StatusBarUtil;
 import com.scwang.smartrefresh.header.FlyRefreshHeader;
 import com.scwang.smartrefresh.header.flyrefresh.FlyView;
 import com.scwang.smartrefresh.header.flyrefresh.MountainSceneView;
@@ -66,8 +66,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
 
     @Override
     protected void initToolbar() {
-        setSupportActionBar(mToolbar);
-        StatusBarUtils.with(this).setColor(ContextCompat.getColor(this, R.color.colorPrimary)).init();
+        super.initToolbar();
         mToolbar.setTitle(getResources().getString(R.string.about_us));
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
@@ -198,7 +197,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
                 @Override
                 public void onClick(View v) {
                     int color = ContextCompat.getColor(getApplication(), ids[index % ids.length]);
-                    StatusBarUtils.with(AboutUsActivity.this).setColor(ContextCompat.getColor(AboutUsActivity.this, ids[index % ids.length])).init();
+                    StatusBarUtil.setColor(mActivity, ContextCompat.getColor(mActivity, ids[index % ids.length]));
                     mRefreshLayout.setPrimaryColors(color);
                     mAboutUsFab.setBackgroundColor(color);
                     mAboutUsFab.setBackgroundTintList(ColorStateList.valueOf(color));

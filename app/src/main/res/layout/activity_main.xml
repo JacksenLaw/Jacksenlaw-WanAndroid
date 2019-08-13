@@ -21,7 +21,7 @@
             android:theme="@style/AppTheme.AppBarOverlay"
             app:elevation="0dp">
 
-            <include layout="@layout/common_toolbar" />
+            <include layout="@layout/toolbar_common" />
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout

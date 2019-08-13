@@ -1,1 +1,1 @@
-include ':app', ':skinlibrary', ':skin_package', ':linkage_recyclerview'
+include ':app', ':skinlibrary', ':skin_package', ':linkage_recyclerview', ':status_bar_library'

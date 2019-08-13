@@ -14,7 +14,7 @@
             android:checkable="true" />
         
         <item android:id="@+id/nav_item_my_todo"
-            android:icon="@android:drawable/ic_menu_help"
+            android:icon="@drawable/ic_event_note_black_24dp"
             android:title="@string/my_todo"/>
 
         <item android:id="@+id/nav_item_setting"

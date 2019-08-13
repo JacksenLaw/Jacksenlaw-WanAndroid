@@ -8,7 +8,7 @@
     android:orientation="vertical"
     app:isSupport="true">
 
-    <include layout="@layout/common_toolbar" />
+    <include layout="@layout/toolbar_title_left" />
 
     <TextView
         android:id="@+id/setting_usage_tv"

@@ -1,6 +1,5 @@
 package com.jacksen.wanandroid.view.ui.main.activity;
 
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.widget.CompoundButton;
@@ -14,7 +13,6 @@ import com.jacksen.wanandroid.presenter.setting.SettingContract;
 import com.jacksen.wanandroid.presenter.setting.SettingPresenter;
 import com.jacksen.wanandroid.util.ACache;
 import com.jacksen.wanandroid.util.ShareUtil;
-import com.jacksen.wanandroid.util.StatusBarUtils;
 
 import java.io.File;
 
@@ -41,8 +39,10 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
     LinearLayout mLlSettingClear;
     @BindView(R.id.tv_setting_clear)
     TextView mTvSettingClear;
-    @BindView(R.id.common_toolbar)
+    @BindView(R.id.left_title_toolbar)
     Toolbar mToolBar;
+    @BindView(R.id.left_toolbar_tv)
+    TextView mTitle;
 
     private File cacheFile;
 
@@ -58,9 +58,8 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
 
     @Override
     protected void initToolbar() {
-        setSupportActionBar(mToolBar);
-        StatusBarUtils.with(this).setColor(ContextCompat.getColor(this, R.color.colorPrimary)).init();
-        mToolBar.setTitle(getString(R.string.setting));
+        super.initToolbar();
+        mTitle.setText(getString(R.string.setting));
         mToolBar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

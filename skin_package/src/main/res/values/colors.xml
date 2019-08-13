@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#262626</color>
-    <color name="colorPrimaryDark">#1a1a1a</color><!--决定状态栏颜色-->
+    <color name="colorPrimaryDark">#262626</color><!--决定状态栏颜色-->
     <color name="colorAccent">#fefefe</color>
 
-    <color name="colorSearchToolbar">#1a1a1a</color>
+    <color name="colorPrimarySearchDark">#262626</color><!--决定搜索页面状态栏颜色-->
+    <color name="colorPrimarySearchToolbar">#262626</color>
+    <color name="colorToolbarTitleSearch">#FFFFFF</color>
+    <color name="colorSearchEditText">#EEEEEE</color>
 
     <!--需要换肤的颜色，和原始app中的name保持一致-->
     <color name="item_bg">#ff7989</color>
@@ -36,8 +39,4 @@
     <color name="colorTabSelect">#CCCCCC</color>
     <color name="colorNaviHeaderBg">#1a1a1a</color>
     <color name="colorNaviHeader">#5b5d5c</color>
-    <!--<color name="item_bg">#69db7a</color>-->
-    <!--<color name="item_tv_title_color">#2c3cf0</color>-->
-    <!--<color name="item_tv_content_color">#47a094</color>-->
-    <!--<color name="item_tv_date_color">#e6b918</color>-->
 </resources>

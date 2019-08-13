@@ -25,7 +25,6 @@ import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.presenter.detail.ArticleDetailContract;
 import com.jacksen.wanandroid.presenter.detail.ArticleDetailPresenter;
 import com.jacksen.wanandroid.util.CommonUtils;
-import com.jacksen.wanandroid.util.StatusBarUtils;
 import com.jacksen.wanandroid.widget.webview.impl.WebConfigImpl;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
@@ -105,10 +104,10 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     @Override
     protected void initToolbar() {
+        super.initToolbar();
         getBundleData();
         mToolbar.setTitle(Html.fromHtml(title));
         setSupportActionBar(mToolbar);
-        StatusBarUtils.with(this).setColor(ContextCompat.getColor(this, R.color.colorPrimary)).init();
         mToolbar.setNavigationOnClickListener(v -> {
             onBackPressedSupport();
         });

@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="@dimen/dp_6">
 
-        <include layout="@layout/common_toolbar" />
+        <include layout="@layout/toolbar_common" />
 
         <View
             android:layout_width="match_parent"

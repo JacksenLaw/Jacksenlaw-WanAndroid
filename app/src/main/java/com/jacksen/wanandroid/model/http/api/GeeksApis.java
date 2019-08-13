@@ -7,13 +7,15 @@ import com.jacksen.wanandroid.model.bean.main.banner.BannerBean;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
 import com.jacksen.wanandroid.model.bean.main.login.LoginBean;
 import com.jacksen.wanandroid.model.bean.main.search.TopSearchBean;
+import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
 import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
-import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
+import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -23,6 +25,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 
 public interface GeeksApis {
@@ -313,9 +316,7 @@ public interface GeeksApis {
      * @param orderby  1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
      * @return
      */
-    @POST("lg/todo/v2/list/{page}/json")
-    Observable<BaseResponse> getTodoList(@Path("page") int page, @Field("status") String status,
-                                         @Field("type") String type, @Field("priority") String priority,
-                                         @Field("orderby") String orderby);
+    @GET("lg/todo/v2/list/{page}/json")
+    Observable<BaseResponse<TodoBean>> getTodoList(@Path("page") int page, @QueryMap Map<String, String> params);
 
 }

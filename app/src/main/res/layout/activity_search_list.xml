@@ -1,55 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rootBackground"
     android:orientation="vertical">
 
-    <include layout="@layout/common_toolbar" />
-
-    <View
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/comment_line" />
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/normal_view"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:srlPrimaryColor="@color/colorPrimary">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimarySearchToolbar"
+            app:elevation="@dimen/dp_2"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            skin:enable="true">
 
-            <com.scwang.smartrefresh.header.BezierCircleHeader
+            <TextView
+                android:id="@+id/toolbar_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/colorToolbarTitleSearch"
+                android:textSize="@dimen/sp_16"
+                tools:text="开发环境" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/normal_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:srlPrimaryColor="@color/colorPrimary">
+
+        <com.scwang.smartrefresh.header.BezierCircleHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:scrollbars="none" />
+        </FrameLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/search_list_floating_action_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@drawable/ic_up_arrow"
+        app:layout_behavior="@string/scale_down_show_behavior" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/list_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:scrollbars="none" />
-            </FrameLayout>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/search_list_floating_action_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/dp_16"
-            android:src="@drawable/ic_up_arrow"
-            app:layout_behavior="@string/scale_down_show_behavior" />
-
-    </android.support.design.widget.CoordinatorLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

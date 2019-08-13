@@ -2,11 +2,8 @@ package com.jacksen.wanandroid.view.ui.main.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,7 +11,6 @@ import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.presenter.login.LoginContract;
 import com.jacksen.wanandroid.presenter.login.LoginPresenter;
-import com.jacksen.wanandroid.util.StatusBarUtils;
 
 import butterknife.BindView;
 
@@ -24,12 +20,10 @@ import butterknife.BindView;
  */
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
 
-    @BindView(R.id.common_toolbar)
+    @BindView(R.id.left_title_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.common_toolbar_title_tv)
-    TextView mToolbarTitle;
-    @BindView(R.id.common_toolbar_left_tv)
-    TextView mToolbarLeftTitle;
+    @BindView(R.id.left_toolbar_tv)
+    TextView mTitle;
     @BindView(R.id.et_account)
     TextInputEditText etAccount;
     @BindView(R.id.et_password)
@@ -46,14 +40,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initToolbar() {
-        StatusBarUtils.with(this).setColor(ContextCompat.getColor(this, R.color.colorPrimary)).init();
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
-        mToolbarLeftTitle.setText(getString(R.string.login_in));
-        mToolbarLeftTitle.setVisibility(View.VISIBLE);
-        mToolbarTitle.setVisibility(View.GONE);
+        super.initToolbar();
+        mTitle.setText(getString(R.string.login_in));
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

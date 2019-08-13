@@ -17,6 +17,15 @@ public class TodoContract {
 
     interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * 新建Todo
+         */
+        void doNewTodoClick();
+
+        /**
+         * 删选Todo
+         */
+        void doFilterTodoClick();
 
     }
 }

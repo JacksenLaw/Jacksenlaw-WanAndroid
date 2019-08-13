@@ -80,6 +80,9 @@ ext {
             "vertical_tablayout"           : "q.rorbin:VerticalTabLayout:1.2.5",
             "glide"                        : "com.github.bumptech.glide:glide:4.8.0",
             "glide-compiler"               : "com.github.bumptech.glide:compiler:4.8.0",
+            //material-dialogs
+            "material-dialogs-core"                : "com.afollestad.material-dialogs:core:0.9.4.5",
+            "material-dialogs-commons"             : "com.afollestad.material-dialogs:commons:0.9.4.5",
 //            //换肤 skin-support 基础控件支持
 //            "skin"                         : "skin.support:skin-support:3.1.1",
 //            //换肤 material design 控件支持

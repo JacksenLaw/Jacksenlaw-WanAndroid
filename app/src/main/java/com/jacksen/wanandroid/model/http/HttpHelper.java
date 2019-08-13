@@ -10,10 +10,12 @@ import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
 import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
+import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
 import com.jacksen.wanandroid.model.http.api.GeeksApis;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -63,7 +65,7 @@ public class HttpHelper implements HttpImpl {
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getKnowledgeHierarchyDetailData(int page, int cid) {
-        return storeApis.getKnowledgeHierarchyDetailData(page,cid);
+        return storeApis.getKnowledgeHierarchyDetailData(page, cid);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class HttpHelper implements HttpImpl {
 
     @Override
     public Observable<BaseResponse<ProjectClassifyListBean>> getProjectListData(int page, int cid) {
-        return storeApis.getProjectListData(page,cid);
+        return storeApis.getProjectListData(page, cid);
     }
 
     @Override
@@ -88,12 +90,12 @@ public class HttpHelper implements HttpImpl {
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getWxSumData(int id, int page) {
-        return storeApis.getWxSumData(id,page);
+        return storeApis.getWxSumData(id, page);
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getWxSearchSumData(int id, int page, String k) {
-        return storeApis.getWxSearchSumData(id,page,k);
+        return storeApis.getWxSearchSumData(id, page, k);
     }
 
     @Override
@@ -139,5 +141,10 @@ public class HttpHelper implements HttpImpl {
     @Override
     public Observable<BaseResponse<List<BannerBean>>> getBannerData() {
         return storeApis.getBannerData();
+    }
+
+    @Override
+    public Observable<BaseResponse<TodoBean>> getTodoData(int pageNo, Map<String, String> params) {
+        return storeApis.getTodoList(pageNo, params);
     }
 }

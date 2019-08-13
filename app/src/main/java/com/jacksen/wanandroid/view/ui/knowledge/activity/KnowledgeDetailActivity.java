@@ -7,9 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
@@ -20,7 +18,6 @@ import com.jacksen.wanandroid.model.bus.BusConstant;
 import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.presenter.knowledge.know_detail_activity.KnowledgeActivityContract;
 import com.jacksen.wanandroid.presenter.knowledge.know_detail_activity.KnowledgeActivityPresenter;
-import com.jacksen.wanandroid.util.StatusBarUtils;
 import com.jacksen.wanandroid.view.ui.knowledge.fragment.KnowledgeDetailFragment;
 
 import java.util.ArrayList;
@@ -52,11 +49,7 @@ public class KnowledgeDetailActivity extends BaseActivity<KnowledgeActivityPrese
 
     @Override
     protected void initToolbar() {
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
-        StatusBarUtils.with(this).setColor(ContextCompat.getColor(this, R.color.colorPrimary)).init();
+        super.initToolbar();
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
     }
 

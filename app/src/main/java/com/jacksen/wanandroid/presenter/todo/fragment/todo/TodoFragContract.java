@@ -10,13 +10,20 @@ import com.jacksen.wanandroid.base.view.AbstractView;
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
-public class TodoContract {
+public class TodoFragContract {
     public interface View extends AbstractView {
+
+        void showTodoData();
 
     }
 
     interface Presenter extends AbstractPresenter<View> {
 
+        void getTodoData(int pageNo);
+
+        void onRefresh();
+
+        void onLoadMore();
 
     }
 }

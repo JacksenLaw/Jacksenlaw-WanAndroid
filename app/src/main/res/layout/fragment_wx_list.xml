@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="@dimen/dp_6">
 
-        <include layout="@layout/search_toolbar" />
+        <include layout="@layout/toolbar_search" />
 
         <View
             android:layout_width="match_parent"

@@ -3,8 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryDark_Night">#262626</color>
 
-    <color name="colorSearchToolbar">#FFFFFF</color>
+    <color name="colorPrimarySearchDark">#FFFFFF</color><!--决定搜索页面状态栏颜色-->
+    <color name="colorPrimarySearchToolbar">#FFFFFF</color>
+    <color name="colorToolbarTitleSearch">#000000</color>
+    <color name="colorSearchEditText">#222222</color>
 
     <color name="rootBackground">#EEEEEE</color>
     <color name="layoutBackground">#FFFFFF</color>
@@ -92,7 +96,7 @@
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="light_white">#f4f0f0</color>
-    <color name="title_black">#222222</color>
+
     <color name="common_black_bac">#2b2929</color>
     <color name="grey_divider">#E5E5E5</color>
     <color name="blue">#3F9FE0</color>

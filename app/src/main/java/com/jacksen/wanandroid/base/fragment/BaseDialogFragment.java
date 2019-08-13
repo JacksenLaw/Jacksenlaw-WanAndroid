@@ -48,13 +48,6 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
-    public void showErrorMsg(String errorMsg) {
-        if (getActivity() != null) {
-            CommonUtils.showSnackMessage(getActivity(), errorMsg);
-        }
-    }
-
-    @Override
     public void showNormal() {
 
     }
@@ -75,11 +68,6 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
-    public void showLoginView() {
-
-    }
-
-    @Override
     public void showToast( String message) {
         if (getActivity() == null) {
             return;
@@ -93,16 +81,6 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
             return;
         }
         CommonUtils.showSnackMessage(getActivity(), message);
-    }
-
-    @Override
-    public void useNightModel(boolean isNightMode) {
-
-    }
-
-    @Override
-    public void showLoginOutView() {
-
     }
 
     @Override

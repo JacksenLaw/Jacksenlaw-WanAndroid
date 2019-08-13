@@ -10,7 +10,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -31,13 +30,13 @@ import com.jacksen.wanandroid.presenter.main.MainContract;
 import com.jacksen.wanandroid.presenter.main.MainPresenter;
 import com.jacksen.wanandroid.util.BottomNavUtil;
 import com.jacksen.wanandroid.util.KLog;
-import com.jacksen.wanandroid.util.StatusBarUtils;
 import com.jacksen.wanandroid.view.ui.knowledge.fragment.KnowledgeFragment;
 import com.jacksen.wanandroid.view.ui.main.fragment.CollectFragment;
 import com.jacksen.wanandroid.view.ui.mainpager.fragment.HomePageFragment;
 import com.jacksen.wanandroid.view.ui.navi.fragment.NavigationFragment;
 import com.jacksen.wanandroid.view.ui.project.fragment.ProjectFragment;
 import com.jacksen.wanandroid.view.ui.wx.fragment.WxFragment;
+import com.bar.library.StatusBarUtil;
 
 import java.util.ArrayList;
 
@@ -84,26 +83,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
-    }
-
-
-    @Override
-    protected boolean getSwipeBackEnable() {
-        return false;
-    }
-
-    @Override
-    protected void initToolbar() {
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
-        StatusBarUtils.with(this)
-                .setDrawerLayoutContentId(true, R.id.coordinator_layout)
-                .setColor(ContextCompat.getColor(this, R.color.colorPrimaryDark)).init();
-
-        mTitleTv.setText(getString(R.string.home_pager));
-        mToolbar.setNavigationOnClickListener(v -> mDrawerLayout.openDrawer(GravityCompat.START));
     }
 
     @Override
@@ -156,26 +135,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_always_use:
-                mPresenter.doUsefulSitesClick();
-                break;
-            case R.id.action_search:
-                mPresenter.doSearchClick();
-                break;
-            default:
-                break;
+    protected void initToolbar() {
+        StatusBarUtil.setColorForDrawerLayout(mActivity,mDrawerLayout,getStatusBarColor());
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
         }
-        return super.onOptionsItemSelected(item);
+        mTitleTv.setText(getString(R.string.home_pager));
+        mToolbar.setNavigationOnClickListener(v -> mDrawerLayout.openDrawer(GravityCompat.START));
     }
-
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
@@ -244,6 +213,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     break;
                 case R.id.nav_item_logout:
                     setCurrentLeftNaviClick("LOGOUT");
+                    break;
+                default:
+                    setCurrentLeftNaviClick(null);
                     break;
             }
             mDrawerLayout.closeDrawers();
@@ -367,6 +339,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if ("LOGOUT".equals(currentLeftNaviClick)) {
                     mPresenter.doLogOutClick();
                 }
+                setCurrentLeftNaviClick(null);
             }
         };
         mDrawerLayout.addDrawerListener(toggle);
@@ -423,9 +396,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
-    /**
-     * 显示登录的view
-     */
     @Override
     public void showLoginView() {
         setUserName();
@@ -438,9 +408,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_wan_android).setChecked(true);
     }
 
-    /**
-     * 显示登出的view
-     */
     @Override
     public void showLoginOutView() {
         if (mLeftNavigationView == null) {
@@ -517,4 +484,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         collectFragment = (CollectFragment) getSupportFragmentManager().getFragment(savedInstanceState, "collectFragment");
         KLog.i(savedInstanceState.getString("key"));
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_always_use:
+                mPresenter.doUsefulSitesClick();
+                break;
+            case R.id.action_search:
+                mPresenter.doSearchClick();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected boolean getSwipeBackEnable() {
+        return false;
+    }
+
 }

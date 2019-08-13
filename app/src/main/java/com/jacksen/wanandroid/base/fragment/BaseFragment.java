@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
 
-import com.blankj.utilcode.utils.ToastUtils;
-import com.blankj.utilcode.utils.Utils;
 import com.jacksen.wanandroid.base.presenter.AbstractPresenter;
 import com.jacksen.wanandroid.base.view.AbstractView;
 import com.jacksen.wanandroid.util.CommonUtils;
@@ -59,28 +56,6 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
             mPresenter = null;
         }
         super.onDestroyView();
-    }
-
-    @Override
-    public void useNightModel(boolean isNightMode) {
-
-    }
-
-    @Override
-    public void showErrorMsg(String errorMsg) {
-        if (isAdded()) {
-            CommonUtils.showMessage(errorMsg);
-        }
-    }
-
-    @Override
-    public void showLoginView() {
-
-    }
-
-    @Override
-    public void showLoginOutView() {
-
     }
 
     @Override

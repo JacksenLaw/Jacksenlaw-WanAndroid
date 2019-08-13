@@ -22,6 +22,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
 //        multiDexEnabled true
+
+
+        vectorDrawables.useSupportLibrary =
+                true
     }
 
     buildTypes {
@@ -53,8 +57,12 @@ dependencies {
 
     //公共库
 //    implementation project(':baselib')
+    //换肤库
     implementation project(':skinlibrary')
+    //二级联动列表库
     implementation project(':linkage_recyclerview')
+    //状态栏库
+    implementation project(':status_bar_library')
 
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["cardview-v7"]
@@ -73,6 +81,8 @@ dependencies {
     implementation rootProject.ext.dependencies["AgentWeb"]
     implementation rootProject.ext.dependencies["flycoTabLayout_lib"]
     implementation rootProject.ext.dependencies["vertical_tablayout"]
+    implementation rootProject.ext.dependencies["material-dialogs-core"]
+    implementation rootProject.ext.dependencies["material-dialogs-commons"]
 //    implementation rootProject.ext.dependencies["skin"]
 //    implementation rootProject.ext.dependencies["skin-design"]
 //    implementation rootProject.ext.dependencies["skin-cardview"]
@@ -80,6 +90,9 @@ dependencies {
 
     //butterknife
     api rootProject.ext.dependencies["butterknife"]
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:support-vector-drawable:28.0.0'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
     //other

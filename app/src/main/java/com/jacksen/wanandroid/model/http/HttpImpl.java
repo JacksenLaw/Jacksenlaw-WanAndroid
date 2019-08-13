@@ -10,9 +10,11 @@ import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
 import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
+import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -32,7 +34,7 @@ public interface HttpImpl {
      * 获取搜索的文章列表
      *
      * @param pageNum 页数
-     * @param k 关键字
+     * @param k       关键字
      * @return 搜索的文章数据
      */
     Observable<BaseResponse<FeedArticleListBean>> getSearchList(int pageNum, String k);
@@ -66,7 +68,7 @@ public interface HttpImpl {
      * http://www.wanandroid.com/article/list/0?cid=60
      *
      * @param page page num
-     * @param cid second page id
+     * @param cid  second page id
      * @return 知识体系数据
      */
     Observable<BaseResponse<FeedArticleListBean>> getKnowledgeHierarchyDetailData(int page, int cid);
@@ -92,7 +94,7 @@ public interface HttpImpl {
      * http://www.wanandroid.com/project/list/1/json?cid=294
      *
      * @param page page num
-     * @param cid second page id
+     * @param cid  second page id
      * @return 项目分类数据
      */
     Observable<BaseResponse<ProjectClassifyListBean>> getProjectListData(int page, int cid);
@@ -167,9 +169,9 @@ public interface HttpImpl {
      * 收藏站外文章
      * http://www.wanandroid.com/lg/collect/add/json
      *
-     * @param title title
+     * @param title  title
      * @param author author
-     * @param link link
+     * @param link   link
      * @return 收藏站内文章数据
      */
     Observable<BaseResponse<FeedArticleListBean>> addCollectOutsideArticle(String title, String author, String link);
@@ -209,5 +211,12 @@ public interface HttpImpl {
      */
     Observable<BaseResponse<List<BannerBean>>> getBannerData();
 
+    /**
+     * 获取todo列表
+     * @param pageNo 分页，1开始
+     * @param params 参数
+     * @return TodoBean
+     */
+    Observable<BaseResponse<TodoBean>> getTodoData(int pageNo, Map<String, String> params);
 
 }

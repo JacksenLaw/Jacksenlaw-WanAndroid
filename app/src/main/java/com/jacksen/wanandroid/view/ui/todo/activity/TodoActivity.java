@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,11 +13,9 @@ import android.widget.TextView;
 
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
-import com.jacksen.wanandroid.base.activity.BaseRootActivity;
 import com.jacksen.wanandroid.base.fragment.BaseFragment;
 import com.jacksen.wanandroid.presenter.todo.activity.TodoContract;
 import com.jacksen.wanandroid.presenter.todo.activity.TodoPresenter;
-import com.jacksen.wanandroid.util.StatusBarUtils;
 import com.jacksen.wanandroid.view.ui.todo.fragment.TodoCompletedFragment;
 import com.jacksen.wanandroid.view.ui.todo.fragment.TodoFragment;
 
@@ -40,9 +37,9 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
     FrameLayout mFragmentContain;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNavigationView;
-    @BindView(R.id.toolbar)
+    @BindView(R.id.include)
     Toolbar mToolbar;
-    @BindView(R.id.common_toolbar_left_tv)
+    @BindView(R.id.left_toolbar_tv)
     TextView mTitleTv;
 
     private int mLastFgIndex;
@@ -86,8 +83,13 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_todo_add) {
-            showToast("添加待办事项");
+        switch (item.getItemId()) {
+            case R.id.action_todo_add:
+                mPresenter.doNewTodoClick();
+                break;
+            case R.id.action_todo_filter:
+                mPresenter.doFilterTodoClick();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -95,11 +97,11 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        StatusBarUtils.with(this).setColor(ContextCompat.getColor(this, R.color.colorPrimary)).init();
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
         mTitleTv.setText(getString(R.string.todo));
         mToolbar.setNavigationOnClickListener(v -> finish());
     }
@@ -116,12 +118,10 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
             switch (item.getItemId()) {
                 case R.id.tab_todo:
                     loadPage(getString(R.string.todo), 0);
-                    break;
+                    return true;
                 case R.id.tab_todo_ed:
                     loadPage(getString(R.string.todo_completed), 1);
-                    break;
-                default:
-                    break;
+                    return true;
             }
 
             return false;

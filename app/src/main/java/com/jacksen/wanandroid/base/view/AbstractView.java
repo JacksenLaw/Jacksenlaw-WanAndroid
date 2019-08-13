@@ -12,57 +12,43 @@ import android.view.View;
 public interface AbstractView {
 
     /**
-     * Use night mode
-     *
-     * @param isNightMode if is night mode
-     */
-    void useNightModel(boolean isNightMode);
-
-    /**
-     * Show error message
-     *
-     * @param errorMsg error message
-     */
-    void showErrorMsg(String errorMsg);
-
-    /**
-     * showNormal
+     * 显示正常页面
      */
     void showNormal();
 
     /**
-     * Show error
+     * 显示错误页面
      */
     void showError();
 
     /**
-     * Show loading
+     * 显示加载页面
      */
     void showLoading();
 
     /**
-     * Reload
+     * 重载页面
      */
     void reload();
 
     /**
-     * Show toast
+     * 显示toast消息
      *
      * @param message Message
      */
     void showToast(String message);
 
     /**
-     * Show snackBar
+     * 显示SnackBar消息
      *
      * @param view view
      * @param message Message
      */
     void showSnackBar(View view, String message);
 
-    void showLoginView();
-
-    void showLoginOutView();
-
+    /**
+     * 获取根布局
+     * @return view
+     */
     View getRootView();
 }

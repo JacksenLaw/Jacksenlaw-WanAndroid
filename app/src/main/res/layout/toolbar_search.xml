@@ -4,20 +4,11 @@
     android:id="@+id/search_toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_56"
-    android:background="@color/colorSearchToolbar"
+    android:background="@color/colorPrimarySearchToolbar"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     skin:enable="true"
-    app:layout_scrollFlags="scroll|enterAlways">
-
-    <ImageButton
-        android:id="@+id/search_back_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:background="@android:color/transparent"
-        android:contentDescription="@null"
-        android:src="@drawable/selector_back_arrow_bg" />
+    app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
 
     <TextView
         android:id="@+id/search_tv"
@@ -34,7 +25,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_15">
 
         <EditText
             android:id="@+id/search_edit"
@@ -43,7 +35,7 @@
             android:layout_marginEnd="@dimen/dp_12"
             android:inputType="text"
             android:labelFor="@id/search_edit"
-            android:textColor="@color/title_black"
+            android:textColor="@color/colorSearchEditText"
             android:textCursorDrawable="@drawable/shape_cursor"
             android:textSize="@dimen/sp_14"
             android:paddingStart="@dimen/dp_27"

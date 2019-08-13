@@ -9,15 +9,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bar.library.StatusBarUtil;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
@@ -28,7 +29,6 @@ import com.jacksen.wanandroid.presenter.search.SearchContract;
 import com.jacksen.wanandroid.presenter.search.SearchPresenter;
 import com.jacksen.wanandroid.util.CommonUtils;
 import com.jacksen.wanandroid.util.JudgeUtils;
-import com.jacksen.wanandroid.util.StatusBarUtil;
 import com.jacksen.wanandroid.view.bean.useful_search.ViewTextBean;
 import com.jacksen.wanandroid.view.ui.main.adapter.HistorySearchAdapter;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -48,8 +48,8 @@ import butterknife.BindView;
  */
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContract.View {
 
-    @BindView(R.id.search_back_ib)
-    ImageButton mBackIb;
+    @BindView(R.id.search_toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.search_tint_tv)
     TextView mTintTv;
     @BindView(R.id.search_edit)
@@ -76,10 +76,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     protected void initListener() {
-        mBackIb.setOnClickListener(v -> {
-            KeyboardUtils.hideSoftInput(mActivity);
-            finish();
-        });
         mSearchTv.setOnClickListener(v ->
                 mPresenter.doSearchClick(mSearchEdit.getText().toString().trim())
         );
@@ -116,8 +112,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     protected void initToolbar() {
-        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.search_status_bar_white), 1f);
-        StatusBarUtil.setStatusDarkColor(getWindow());
+        super.initToolbar();
+        mToolbar.setNavigationOnClickListener(v -> {
+            KeyboardUtils.hideSoftInput(mActivity);
+            finish();
+        });
     }
 
     @Override

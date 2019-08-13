@@ -9,14 +9,14 @@
         <item name="android:windowAnimationStyle">@style/windowAnimation</item>
         <!-- Set menu background and text color -->
         <item name="android:itemBackground">@color/white</item>
-        <item name="android:textColor">@color/title_black</item>
+        <item name="android:textColor">@color/black</item>
 
         //沉浸状态栏
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
-        <!--<item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>-->
+        <!--<item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>-->
     </style>
 
     <style name="SwipeTheme" parent="AppTheme">

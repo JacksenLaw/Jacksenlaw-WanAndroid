@@ -5,10 +5,9 @@ import android.view.View;
 
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
-import com.jacksen.wanandroid.base.fragment.BaseFragment;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.presenter.todo.fragment.todo.TodoContract;
-import com.jacksen.wanandroid.presenter.todo.fragment.todo.TodoPresenter;
+import com.jacksen.wanandroid.presenter.todo.fragment.todo.TodoFragContract;
+import com.jacksen.wanandroid.presenter.todo.fragment.todo.TodoFragPresenter;
 
 /**
  * 作者： LuoM
@@ -18,7 +17,7 @@ import com.jacksen.wanandroid.presenter.todo.fragment.todo.TodoPresenter;
  * 更新时间：2019/8/12/0012
  * 更新内容：
  */
-public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoContract.View {
+public class TodoFragment extends BaseRootFragment<TodoFragPresenter> implements TodoFragContract.View {
 
     public static TodoFragment getInstance(boolean param1, String param2) {
         TodoFragment fragment = new TodoFragment();
@@ -47,7 +46,7 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        showNormal();
+        mPresenter.getTodoData(1);
     }
 
     @Override
@@ -59,5 +58,10 @@ public class TodoFragment extends BaseFragment<TodoPresenter> implements TodoCon
     @Override
     public View getRootView() {
         return null;
+    }
+
+    @Override
+    public void showTodoData() {
+
     }
 }

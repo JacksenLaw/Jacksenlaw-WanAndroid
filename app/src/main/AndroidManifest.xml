@@ -23,16 +23,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
-
         <!-- <receiver android:name=".app.receiver.BootBroadcastReceiver"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
-
-
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-
         <activity
             android:name=".view.ui.main.activity.SplashActivity"
             android:label="@string/app_name"
@@ -48,11 +44,13 @@
             android:name=".view.ui.main.activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".view.ui.main.activity.LoginActivity"

@@ -6,14 +6,12 @@
         android:id="@+id/tab_todo"
         android:enabled="true"
         android:icon="@drawable/ic_event_note_black_24dp"
-        android:title="@string/todo"
-        app:showAsAction="ifRoom" />
+        android:title="@string/todo"/>
 
     <item
         android:id="@+id/tab_todo_ed"
         android:enabled="true"
         android:icon="@drawable/ic_todo_add_check_black_24dp"
-        android:title="@string/todo_completed"
-        app:showAsAction="ifRoom" />
+        android:title="@string/todo_completed"/>
 
 </menu>

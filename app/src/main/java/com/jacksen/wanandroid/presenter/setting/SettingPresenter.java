@@ -80,7 +80,7 @@ public class SettingPresenter extends BasePresenter<SettingContract.View> implem
     }
 
     private void loadSkin() {
-        SkinManager.getInstance().loadSkin("theme-20190811.skin",
+        SkinManager.getInstance().loadSkin("theme-20190813.skin",
                 new SkinLoaderListener() {
                     @Override
                     public void onStart() {
