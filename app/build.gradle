@@ -1,0 +1,137 @@
+//设置app空壳始终是application模式
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        release {
+            storeFile file('E:\\code\\Jacksen-WanAndroid\\sign\\wan_android.jks')
+            storePassword '123456789'
+            keyAlias = 'key0'
+            keyPassword '123456789'
+        }
+    }
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+    defaultConfig {
+        applicationId rootProject.ext.android["applicationId"]
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+//        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        jumboMode = true
+
+    }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/2'] } }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation 'com.android.support:support-vector-drawable:27.1.1'
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //公共库
+//    implementation project(':baselib')
+    implementation project(':skinlibrary')
+    implementation project(':linkage_recyclerview')
+
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+
+    //ui
+    implementation rootProject.ext.dependencies["lottie"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    implementation rootProject.ext.dependencies["fragmentation"]
+    implementation rootProject.ext.dependencies["fragmentation-swipeback"]
+    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
+    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+    implementation rootProject.ext.dependencies["banner"]
+    implementation rootProject.ext.dependencies["flowlayout-lib"]
+    implementation rootProject.ext.dependencies["AgentWeb"]
+    implementation rootProject.ext.dependencies["flycoTabLayout_lib"]
+    implementation rootProject.ext.dependencies["vertical_tablayout"]
+//    implementation rootProject.ext.dependencies["skin"]
+//    implementation rootProject.ext.dependencies["skin-design"]
+//    implementation rootProject.ext.dependencies["skin-cardview"]
+//    implementation rootProject.ext.dependencies["skin-constraint"]
+
+    //butterknife
+    api rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+
+    //other
+    implementation rootProject.ext.dependencies["ByeBurger"]
+
+    // retrofit
+    implementation rootProject.ext.dependencies["retrofit2"]
+    implementation rootProject.ext.dependencies["retrofit2-gson"]
+    implementation rootProject.ext.dependencies["retrofit2-adapter"]
+    // glide
+    implementation rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+
+    //rx
+    implementation rootProject.ext.dependencies["rxjava2"]
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxbinding"]
+
+    // json
+    implementation rootProject.ext.dependencies["gson"]
+    //数据库
+    implementation rootProject.ext.dependencies["litepal"]
+    //持久化Cookie管理
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    //Stetho接口调试
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    //util
+    implementation rootProject.ext.dependencies["util"]
+
+    implementation rootProject.ext.dependencies["livedata"]
+    implementation rootProject.ext.dependencies["lifecycle-runtime"]
+    annotationProcessor rootProject.ext.dependencies["lifecycle-compiler"]
+
+    //di
+    implementation rootProject.ext.dependencies["dagger"]
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+    implementation rootProject.ext.dependencies["dagger-android"]
+    implementation rootProject.ext.dependencies["dagger-android-support"]
+    annotationProcessor rootProject.ext.dependencies["dagger-android-processor"]
+
+}
+
+//解决support支持库版本不兼容问题
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.1.1'
+            }
+        }
+    }
+}

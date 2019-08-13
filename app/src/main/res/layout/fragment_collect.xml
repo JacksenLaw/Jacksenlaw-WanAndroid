@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/comment_line"
+    android:orientation="vertical"
+    android:paddingBottom="?attr/actionBarSize">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/normal_view"
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/collect_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/collect_floating_action_btn"
+        style="@style/style_float_btn"
+        android:layout_margin="@dimen/dp_16"
+        android:src="@drawable/ic_up_arrow"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_behavior="@string/scale_down_show_behavior" />
+
+</android.support.design.widget.CoordinatorLayout>

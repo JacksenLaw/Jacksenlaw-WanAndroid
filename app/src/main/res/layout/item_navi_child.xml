@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/navi_rootBackground"
+    android:orientation="vertical">
+
+    <!--<com.zhy.view.flowlayout.TagFlowLayout-->
+    <!--android:id="@+id/flow_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="@dimen/dp_12"-->
+    <!--app:max_select="0" />-->
+
+    <TextView
+        android:id="@+id/item_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/colorNaviHeader"
+        android:textSize="@dimen/sp_20"
+        skin:enable="true"
+        tools:text="1111111111111" />
+</LinearLayout>
