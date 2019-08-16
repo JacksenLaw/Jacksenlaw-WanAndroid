@@ -31,6 +31,7 @@ import dagger.android.support.HasSupportFragmentInjector;
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
+@SuppressWarnings("unchecked")
 public abstract class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity
         implements AbstractView, HasSupportFragmentInjector {
 
@@ -54,6 +55,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         if (mPresenter != null) {
+            mPresenter.injectLifecycleOwner(this);
             mPresenter.attachView(this);
         }
     }
@@ -62,6 +64,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
     protected void initEventAndData() {
         if (mPresenter != null) {
             mPresenter.showLoadingView();
+            mPresenter.injectEvent();
         }
     }
 
@@ -72,11 +75,11 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView();
             mPresenter = null;
         }
-        super.onDestroy();
     }
 
     @Override

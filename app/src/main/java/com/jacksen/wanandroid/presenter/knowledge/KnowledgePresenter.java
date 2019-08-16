@@ -1,7 +1,9 @@
 package com.jacksen.wanandroid.presenter.knowledge;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -12,6 +14,8 @@ import com.jacksen.wanandroid.app.WanAndroidApp;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.hierarchy.KnowledgeHierarchyData;
+import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.KLog;
@@ -39,6 +43,19 @@ public class KnowledgePresenter extends BasePresenter<KnowledgeContract.View> im
     @Inject
     public KnowledgePresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.SCROLL_TO_KNOWLEDGE_PAGE,Integer.class)
+                .observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer integer) {
+                        getView().scrollToTheTop(integer);
+                    }
+                });
     }
 
     private void getKnowledgeHierarchyData(int pageNo) {

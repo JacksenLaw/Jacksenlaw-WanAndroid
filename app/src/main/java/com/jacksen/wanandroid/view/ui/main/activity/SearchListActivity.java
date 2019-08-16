@@ -1,24 +1,17 @@
 package com.jacksen.wanandroid.view.ui.main.activity;
 
-import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.bar.library.StatusBarUtil;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
-import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.search.SearchListContract;
 import com.jacksen.wanandroid.presenter.search.SearchListPresenter;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
@@ -87,17 +80,6 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.onRefresh();
-        LiveDataBus.get()
-                .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.SEARCH_LIST_ACTIVITY.equals(collect.getType()) && mPresenter.getClickPosition() >= 0) {
-                            onEventCollect(mPresenter.getClickPosition(), collect.isCollected());
-                        }
-                    }
-                });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -134,7 +116,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
             mRefreshLayout.finishLoadMore(500);
             if (viewFeedArticleListData.getItems().size() == 0) {
                 mRefreshLayout.setEnableLoadMore(false);
-                showToast(getString(R.string.load_more_no_data));
+                showToast(getString(R.string.load_more_no_data_ganhuo));
             }
         }
         datas.addAll(viewFeedArticleListData.getItems());

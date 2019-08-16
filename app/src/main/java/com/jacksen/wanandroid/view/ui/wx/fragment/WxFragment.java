@@ -1,20 +1,15 @@
 package com.jacksen.wanandroid.view.ui.wx.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.flyco.tablayout.SlidingTabLayout;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseFragment;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.presenter.wx.WxContract;
 import com.jacksen.wanandroid.presenter.wx.WxPresenter;
 import com.jacksen.wanandroid.view.bean.wx.ViewWxAuthorBean;
@@ -76,14 +71,6 @@ public class WxFragment extends BaseRootFragment<WxPresenter> implements WxContr
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.getWxAuthorList();
-        LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_WX_PAGE,Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                       LiveDataBus.get().with(BusConstant.SCROLL_TO_WX_LIST_PAGE).postValue(integer);
-                    }
-                });
     }
 
     @Override

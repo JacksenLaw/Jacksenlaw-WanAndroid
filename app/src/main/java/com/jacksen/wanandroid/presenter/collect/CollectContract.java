@@ -15,24 +15,46 @@ import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 public class CollectContract {
     public interface View extends AbstractView {
 
+        /**
+         * 收藏列表
+         */
         void showCollectList(ViewFeedArticleListData feedArticleListBean);
 
         /**
          * 取消收藏
          */
         void showCancelCollect(int position);
+
+        /**
+         * 设置夜间模式后，通知更新列表的收藏图片颜色
+         */
+        void setNightModel();
     }
 
     interface Presenter extends AbstractPresenter<View> {
-
+        /**
+         * 获取收藏数据
+         */
         void getCollectList(int pageNo);
 
+        /**
+         * 进入详情
+         */
         void doItemClickListener(BaseQuickAdapter adapter, android.view.View view, int position);
 
+        /**
+         * 取消收藏事件
+         */
         void doItemChildClickListener(BaseQuickAdapter adapter, android.view.View view, int position);
 
+        /**
+         * 下拉刷新
+         */
         void onRefresh();
 
+        /**
+         * 上拉加载
+         */
         void onLoadMore();
 
     }

@@ -2,8 +2,6 @@ package com.jacksen.wanandroid.presenter.detail;
 
 import com.jacksen.wanandroid.base.presenter.AbstractPresenter;
 import com.jacksen.wanandroid.base.view.AbstractView;
-import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
-import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 
 /**
  * @author Luo
@@ -41,17 +39,10 @@ public interface ArticleDetailContract {
          */
         void doCollectEvent(CharSequence title, boolean isCollectPage, int articleId);
 
+        /**
+         * 使用系统自带浏览器打开
+         */
         void doOpenWithSystemBrowser(String uri);
-
-        /**
-         * Share event
-         */
-        void shareEvent(String title, String articleLink);
-
-        /**
-         * Share error
-         */
-        void shareError();
 
     }
 }

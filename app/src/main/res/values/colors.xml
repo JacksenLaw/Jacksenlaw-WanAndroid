@@ -37,6 +37,17 @@
     <color name="colorSnackBarAction">#008577</color>
     <color name="colorWeb_Night">#1a1a1a</color>
 
+    <color name="filter_type_work">#e26d2e</color>
+    <color name="filter_type_study">#009eff</color>
+    <color name="filter_type_life">#008577</color>
+
+    <color name="filter_priority_important">#dc3b1f</color>
+    <color name="filter_priority_general">#e26d2e</color>
+    <color name="filter_priority_ordinary">#ff36bc9b</color>
+
+    <color name="filter_status_done">#ff36bc9b</color>
+    <color name="filter_status_undone">#e26d2e</color>
+
     <color name="fab_bg">#FF4081</color>
     <color name="drawer_item_bg_p">#e8e8e8</color>
     <color name="drawer_item_bg_n">#fffff9</color>

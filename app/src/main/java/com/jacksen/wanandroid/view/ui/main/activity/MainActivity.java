@@ -1,9 +1,7 @@
 package com.jacksen.wanandroid.view.ui.main.activity;
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -21,11 +19,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.bar.library.StatusBarUtil;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.presenter.main.MainContract;
 import com.jacksen.wanandroid.presenter.main.MainPresenter;
 import com.jacksen.wanandroid.util.BottomNavUtil;
@@ -36,7 +33,6 @@ import com.jacksen.wanandroid.view.ui.mainpager.fragment.HomePageFragment;
 import com.jacksen.wanandroid.view.ui.navi.fragment.NavigationFragment;
 import com.jacksen.wanandroid.view.ui.project.fragment.ProjectFragment;
 import com.jacksen.wanandroid.view.ui.wx.fragment.WxFragment;
-import com.bar.library.StatusBarUtil;
 
 import java.util.ArrayList;
 
@@ -83,39 +79,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    protected void initEventAndData() {
-        super.initEventAndData();
-        LiveDataBus.get()
-                .with(BusConstant.SWITCH_PROJECT_PAGE)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        selectProjectTab();
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.SWITCH_NAVIGATION_PAGE)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        selectNavigationTab();
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.LOGIN_STATE, Boolean.class)
-                .observe(this, new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(@Nullable Boolean aBoolean) {
-                        if (aBoolean) {
-                            showLoginOutView();
-                        } else {
-                            showLoginView();
-                        }
-                    }
-                });
     }
 
     @Override

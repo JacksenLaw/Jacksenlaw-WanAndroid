@@ -20,6 +20,9 @@ public class SettingContract {
 
     interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * 设置夜间模式
+         */
         void doNightClick(SettingPresenter.Callback callback, boolean isChecked);
 
     }

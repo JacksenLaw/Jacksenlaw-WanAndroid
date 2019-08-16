@@ -1,9 +1,15 @@
 package com.jacksen.wanandroid.presenter.navi;
 
+import android.arch.lifecycle.Observer;
+import android.support.annotation.Nullable;
+
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
+import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
+import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.view.bean.navi.ElemeGroupedItem;
@@ -25,6 +31,30 @@ public class NavigationPresenter extends BasePresenter<NavigationContract.View> 
     @Inject
     public NavigationPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.SCROLL_TO_NAVI_PAGE, Integer.class)
+                .observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer integer) {
+                        getView().scrollToTheTop(0);
+                    }
+                });
+
+        LiveDataBus.get()
+                .with(BusConstant.COLLECT, Collect.class)
+                .observe(this, new Observer<Collect>() {
+                    @Override
+                    public void onChanged(@Nullable Collect collect) {
+                        if (BusConstant.NAVI_PAGE.equals(collect.getType())) {
+                            getView().showCollect(collect.isCollected());
+                        }
+                    }
+                });
     }
 
     @Override

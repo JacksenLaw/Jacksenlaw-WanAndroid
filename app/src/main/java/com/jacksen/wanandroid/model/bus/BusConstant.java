@@ -57,5 +57,14 @@ public class BusConstant {
     public static final String SWITCH_PROJECT_PAGE = "switch_project_page";
     //收藏
     public static final String COLLECT = "collect";
+    //过滤
+    public static final String FILTER = "filter";
+
+    //todo创建成功,需要刷新待办事项页面
+    public static final String TODO_CREATED = "todo_created";
+    //todo状态改变为已完成状态，需要刷新已完成页面
+    public static final String TODO_STATUS_DONE = "todo_status_done";
+    //todo状态改变为未完成状态，需要刷新待办事项页面
+    public static final String TODO_STATUS_UNDONE = "todo_status_undone";
 
 }

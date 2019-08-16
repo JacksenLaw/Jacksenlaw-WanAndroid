@@ -17,6 +17,7 @@ import dagger.android.support.AndroidSupportInjection;
 /**
  * MVP模式的Base Dialog fragment
  */
+@SuppressWarnings("unchecked")
 public abstract class BaseDialogFragment<T extends AbstractPresenter> extends AbstractSimpleDialogFragment
         implements AbstractView {
 
@@ -34,6 +35,7 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.DialogStyle);
         if (mPresenter != null) {
+            mPresenter.injectLifecycleOwner(this);
             mPresenter.attachView(this);
         }
     }

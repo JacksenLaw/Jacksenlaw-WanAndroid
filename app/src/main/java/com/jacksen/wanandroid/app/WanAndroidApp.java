@@ -2,7 +2,6 @@ package com.jacksen.wanandroid.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.content.IntentFilter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
@@ -20,11 +19,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 
 import org.litepal.LitePal;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import javax.inject.Inject;
 
@@ -129,39 +123,5 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return mAndroidInjector;
-    }
-
-    /**
-     * 从assets目录下拷贝文件
-     *
-     * @param context            上下文
-     * @param assetsFilePath     文件的路径名如：SBClock/0001cuteowl/cuteowl_dot.png
-     * @param targetFileFullPath 目标文件路径如：/sdcard/SBClock/0001cuteowl/cuteowl_dot.png
-     */
-    public static void copyFileFromAssets(Context context, String assetsFilePath, String targetFileFullPath) {
-        InputStream assestsFileImputStream;
-        try {
-            assestsFileImputStream = context.getAssets().open(assetsFilePath);
-            copyFile(assestsFileImputStream, targetFileFullPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void copyFile(InputStream in, String targetPath) {
-        try {
-            FileOutputStream fos = new FileOutputStream(new File(targetPath));
-            byte[] buffer = new byte[1024];
-            int byteCount = 0;
-            while ((byteCount = in.read(buffer)) != -1) {// 循环从输入流读取
-                // buffer字节
-                fos.write(buffer, 0, byteCount);// 将读取的输入流写入到输出流
-            }
-            fos.flush();// 刷新缓冲区
-            in.close();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

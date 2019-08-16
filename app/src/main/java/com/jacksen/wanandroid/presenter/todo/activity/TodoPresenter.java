@@ -1,13 +1,12 @@
 package com.jacksen.wanandroid.presenter.todo.activity;
 
-import android.support.annotation.NonNull;
+import android.content.Intent;
+import android.os.Bundle;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.jacksen.wanandroid.R;
+import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
-import com.jacksen.wanandroid.util.MaterialDialogUtils;
+import com.jacksen.wanandroid.view.ui.todo.activity.TodoCreateActivity;
 
 import javax.inject.Inject;
 
@@ -27,17 +26,11 @@ public class TodoPresenter extends BasePresenter<TodoContract.View> implements T
 
     @Override
     public void doNewTodoClick() {
-
+        Intent intent = new Intent(getActivity(), TodoCreateActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants.ARG_PARAM1, true);
+        intent.putExtras(bundle);
+        getActivity().startActivity(intent);
     }
 
-    @Override
-    public void doFilterTodoClick() {
-        MaterialDialogUtils.showCustomDialog(getActivity(), "筛选", R.layout.layout_todo_filter)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                    }
-                }).show();
-    }
 }

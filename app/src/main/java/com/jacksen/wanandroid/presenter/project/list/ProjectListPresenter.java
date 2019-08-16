@@ -1,7 +1,9 @@
 package com.jacksen.wanandroid.presenter.project.list;
 
 import android.app.ActivityOptions;
+import android.arch.lifecycle.Observer;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -12,6 +14,8 @@ import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
 import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
+import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
@@ -44,6 +48,30 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
     @Inject
     public ProjectListPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.SCROLL_TO_PROJECT_PAGE, Integer.class)
+                .observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer integer) {
+                        getView().scrollToTheTop(integer);
+                    }
+                });
+        LiveDataBus.get()
+                .with(BusConstant.COLLECT, Collect.class)
+                .observe(this, new Observer<Collect>() {
+                    @Override
+                    public void onChanged(@Nullable Collect collect) {
+                        //通知收藏图标改变颜色
+                        if (BusConstant.PROJECT_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
+                            getView().onEventCollect(getClickPosition(), collect.isCollected());
+                        }
+                    }
+                });
     }
 
     @Override

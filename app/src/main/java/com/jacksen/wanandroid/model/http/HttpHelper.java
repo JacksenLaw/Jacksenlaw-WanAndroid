@@ -1,5 +1,7 @@
 package com.jacksen.wanandroid.model.http;
 
+import com.jacksen.wanandroid.R;
+import com.jacksen.wanandroid.app.WanAndroidApp;
 import com.jacksen.wanandroid.model.bean.base.BaseResponse;
 import com.jacksen.wanandroid.model.bean.hierarchy.KnowledgeHierarchyData;
 import com.jacksen.wanandroid.model.bean.main.banner.BannerBean;
@@ -10,16 +12,23 @@ import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
 import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
+import com.jacksen.wanandroid.model.bean.todo.NewTodoBean;
 import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
 import com.jacksen.wanandroid.model.http.api.GeeksApis;
+import com.jacksen.wanandroid.view.bean.todo.FilterBean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * 作者： LuoM
@@ -146,5 +155,58 @@ public class HttpHelper implements HttpImpl {
     @Override
     public Observable<BaseResponse<TodoBean>> getTodoData(int pageNo, Map<String, String> params) {
         return storeApis.getTodoList(pageNo, params);
+    }
+
+    @Override
+    public Observable<BaseResponse<NewTodoBean>> addNewTodo(String title, String content, String date, String type, String priority) {
+        return storeApis.addNewTodo(title, content, date, type, priority);
+    }
+
+    @Override
+    public Observable<BaseResponse<TodoBean>> updateTodo(int id, String title, String content, String date, String status, String type, String priority) {
+        return storeApis.updateTodo(id, title, content, date, status, type, priority);
+    }
+
+    @Override
+    public Observable<ResponseBody> deleteTodo(int id) {
+        return storeApis.deleteTodo(id);
+    }
+
+    @Override
+    public Observable<BaseResponse<TodoBean>> updateOnlyStatusTodo(int id, String status) {
+        return storeApis.updateOnlyStatusTodo(id, status);
+    }
+
+    @Override
+    public Observable<List<FilterBean>> getFilterData() {
+        return Observable.create(new ObservableOnSubscribe<List<FilterBean>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<FilterBean>> emitter) {
+                List<FilterBean> list = new ArrayList<>();
+
+                List<FilterBean.FilterBeanItem> typeItems = new ArrayList<>();
+                typeItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_all), "type", "0"));
+                typeItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_type_work), "type", "1"));
+                typeItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_type_study), "type", "2"));
+                typeItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_type_life), "type", "3"));
+
+                List<FilterBean.FilterBeanItem> priorityItems = new ArrayList<>();
+                priorityItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_all), "priority", "0"));
+                priorityItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_priority_important), "priority", "1"));
+                priorityItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_priority_general), "priority", "2"));
+                priorityItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_priority_ordinary), "priority", "3"));
+
+                List<FilterBean.FilterBeanItem> sortItems = new ArrayList<>();
+                sortItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_sort_create_date_order), "orderby", "3"));
+                sortItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_sort_create_date_reverse_order), "orderby", "4"));
+                sortItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_sort_completion_date_order), "orderby", "1"));
+                sortItems.add(new FilterBean.FilterBeanItem(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_sort_completion_date_reverse_order), "orderby", "2"));
+
+                list.add(new FilterBean(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_type), typeItems));
+                list.add(new FilterBean(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_priority), priorityItems));
+                list.add(new FilterBean(WanAndroidApp.getAppComponent().getContext().getString(R.string.filter_sort), sortItems));
+                emitter.onNext(list);
+            }
+        });
     }
 }

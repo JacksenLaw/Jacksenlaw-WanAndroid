@@ -1,10 +1,8 @@
 package com.jacksen.wanandroid.view.ui.project.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
-import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.project.list.ProjectListContract;
 import com.jacksen.wanandroid.presenter.project.list.ProjectListPresenter;
 import com.jacksen.wanandroid.view.bean.project.ViewProjectListData;
@@ -88,25 +83,6 @@ public class ProjectListFragment extends BaseRootFragment<ProjectListPresenter> 
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.onRefresh();
-        LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_PROJECT_PAGE,Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        scrollToTheTop(integer);
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.PROJECT_PAGE.equals(collect.getType()) && mPresenter.getClickPosition() >= 0) {
-                            onEventCollect(mPresenter.getClickPosition(), collect.isCollected());
-                        }
-                    }
-                });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -127,7 +103,7 @@ public class ProjectListFragment extends BaseRootFragment<ProjectListPresenter> 
             mRefreshLayout.finishLoadMore(500);
             if (items.getItems().size() == 0) {
                 mRefreshLayout.setEnableLoadMore(false);
-                showToast(getString(R.string.load_more_no_data));
+                showToast(getString(R.string.load_more_no_data_ganhuo));
             }
         }
         data.addAll(items.getItems());

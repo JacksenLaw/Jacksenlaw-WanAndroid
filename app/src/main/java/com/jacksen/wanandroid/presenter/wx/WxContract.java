@@ -17,6 +17,9 @@ public class WxContract {
 
     public interface View extends AbstractView {
 
+        /**
+         * 展示公众号作者数据
+         */
         void showWxAuthor(ViewWxAuthorBean wxAuthorBean);
 
     }

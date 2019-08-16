@@ -111,7 +111,7 @@ public class MaterialDialogUtils {
             content) {
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
-                .title(content)
+                .content(content)
                 .positiveText("确定")
                 .negativeText("取消")
 //                .btnStackedGravity(GravityEnum.END)         //按钮排列位置
@@ -242,20 +242,20 @@ public class MaterialDialogUtils {
      *
      * @return MaterialDialog.Builder
      */
-    public static MaterialDialog.Builder showListDialog(final Context context, String title, List content, final MaterialDialog.ListCallback callback, MaterialDialog.SingleButtonCallback negativeCallback) {
+    public static MaterialDialog.Builder showListDialog(final Context context, String title, List content) {
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(title)
                 .items(content)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                        callback.onSelection(dialog, itemView, position, text);
-                    }
-                })
-                .negativeText("清空")
-                .positiveText("取消")
-                .onNegative(negativeCallback)
+//                .itemsCallback(new MaterialDialog.ListCallback() {
+//                    @Override
+//                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+//                        callback.onSelection(dialog, itemView, position, text);
+//                    }
+//                })
+//                .negativeText("清空")
+//                .positiveText("取消")
+//                .onNegative(negativeCallback)
 //                .checkBoxPromptRes(R.string.app_name, false, null)
                 ;
 
@@ -324,7 +324,7 @@ public class MaterialDialogUtils {
      * 获取自定义对话框
      * @return MaterialDialog.Builder
      */
-    public static MaterialDialog.Builder showCustomDialog(final Context context, String title, int content) {
+    public static MaterialDialog.Builder showCustomDialog(final Context context, String title, View content) {
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(title)

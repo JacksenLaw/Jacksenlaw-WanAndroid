@@ -1,15 +1,12 @@
 package com.jacksen.wanandroid.view.ui.navi.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
 import com.jacksen.wanandroid.model.bus.BusConstant;
 import com.jacksen.wanandroid.model.bus.LiveDataBus;
-import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.navi.NavigationContract;
 import com.jacksen.wanandroid.presenter.navi.NavigationPresenter;
 import com.jacksen.wanandroid.view.bean.navi.ElemeGroupedItem;
@@ -78,26 +75,7 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
                         linkageRecyclerView.getPrimaryAdapter().notifyDataSetChanged();
                     }
                 });
-        LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_NAVI_PAGE, Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        scrollToTheTop(0);
-                    }
-                });
 
-        LiveDataBus.get()
-                .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        if (BusConstant.NAVI_PAGE.equals(collect.getType())) {
-                            ((ElemeGroupedItem) linkageRecyclerView.getSecondaryAdapter().getItems().get(secondaryAdapterConfig.getClickPosition())).info.setCollect(collect.isCollected());
-                            linkageRecyclerView.getSecondaryAdapter().notifyItemChanged(secondaryAdapterConfig.getClickPosition());
-                        }
-                    }
-                });
     }
 
     @Override
@@ -121,5 +99,10 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
         }
     }
 
+    @Override
+    public void showCollect(boolean isCollect) {
+        ((ElemeGroupedItem) linkageRecyclerView.getSecondaryAdapter().getItems().get(secondaryAdapterConfig.getClickPosition())).info.setCollect(isCollect);
+        linkageRecyclerView.getSecondaryAdapter().notifyItemChanged(secondaryAdapterConfig.getClickPosition());
+    }
 }
 

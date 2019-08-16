@@ -1,5 +1,8 @@
 package com.jacksen.wanandroid.base.presenter;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
@@ -27,17 +30,27 @@ public abstract class BasePresenter<T extends AbstractView> extends DataManagerP
         implements SubjectNetObserver {
 
     private WeakReference<T> mView;
+    private WeakReference<LifecycleOwner> mLifecycleOwner;
     private CompositeDisposable compositeDisposable;
 
-    private boolean isNetConnected;
     private NetWorkBroadcastReceiver broadcastReceiver;
 
     public BasePresenter(DataManager dataManager) {
         super(dataManager);
     }
 
-    boolean isNetConnected() {
-        return isNetConnected;
+    public void injectLifecycleOwner(LifecycleOwner lifecycleOwner) {
+        mLifecycleOwner = new WeakReference<>(lifecycleOwner);
+    }
+
+    private LifecycleOwner getLifecycleOwner() {
+        return mLifecycleOwner.get();
+    }
+
+    @NonNull
+    @Override
+    public Lifecycle getLifecycle() {
+        return getLifecycleOwner().getLifecycle();
     }
 
     public T getView() {
@@ -54,11 +67,16 @@ public abstract class BasePresenter<T extends AbstractView> extends DataManagerP
 
     @Override
     public void attachView(T view) {
-        mView = new WeakReference<T>(view);
+        mView = new WeakReference<>(view);
         if (broadcastReceiver == null) {
             broadcastReceiver = new NetWorkBroadcastReceiver();
         }
         NetObserverManager.getInstance().addObserver(this);
+    }
+
+    @Override
+    public void injectEvent() {
+
     }
 
     @Override
@@ -91,7 +109,6 @@ public abstract class BasePresenter<T extends AbstractView> extends DataManagerP
     @Override
     public void onNetWorkChange(boolean isConnected) {
         KLog.i("网络已变化  " + isConnected);
-        isNetConnected = isConnected;
     }
 
 }

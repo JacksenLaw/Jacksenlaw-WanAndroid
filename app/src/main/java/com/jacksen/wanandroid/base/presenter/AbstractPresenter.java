@@ -1,5 +1,7 @@
 package com.jacksen.wanandroid.base.presenter;
 
+import android.arch.lifecycle.LifecycleOwner;
+
 import com.jacksen.wanandroid.base.view.AbstractView;
 
 /**
@@ -9,7 +11,7 @@ import com.jacksen.wanandroid.base.view.AbstractView;
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
-public interface AbstractPresenter<T extends AbstractView> {
+public interface AbstractPresenter<T extends AbstractView> extends LifecycleOwner {
 
     /**
      * 注入View
@@ -19,14 +21,26 @@ public interface AbstractPresenter<T extends AbstractView> {
     void attachView(T view);
 
     /**
-     * show loading view
+     * 注入lifecycle，处理view层生命周期
+     *
+     * @param lifecycleOwner lifecycleOwner
      */
-    void showLoadingView();
+    void injectLifecycleOwner(LifecycleOwner lifecycleOwner);
+
+    /**
+     * 注册事件
+     */
+    void injectEvent();
 
     /**
      * 回收View
      */
     void detachView();
+
+    /**
+     * 显示正在加载的view
+     */
+    void showLoadingView();
 
 
     /**
@@ -99,6 +113,7 @@ public interface AbstractPresenter<T extends AbstractView> {
 
     /**
      * 设置当前页面下标
+     *
      * @param page page
      */
     void setCurrentPage(int page);

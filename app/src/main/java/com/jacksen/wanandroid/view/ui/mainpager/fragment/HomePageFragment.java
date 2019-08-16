@@ -1,11 +1,9 @@
 package com.jacksen.wanandroid.view.ui.mainpager.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,9 +14,6 @@ import android.widget.LinearLayout;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
-import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.mainpager.HomePagerContract;
 import com.jacksen.wanandroid.presenter.mainpager.HomePagerPresenter;
 import com.jacksen.wanandroid.util.BannerImageLoader;
@@ -95,35 +90,16 @@ public class HomePageFragment extends BaseRootFragment<HomePagerPresenter> imple
     }
 
     @Override
+    public void setNightModel() {
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.onRefresh();
-        LiveDataBus.get()
-                .with(BusConstant.NIGHT_MODEL, Boolean.class)
-                .observe(this, aBoolean -> {
-                    if (mAdapter != null) {
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_HOME_PAGE, Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        scrollToTheTop(0);
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.HOME_PAGE.equals(collect.getType()) && mPresenter.getClickPosition() >= 0) {
-                            onEventCollect(mPresenter.getClickPosition(), collect.isCollected());
-                        }
-                    }
-                });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -229,7 +205,7 @@ public class HomePageFragment extends BaseRootFragment<HomePagerPresenter> imple
             mRefreshLayout.finishLoadMore(500);
             if (viewFeedArticleListData.getItems().size() == 0) {
                 mRefreshLayout.setEnableLoadMore(false);
-                showToast(getString(R.string.load_more_no_data));
+                showToast(getString(R.string.load_more_no_data_ganhuo));
             }
         }
         if (mPresenter.getCurrentPage() == Constants.TYPE_MAIN_PAGER) {

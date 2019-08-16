@@ -8,19 +8,23 @@ import com.jacksen.wanandroid.model.bean.main.banner.BannerBean;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
 import com.jacksen.wanandroid.model.bean.main.login.LoginBean;
 import com.jacksen.wanandroid.model.bean.main.search.TopSearchBean;
+import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
 import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
-import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
+import com.jacksen.wanandroid.model.bean.todo.NewTodoBean;
 import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
 import com.jacksen.wanandroid.model.db.DbHelperImpl;
 import com.jacksen.wanandroid.model.http.HttpImpl;
+import com.jacksen.wanandroid.view.bean.todo.FilterBean;
 
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * 作者： LuoM
@@ -264,6 +268,31 @@ public class DataManager implements PreferenceImpl, DbHelperImpl, HttpImpl {
     @Override
     public Observable<BaseResponse<TodoBean>> getTodoData(int pageNo, Map<String, String> params) {
         return mHttpImpl.getTodoData(pageNo, params);
+    }
+
+    @Override
+    public Observable<BaseResponse<NewTodoBean>> addNewTodo(String title, String content, String date, String type, String priority) {
+        return mHttpImpl.addNewTodo(title, content, date, type, priority);
+    }
+
+    @Override
+    public Observable<BaseResponse<TodoBean>> updateTodo(int id, String title, String content, String date, String status, String type, String priority) {
+        return mHttpImpl.updateTodo(id, title, content, date, status, type, priority);
+    }
+
+    @Override
+    public Observable<ResponseBody> deleteTodo(int id) {
+        return mHttpImpl.deleteTodo(id);
+    }
+
+    @Override
+    public Observable<BaseResponse<TodoBean>> updateOnlyStatusTodo(int id, String status) {
+        return mHttpImpl.updateOnlyStatusTodo(id, status);
+    }
+
+    @Override
+    public Observable<List<FilterBean>> getFilterData() {
+        return mHttpImpl.getFilterData();
     }
 
     /* HttpImpl */

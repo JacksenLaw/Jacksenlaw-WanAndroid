@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,8 +16,10 @@ import android.widget.TextView;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.base.fragment.BaseFragment;
+import com.jacksen.wanandroid.view.bean.todo.FilterResult;
 import com.jacksen.wanandroid.presenter.todo.activity.TodoContract;
 import com.jacksen.wanandroid.presenter.todo.activity.TodoPresenter;
+import com.jacksen.wanandroid.view.ui.todo.fragment.FilterFragment;
 import com.jacksen.wanandroid.view.ui.todo.fragment.TodoCompletedFragment;
 import com.jacksen.wanandroid.view.ui.todo.fragment.TodoFragment;
 
@@ -35,6 +39,10 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
 
     @BindView(R.id.fragment_contain)
     FrameLayout mFragmentContain;
+    @BindView(R.id.right_drawer_layout)
+    DrawerLayout mRightDrawerLayout;
+    @BindView(R.id.id_container_menu)
+    FrameLayout mMenuFragmentContain;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNavigationView;
     @BindView(R.id.include)
@@ -44,8 +52,9 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
 
     private int mLastFgIndex;
     private List<BaseFragment> mFragments = new ArrayList<>();
-    private TodoFragment todoFragment;
-    private TodoCompletedFragment todoCompleteFragment;
+    private TodoFragment mTodoFragment;
+    private TodoCompletedFragment mTodoCompleteFragment;
+    private FilterFragment mFilterFragment;
 
     @Override
     protected int getLayoutId() {
@@ -55,12 +64,13 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         super.onCreateView(savedInstanceState);
+
         if (savedInstanceState == null) {
             initPage(false, 0);
         } else {
             initPage(true, mPresenter.getCurrentPage());
         }
-
+        addFilterFragment();
     }
 
     private void initPage(boolean isCreate, int position) {
@@ -69,10 +79,11 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
     }
 
     private void initFragment(boolean isCreate) {
-        todoFragment = TodoFragment.getInstance(isCreate, null);
-        todoCompleteFragment = TodoCompletedFragment.getInstance(isCreate, null);
-        mFragments.add(todoFragment);
-        mFragments.add(todoCompleteFragment);
+        mTodoFragment = TodoFragment.getInstance(isCreate, null);
+        mTodoCompleteFragment = TodoCompletedFragment.getInstance(isCreate, null);
+        mFilterFragment = FilterFragment.getInstance(isCreate, "");
+        mFragments.add(mTodoFragment);
+        mFragments.add(mTodoCompleteFragment);
     }
 
     @Override
@@ -88,7 +99,7 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
                 mPresenter.doNewTodoClick();
                 break;
             case R.id.action_todo_filter:
-                mPresenter.doFilterTodoClick();
+                mRightDrawerLayout.openDrawer(GravityCompat.END);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -107,12 +118,6 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
     }
 
     @Override
-    protected void initEventAndData() {
-        super.initEventAndData();
-
-    }
-
-    @Override
     protected void initListener() {
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -126,6 +131,20 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
 
             return false;
         });
+
+        mFilterFragment.setFilterCallback(new FilterFragment.Callback() {
+            @Override
+            public void startFilter(List<FilterResult> results) {
+                mRightDrawerLayout.closeDrawers();
+                if(mTodoFragment.isVisible()){
+                    mTodoFragment.receiveFilterData(results);
+                }
+                if(mTodoCompleteFragment.isVisible()){
+                    mTodoCompleteFragment.receiveFilterData(results);
+                }
+            }
+        });
+
     }
 
     private void loadPage(String title, int currentPager) {
@@ -147,4 +166,13 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
         fragmentTransaction.commitAllowingStateLoss();
     }
 
+    private void addFilterFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (!mFilterFragment.isAdded()) {
+            fragmentTransaction.add(R.id.id_container_menu, mFilterFragment);
+        }
+        fragmentTransaction.show(mFilterFragment);
+        fragmentTransaction.commitAllowingStateLoss();
+
+    }
 }

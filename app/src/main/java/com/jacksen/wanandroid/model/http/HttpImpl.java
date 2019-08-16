@@ -1,22 +1,26 @@
 package com.jacksen.wanandroid.model.http;
 
+import com.jacksen.wanandroid.model.bean.base.BaseResponse;
 import com.jacksen.wanandroid.model.bean.hierarchy.KnowledgeHierarchyData;
 import com.jacksen.wanandroid.model.bean.main.banner.BannerBean;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
 import com.jacksen.wanandroid.model.bean.main.login.LoginBean;
-import com.jacksen.wanandroid.model.bean.base.BaseResponse;
 import com.jacksen.wanandroid.model.bean.main.search.TopSearchBean;
+import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
 import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
-import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
+import com.jacksen.wanandroid.model.bean.todo.NewTodoBean;
 import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
+import com.jacksen.wanandroid.view.bean.todo.FilterBean;
 
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 
 public interface HttpImpl {
@@ -213,10 +217,61 @@ public interface HttpImpl {
 
     /**
      * 获取todo列表
+     *
      * @param pageNo 分页，1开始
      * @param params 参数
      * @return TodoBean
      */
     Observable<BaseResponse<TodoBean>> getTodoData(int pageNo, Map<String, String> params);
 
+    /**
+     * 新增一个Todo
+     *
+     * @param title    新增标题（必须）
+     * @param content  新增详情（必须）
+     * @param date     2018-08-01 预定完成时间（不传默认当天，建议传）
+     * @param type     type 可以用于，在app 中预定义几个类别,例如：工作1、生活2、 娱乐3，新增的时候传入1，2，3，查询的时候，传入type 进行筛选,大于0的整数（可选）
+     * @param priority 定义优先级，1：重要、2：一般，大于0的整数（可选）
+     * @return BaseResponse
+     */
+    Observable<BaseResponse<NewTodoBean>> addNewTodo(String title, String content, String date, String type, String priority);
+
+    /**
+     * 更新一个Todo
+     *
+     * @param id       拼接在链接上，为唯一标识，列表数据返回时，每个todo 都会有个id标识 （必须）
+     * @param title    更新标题 （必须）
+     * @param content  新增详情（必须）
+     * @param date     2018-08-01（必须）
+     * @param status   0 // 0为未完成，1为完成   如果有当前状态没有携带，会被默认值更新，比如当前 todo status=1，更新时没有带上，会认为被重置。
+     * @param type     预定义几个类别,例如：工作1、生活2、 娱乐3,大于0的整数（可选）
+     * @param priority 定义优先级，1：重要、2：一般，大于0的整数（可选）
+     * @return
+     */
+    Observable<BaseResponse<TodoBean>> updateTodo(int id, String title, String content, String date, String status, String type, String priority);
+
+    /**
+     * 删除一个Todo
+     *
+     * @param id 拼接在链接上，为唯一标识
+     * @return
+     */
+    Observable<ResponseBody> deleteTodo(int id);
+
+    /**
+     * 仅更新完成状态Todo
+     *
+     * @param id     拼接在链接上，为唯一标识
+     * @param status 0或1，传1代表未完成到已完成，反之则反之。
+     * @return
+     */
+    Observable<BaseResponse<TodoBean>> updateOnlyStatusTodo(int id, String status);
+
+
+    /**
+     * 获取筛选数据
+     *
+     * @return FilterBean
+     */
+    Observable<List<FilterBean>> getFilterData();
 }

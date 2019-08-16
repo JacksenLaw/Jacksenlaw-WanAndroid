@@ -22,10 +22,5 @@ public class TodoContract {
          */
         void doNewTodoClick();
 
-        /**
-         * 删选Todo
-         */
-        void doFilterTodoClick();
-
     }
 }

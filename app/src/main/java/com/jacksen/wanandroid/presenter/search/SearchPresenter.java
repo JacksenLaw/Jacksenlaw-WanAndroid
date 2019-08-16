@@ -1,5 +1,7 @@
 package com.jacksen.wanandroid.presenter.search;
 
+import android.arch.lifecycle.Observer;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.jacksen.wanandroid.R;
@@ -7,6 +9,8 @@ import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.db.HistorySearchData;
 import com.jacksen.wanandroid.model.bean.main.search.TopSearchBean;
+import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.view.bean.useful_search.ViewTextBean;
@@ -33,6 +37,19 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     @Inject
     SearchPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.FINISH_SEARCH_ACTIVITY)
+                .observe(this, new Observer<Object>() {
+                    @Override
+                    public void onChanged(@Nullable Object o) {
+                        getActivity().finish();
+                    }
+                });
     }
 
     @Override

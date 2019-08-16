@@ -17,12 +17,18 @@ import com.zhy.view.flowlayout.FlowLayout;
 public class UsefulContract {
     public interface View extends AbstractView {
 
+        /**
+         * 展示常用网站的数据
+         */
         void showUsefulSites(ViewTextBean viewTextBean);
 
     }
 
     public interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * 进入详情
+         */
         void doFlowLayoutClick(android.view.View view, int position, FlowLayout parent, ViewTextBean.ViewTextItem item);
     }
 }

@@ -40,10 +40,13 @@ public abstract class BaseRootActivity<T extends BasePresenter> extends BaseActi
         ViewGroup mParent = (ViewGroup) mNormalView.getParent();
         View.inflate(this, R.layout.loading_view, mParent);
         View.inflate(this, R.layout.error_view, mParent);
+
         mLoadingView = mParent.findViewById(R.id.loading_group);
         mErrorView = mParent.findViewById(R.id.error_group);
+
         TextView reloadTv = mErrorView.findViewById(R.id.error_reload_tv);
         reloadTv.setOnClickListener(v -> reload());
+
         mLoadingAnimation = mLoadingView.findViewById(R.id.loading_animation);
         mErrorView.setVisibility(View.GONE);
         mLoadingView.setVisibility(View.GONE);

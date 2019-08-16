@@ -1,9 +1,14 @@
 package com.jacksen.wanandroid.presenter.wx;
 
+import android.arch.lifecycle.Observer;
+import android.support.annotation.Nullable;
+
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
+import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.view.bean.wx.ViewWxAuthorBean;
@@ -25,6 +30,19 @@ public class WxPresenter extends BasePresenter<WxContract.View> implements WxCon
     @Inject
     public WxPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.SCROLL_TO_WX_PAGE,Integer.class)
+                .observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer integer) {
+                        LiveDataBus.get().with(BusConstant.SCROLL_TO_WX_LIST_PAGE).postValue(integer);
+                    }
+                });
     }
 
     @Override

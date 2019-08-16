@@ -1,10 +1,8 @@
 package com.jacksen.wanandroid.view.ui.knowledge.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
-import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.knowledge.know_detail_fragment.KnowledgeDetailFragmentContract;
 import com.jacksen.wanandroid.presenter.knowledge.know_detail_fragment.KnowledgeDetailFragmentPresenter;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
@@ -59,6 +54,10 @@ public class KnowledgeDetailFragment extends BaseRootFragment<KnowledgeDetailFra
         return fragment;
     }
 
+    @Override
+    protected boolean getInnerFragment() {
+        return true;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -105,27 +104,7 @@ public class KnowledgeDetailFragment extends BaseRootFragment<KnowledgeDetailFra
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        isInnerFragment = true;
         mPresenter.onRefresh();
-        LiveDataBus.get()
-                .with(BusConstant.JUMP_TO_TOP_OF_KNOWLEDGE_LIST,Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        mRecyclerView.smoothScrollToPosition(integer);
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.KNOWLEDGE_PAGE.equals(collect.getType()) && mPresenter.getClickPosition() >= 0) {
-                            onEventCollect(mPresenter.getClickPosition(), collect.isCollected());
-                        }
-                    }
-                });
     }
 
     @Override
@@ -139,7 +118,7 @@ public class KnowledgeDetailFragment extends BaseRootFragment<KnowledgeDetailFra
             mRefreshLayout.finishLoadMore(500);
             if (feedArticleListData.getItems().size() == 0) {
                 mRefreshLayout.setEnableLoadMore(false);
-                showToast(getString(R.string.load_more_no_data));
+                showToast(getString(R.string.load_more_no_data_ganhuo));
             }
         }
 
@@ -162,7 +141,8 @@ public class KnowledgeDetailFragment extends BaseRootFragment<KnowledgeDetailFra
     }
 
     @Override
-    public void showScrollTheTop() {
+    public void showScrollTheTop(int position) {
+        mRecyclerView.scrollToPosition(position);
     }
 
     @Override

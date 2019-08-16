@@ -1,8 +1,6 @@
 package com.jacksen.wanandroid.view.ui.knowledge.activity;
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,8 +12,6 @@ import android.widget.TextView;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.base.fragment.BaseFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.presenter.knowledge.know_detail_activity.KnowledgeActivityContract;
 import com.jacksen.wanandroid.presenter.knowledge.know_detail_activity.KnowledgeActivityPresenter;
 import com.jacksen.wanandroid.view.ui.knowledge.fragment.KnowledgeDetailFragment;
@@ -61,27 +57,6 @@ public class KnowledgeDetailActivity extends BaseActivity<KnowledgeActivityPrese
     }
 
     @Override
-    protected void initEventAndData() {
-        super.initEventAndData();
-        LiveDataBus.get()
-                .with(BusConstant.SWITCH_NAVIGATION_PAGE)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        onBackPressedSupport();
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.SWITCH_PROJECT_PAGE)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        onBackPressedSupport();
-                    }
-                });
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_knowledge_detail;
     }
@@ -103,12 +78,12 @@ public class KnowledgeDetailActivity extends BaseActivity<KnowledgeActivityPrese
 
     @Override
     public void showSwitchProject() {
-//        onBackPressedSupport();
+        onBackPressedSupport();
     }
 
     @Override
     public void showSwitchNavigation() {
-//        onBackPressedSupport();
+        onBackPressedSupport();
     }
 
     @Override

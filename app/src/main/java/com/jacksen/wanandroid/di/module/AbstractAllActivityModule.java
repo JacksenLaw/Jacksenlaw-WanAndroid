@@ -1,6 +1,7 @@
 package com.jacksen.wanandroid.di.module;
 
 import com.jacksen.wanandroid.di.component.BaseActivityComponent;
+import com.jacksen.wanandroid.di.module.activity.AboutUsActivityModule;
 import com.jacksen.wanandroid.di.module.activity.ArticleDetailActivityModule;
 import com.jacksen.wanandroid.di.module.activity.KnowledgeHierarchyDetailActivityModule;
 import com.jacksen.wanandroid.di.module.activity.LoginActivityModule;
@@ -11,6 +12,7 @@ import com.jacksen.wanandroid.di.module.activity.SearchListActivityModule;
 import com.jacksen.wanandroid.di.module.activity.SettingActivityModule;
 import com.jacksen.wanandroid.di.module.activity.SplashActivityModule;
 import com.jacksen.wanandroid.di.module.activity.TodoActivityModule;
+import com.jacksen.wanandroid.di.module.activity.TodoCreateActivityModule;
 import com.jacksen.wanandroid.di.scope.ActivityScope;
 import com.jacksen.wanandroid.view.ui.knowledge.activity.KnowledgeDetailActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.AboutUsActivity;
@@ -23,6 +25,7 @@ import com.jacksen.wanandroid.view.ui.main.activity.SearchListActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.SettingActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.SplashActivity;
 import com.jacksen.wanandroid.view.ui.todo.activity.TodoActivity;
+import com.jacksen.wanandroid.view.ui.todo.activity.TodoCreateActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -34,6 +37,7 @@ import dagger.android.ContributesAndroidInjector;
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
+@SuppressWarnings("unused")
 @Module(subcomponents = {BaseActivityComponent.class})
 public abstract class AbstractAllActivityModule {
 
@@ -79,4 +83,7 @@ public abstract class AbstractAllActivityModule {
 
     @ContributesAndroidInjector(modules = TodoActivityModule.class)
     abstract TodoActivity contributesTodoActivityInject();
+
+    @ContributesAndroidInjector(modules = TodoCreateActivityModule.class)
+    abstract TodoCreateActivity contributesTodoCreateActivityInject();
 }

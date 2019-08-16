@@ -17,6 +17,9 @@ import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 public class SearchListContract {
     public interface View extends AbstractView {
 
+        /**
+         * 展示搜索的结果
+         */
         void showSearchList(ViewFeedArticleListData viewFeedArticleListData);
 
 
@@ -37,6 +40,9 @@ public class SearchListContract {
 
     interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * 进入详情
+         */
         void doItemClickListener(BaseQuickAdapter adapter, android.view.View view, int position);
 
         /**
@@ -63,8 +69,14 @@ public class SearchListContract {
          */
         void clickTag(BaseQuickAdapter adapter, int position);
 
+        /**
+         * 下拉刷新
+         */
         void onRefresh();
 
+        /**
+         * 上拉加载
+         */
         void onLoadMore();
     }
 }

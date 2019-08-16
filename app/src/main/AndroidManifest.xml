@@ -105,6 +105,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeTheme" />
+        <activity
+            android:name=".view.ui.todo.activity.TodoCreateActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeTheme" />
     </application>
 
 </manifest>

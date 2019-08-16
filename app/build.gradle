@@ -50,7 +50,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation 'com.android.support:support-vector-drawable:27.1.1'
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -79,20 +78,15 @@ dependencies {
     implementation rootProject.ext.dependencies["banner"]
     implementation rootProject.ext.dependencies["flowlayout-lib"]
     implementation rootProject.ext.dependencies["AgentWeb"]
-    implementation rootProject.ext.dependencies["flycoTabLayout_lib"]
-    implementation rootProject.ext.dependencies["vertical_tablayout"]
+    implementation rootProject.ext.dependencies["Downloader"]
+
+    //Material风格dialog
     implementation rootProject.ext.dependencies["material-dialogs-core"]
     implementation rootProject.ext.dependencies["material-dialogs-commons"]
-//    implementation rootProject.ext.dependencies["skin"]
-//    implementation rootProject.ext.dependencies["skin-design"]
-//    implementation rootProject.ext.dependencies["skin-cardview"]
-//    implementation rootProject.ext.dependencies["skin-constraint"]
 
     //butterknife
-    api rootProject.ext.dependencies["butterknife"]
-    implementation 'com.android.support:design:28.0.0'
+    implementation rootProject.ext.dependencies["butterknife"]
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:support-vector-drawable:28.0.0'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
     //other
@@ -127,6 +121,11 @@ dependencies {
     implementation rootProject.ext.dependencies["livedata"]
     implementation rootProject.ext.dependencies["lifecycle-runtime"]
     annotationProcessor rootProject.ext.dependencies["lifecycle-compiler"]
+
+    //PopupWindow
+//    implementation rootProject.ext.dependencies["BasePopup"]
+//    implementation rootProject.ext.dependencies["BasePopup-lifecycle"]
+
 
     //di
     implementation rootProject.ext.dependencies["dagger"]

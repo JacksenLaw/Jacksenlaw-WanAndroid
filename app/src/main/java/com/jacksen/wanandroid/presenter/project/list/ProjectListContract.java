@@ -16,19 +16,33 @@ import java.util.ArrayList;
  */
 public class ProjectListContract {
     public interface View extends AbstractView {
-
+        /**
+         * 展示项目详情列表数据
+         */
         void showProjectListData(ViewProjectListData items);
 
+        /**
+         * 滚动到position位置
+         */
         void scrollToTheTop(int position);
 
-        void onEventCollect(int position,boolean isCollect);
+        /**
+         * 收藏事件
+         */
+        void onEventCollect(int position, boolean isCollect);
 
     }
 
     interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * 下拉刷新
+         */
         void onRefresh();
 
+        /**
+         * 上拉加载
+         */
         void onLoadMore();
 
         /**

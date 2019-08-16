@@ -18,6 +18,7 @@ public class KnowledgeContract {
 
         /**
          * 知识体系数据
+         *
          * @param viewKnowledgeListData viewKnowledgeListData
          */
         void showKnowledgeHierarchyData(ViewKnowledgeListData viewKnowledgeListData);
@@ -31,10 +32,23 @@ public class KnowledgeContract {
 
     interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * 下拉刷新
+         */
         void onRefresh();
 
+        /**
+         * 上垃加载
+         */
         void onLoadMore();
 
+        /**
+         * 金进入详情
+         *
+         * @param adapter
+         * @param view
+         * @param position
+         */
         void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position);
 
     }

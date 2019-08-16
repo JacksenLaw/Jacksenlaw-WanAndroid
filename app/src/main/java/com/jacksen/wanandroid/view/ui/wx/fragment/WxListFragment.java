@@ -1,10 +1,8 @@
 package com.jacksen.wanandroid.view.ui.wx.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,9 +18,6 @@ import com.blankj.utilcode.utils.KeyboardUtils;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
-import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.wx.list.WxListContract;
 import com.jacksen.wanandroid.presenter.wx.list.WxListPresenter;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
@@ -93,25 +88,6 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
         super.initEventAndData();
         mSearchTintTv.setText(mPresenter.getSearchHint());
         mPresenter.onRefresh();
-        LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_WX_LIST_PAGE,Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        scrollToTheTop(integer);
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.WX_PAGE.equals(collect.getType()) && mPresenter.getClickPosition() >= 0) {
-                            onEventCollect(mPresenter.getClickPosition(), collect.isCollected());
-                        }
-                    }
-                });
     }
 
     private void initRecyclerView() {
@@ -215,7 +191,7 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
             mRefreshLayout.finishLoadMore(500);
             if (feedArticleListBean.getItems().size() == 0) {
                 mRefreshLayout.setEnableLoadMore(false);
-                showToast(getString(R.string.load_more_no_data));
+                showToast(getString(R.string.load_more_no_data_ganhuo));
             }
         }
         data.addAll(feedArticleListBean.getItems());
@@ -238,7 +214,7 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
             }
         } else {
             mRecyclerView.setVisibility(View.INVISIBLE);
-            showSnackBar(getRootView(),getString(R.string.load_more_no_data));
+            showSnackBar(getRootView(),getString(R.string.load_more_no_data_ganhuo));
         }
     }
 

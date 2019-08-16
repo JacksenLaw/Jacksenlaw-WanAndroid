@@ -31,17 +31,19 @@ public class KnowledgeActivityContract {
          */
         void showFragment(int chapterId);
 
-        /**
-         * Show switch project
-         */
         void showSwitchProject();
 
-        /**
-         * Show switch navigation
-         */
         void showSwitchNavigation();
 
-        void onKnowledgeHierarchyData(List<String> pageTitle, boolean isSingleChapter,String chapterName);
+        /**
+         * 只是体系数据
+         *
+         * @param pageTitle       标题栏数据
+         * @param isSingleChapter 标记是否为搜索后的数据
+         * @param chapterName     单个标题栏数据，用于搜索后显示一个分类结果
+         */
+        void onKnowledgeHierarchyData(List<String> pageTitle, boolean isSingleChapter, String chapterName);
+
     }
 
     interface Presenter extends AbstractPresenter<View> {

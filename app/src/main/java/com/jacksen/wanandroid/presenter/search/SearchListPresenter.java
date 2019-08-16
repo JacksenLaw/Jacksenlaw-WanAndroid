@@ -1,8 +1,10 @@
 package com.jacksen.wanandroid.presenter.search;
 
 import android.app.ActivityOptions;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -15,6 +17,7 @@ import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleBean;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
 import com.jacksen.wanandroid.model.bus.BusConstant;
 import com.jacksen.wanandroid.model.bus.LiveDataBus;
+import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
@@ -52,6 +55,22 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
     @Inject
     public SearchListPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.COLLECT, Collect.class)
+                .observe(this, new Observer<Collect>() {
+                    @Override
+                    public void onChanged(@Nullable Collect collect) {
+                        //通知收藏图标改变颜色
+                        if (BusConstant.SEARCH_LIST_ACTIVITY.equals(collect.getType()) && getClickPosition() >= 0) {
+                            getView().onEventCollect(getClickPosition(), collect.isCollected());
+                        }
+                    }
+                });
     }
 
     @Override

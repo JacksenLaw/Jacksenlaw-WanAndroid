@@ -1,9 +1,11 @@
 package com.jacksen.wanandroid.presenter.mainpager;
 
 import android.app.ActivityOptions;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -20,6 +22,7 @@ import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
 import com.jacksen.wanandroid.model.bean.main.login.LoginBean;
 import com.jacksen.wanandroid.model.bus.BusConstant;
 import com.jacksen.wanandroid.model.bus.LiveDataBus;
+import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
@@ -59,6 +62,35 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
     }
 
     @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.NIGHT_MODEL, Boolean.class)
+                .observe(this, aBoolean -> {
+                    getView().setNightModel();
+                });
+        LiveDataBus.get()
+                .with(BusConstant.SCROLL_TO_HOME_PAGE, Integer.class)
+                .observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer integer) {
+                        getView().scrollToTheTop(0);
+                    }
+                });
+        LiveDataBus.get()
+                .with(BusConstant.COLLECT, Collect.class)
+                .observe(this, new Observer<Collect>() {
+                    @Override
+                    public void onChanged(@Nullable Collect collect) {
+                        //通知收藏图标改变颜色
+                        if (BusConstant.HOME_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
+                            getView().onEventCollect(getClickPosition(), collect.isCollected());
+                        }
+                    }
+                });
+    }
+
+    @Override
     public void doCollectClick(BaseQuickAdapter adapter, int position) {
         if (!getLoginState()) {
             getFragment().startActivity(new Intent(getFragment().getContext(), LoginActivity.class));
@@ -94,11 +126,9 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
         }
         String superChapterName = ((ViewFeedArticleListData.ViewFeedArticleItem) adapter.getData().get(position)).getSuperChapterName();
         if (superChapterName.contains(getFragment().getString(R.string.open_project))) {
-            LiveDataBus.get()
-                    .with(BusConstant.SWITCH_PROJECT_PAGE).postValue(null);
+            LiveDataBus.get().with(BusConstant.SWITCH_PROJECT_PAGE).postValue(null);
         } else if (superChapterName.contains(getFragment().getString(R.string.navigation))) {
-            LiveDataBus.get()
-                    .with(BusConstant.SWITCH_NAVIGATION_PAGE).postValue(null);
+            LiveDataBus.get().with(BusConstant.SWITCH_NAVIGATION_PAGE).postValue(null);
         }
     }
 
@@ -199,7 +229,7 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
                     public void onNext(FeedArticleListBean feedArticleListData) {
                         feedArticleData.setCollect(true);
                         getView().onCollectArticleData(position, feedArticleData);
-                        getView().showSnackBar(getView().getRootView(),getFragment().getString(R.string.collect_success));
+                        getView().showSnackBar(getView().getRootView(), getFragment().getString(R.string.collect_success));
                     }
                 }));
     }
@@ -219,7 +249,7 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
                     public void onNext(FeedArticleListBean feedArticleListData) {
                         feedArticleData.setCollect(false);
                         getView().onCollectArticleData(position, feedArticleData);
-                        getView().showSnackBar(getView().getRootView(),getFragment().getString(R.string.cancel_collect));
+                        getView().showSnackBar(getView().getRootView(), getFragment().getString(R.string.cancel_collect));
                     }
                 }));
     }

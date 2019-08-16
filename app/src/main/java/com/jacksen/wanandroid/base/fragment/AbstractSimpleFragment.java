@@ -22,8 +22,7 @@ import butterknife.Unbinder;
 public abstract class AbstractSimpleFragment extends SkinBaseFragment {
 
     private Unbinder unbinder;
-    private long clickTime;
-    public boolean isInnerFragment;
+
 
     protected void removeAllView(View v) {
         if (v instanceof ViewGroup) {
@@ -71,29 +70,6 @@ public abstract class AbstractSimpleFragment extends SkinBaseFragment {
     }
 
     /**
-     * 处理回退事件
-     */
-    @Override
-    public boolean onBackPressedSupport() {
-        if (getChildFragmentManager().getBackStackEntryCount() > 1) {
-            popChild();
-        } else {
-            if (isInnerFragment) {
-                _mActivity.finish();
-                return true;
-            }
-            long currentTime = System.currentTimeMillis();
-            if ((currentTime - clickTime) > 2000) {
-                CommonUtils.showMessage(getString(R.string.double_click_exit_tint));
-                clickTime = System.currentTimeMillis();
-            } else {
-                _mActivity.finish();
-            }
-        }
-        return true;
-    }
-
-    /**
      * 获取当前Activity的UI布局
      *
      * @return 布局id
@@ -116,4 +92,5 @@ public abstract class AbstractSimpleFragment extends SkinBaseFragment {
      */
     protected abstract void initEventAndData();
 
+    protected abstract boolean getInnerFragment();
 }

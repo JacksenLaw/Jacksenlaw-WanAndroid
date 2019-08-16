@@ -102,7 +102,7 @@ public abstract class DataManagerPresenter<T extends AbstractView> implements Ab
      *
      * @return String
      */
-    @Override
+
     public String getLoginAccount() {
         return dataManager.getLoginAccount();
     }
@@ -110,7 +110,7 @@ public abstract class DataManagerPresenter<T extends AbstractView> implements Ab
     /**
      * 设置当前该展示哪个fragment
      */
-    @Override
+
     public void setCurrentPage(int page) {
         dataManager.setCurrentPage(page);
     }
@@ -120,7 +120,7 @@ public abstract class DataManagerPresenter<T extends AbstractView> implements Ab
      *
      * @return current page
      */
-    @Override
+
     public int getCurrentPage() {
         return dataManager.getCurrentPage();
     }

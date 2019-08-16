@@ -1,7 +1,9 @@
 package com.jacksen.wanandroid.presenter.collect;
 
 import android.app.ActivityOptions;
+import android.arch.lifecycle.Observer;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -12,6 +14,8 @@ import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleBean;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
 import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
+import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
@@ -45,6 +49,26 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
     @Inject
     public CollectPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.NIGHT_MODEL, Boolean.class)
+                .observe(this, aBoolean -> {
+                    getView().setNightModel();
+                });
+        LiveDataBus.get()
+                .with(BusConstant.COLLECT, Collect.class)
+                .observe(this, new Observer<Collect>() {
+                    @Override
+                    public void onChanged(@Nullable Collect collect) {
+                        if (BusConstant.COLLECT_PAGE.equals(collect.getType())) {
+                            getView().showCancelCollect(getCurrentPosition());
+                        }
+                    }
+                });
     }
 
     @Override

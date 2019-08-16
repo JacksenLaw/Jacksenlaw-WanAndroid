@@ -1,6 +1,8 @@
 package com.jacksen.wanandroid.presenter.main;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
@@ -19,11 +21,11 @@ import com.jacksen.wanandroid.view.ui.main.activity.AboutUsActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.LoginActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.SearchActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.SettingActivity;
-import com.jacksen.wanandroid.view.ui.todo.activity.TodoActivity;
 import com.jacksen.wanandroid.view.ui.main.fragment.UsefulSitesDialogFragment;
 import com.jacksen.wanandroid.view.ui.mainpager.fragment.HomePageFragment;
 import com.jacksen.wanandroid.view.ui.navi.fragment.NavigationFragment;
 import com.jacksen.wanandroid.view.ui.project.fragment.ProjectFragment;
+import com.jacksen.wanandroid.view.ui.todo.activity.TodoActivity;
 import com.jacksen.wanandroid.view.ui.wx.fragment.WxFragment;
 
 import javax.inject.Inject;
@@ -40,6 +42,39 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
     @Inject
     public MainPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.SWITCH_PROJECT_PAGE)
+                .observe(this, new Observer<Object>() {
+                    @Override
+                    public void onChanged(@Nullable Object o) {
+                        getView().selectProjectTab();
+                    }
+                });
+        LiveDataBus.get()
+                .with(BusConstant.SWITCH_NAVIGATION_PAGE)
+                .observe(this, new Observer<Object>() {
+                    @Override
+                    public void onChanged(@Nullable Object o) {
+                       getView().selectNavigationTab();
+                    }
+                });
+        LiveDataBus.get()
+                .with(BusConstant.LOGIN_STATE, Boolean.class)
+                .observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(@Nullable Boolean aBoolean) {
+                        if (aBoolean) {
+                            getView().showLoginOutView();
+                        } else {
+                            getView().showLoginView();
+                        }
+                    }
+                });
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.jacksen.wanandroid.view.ui.main.activity;
 
-import android.arch.lifecycle.Observer;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,13 +16,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bar.library.StatusBarUtil;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.model.bean.db.HistorySearchData;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.presenter.search.SearchContract;
 import com.jacksen.wanandroid.presenter.search.SearchPresenter;
 import com.jacksen.wanandroid.util.CommonUtils;
@@ -122,14 +117,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        LiveDataBus.get()
-                .with(BusConstant.FINISH_SEARCH_ACTIVITY)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        finish();
-                    }
-                });
         initRecyclerView();
         mPresenter.loadAllHistoryData();
     }
@@ -206,7 +193,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     public void judgeToTheSearchListActivity() {
         KeyboardUtils.hideSoftInput(this);
-//        mCircularRevealAnim.hide(mSearchEdit, mRootView);
         JudgeUtils.startSearchListActivity(this, mSearchEdit.getText().toString().trim());
     }
 

@@ -16,13 +16,18 @@ import java.util.ArrayList;
 public class ProjectContract {
     public interface View extends AbstractView {
 
+        /**
+         * s展示项目分类数据
+         */
         void showProjectClassify(ArrayList<ViewProjectClassifyBean.ViewProjectClassifyItemBean> itemBeans);
 
     }
 
     interface Presenter extends AbstractPresenter<View> {
-
-        void getProjectClassify();
+        /**
+         * 获取项目分类数据
+         */
+        void getProjectClassifyData();
 
     }
 }

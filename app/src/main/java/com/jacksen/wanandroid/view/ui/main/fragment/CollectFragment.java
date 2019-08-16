@@ -1,10 +1,8 @@
 package com.jacksen.wanandroid.view.ui.main.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,9 +13,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
-import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.presenter.collect.CollectContract;
 import com.jacksen.wanandroid.presenter.collect.CollectPresenter;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
@@ -97,23 +92,6 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.onRefresh();
-        LiveDataBus.get()
-                .with(BusConstant.NIGHT_MODEL, Boolean.class)
-                .observe(this, aBoolean -> {
-                    if (mAdapter != null) {
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-        LiveDataBus.get()
-                .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        if (BusConstant.COLLECT_PAGE.equals(collect.getType())) {
-                            showCancelCollect(mPresenter.getCurrentPosition());
-                        }
-                    }
-                });
     }
 
     @Override
@@ -158,7 +136,7 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
             mRefreshLayout.finishLoadMore(500);
             if (feedArticleListBean.getItems().size() == 0) {
                 mRefreshLayout.setEnableLoadMore(false);
-                showToast(getString(R.string.load_more_no_data));
+                showToast(getString(R.string.load_more_no_data_ganhuo));
             }
         }
         data.addAll(feedArticleListBean.getItems());
@@ -173,4 +151,10 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
         mAdapter.setNewData(data);
     }
 
+    @Override
+    public void setNightModel() {
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 }

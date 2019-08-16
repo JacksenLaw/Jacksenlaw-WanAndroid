@@ -27,7 +27,7 @@ public interface SearchContract {
         void showTopSearchData(ViewTextBean items);
 
         /**
-         * Judge to the search list activity
+         * 调到搜索列表页面
          */
         void judgeToTheSearchListActivity();
 

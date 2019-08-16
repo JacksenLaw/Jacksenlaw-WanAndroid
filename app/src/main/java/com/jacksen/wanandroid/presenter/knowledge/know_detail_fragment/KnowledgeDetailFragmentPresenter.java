@@ -1,8 +1,10 @@
 package com.jacksen.wanandroid.presenter.knowledge.know_detail_fragment;
 
 import android.app.ActivityOptions;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -14,6 +16,8 @@ import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleBean;
 import com.jacksen.wanandroid.model.bean.main.collect.FeedArticleListBean;
 import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
+import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
@@ -46,6 +50,30 @@ public class KnowledgeDetailFragmentPresenter extends BasePresenter<KnowledgeDet
     @Inject
     public KnowledgeDetailFragmentPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    @Override
+    public void injectEvent() {
+        super.injectEvent();
+        LiveDataBus.get()
+                .with(BusConstant.JUMP_TO_TOP_OF_KNOWLEDGE_LIST,Integer.class)
+                .observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer integer) {
+                        getView().showScrollTheTop(integer);
+                    }
+                });
+        LiveDataBus.get()
+                .with(BusConstant.COLLECT, Collect.class)
+                .observe(this, new Observer<Collect>() {
+                    @Override
+                    public void onChanged(@Nullable Collect collect) {
+                        //通知收藏图标改变颜色
+                        if (BusConstant.KNOWLEDGE_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
+                            getView().onEventCollect(getClickPosition(), collect.isCollected());
+                        }
+                    }
+                });
     }
 
     @Override

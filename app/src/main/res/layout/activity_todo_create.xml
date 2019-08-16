@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rootBackground"
+    tools:context=".view.ui.todo.activity.TodoCreateActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_title_left" />
+
+    <EditText
+        android:id="@+id/et_todo_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/bg_todo_edit"
+        android:hint="@string/todo_create_title"
+        android:padding="@dimen/dp_5"
+        app:layout_constraintTop_toBottomOf="@id/include" />
+
+    <EditText
+        android:id="@+id/et_todo_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/bg_todo_edit"
+        android:gravity="top"
+        android:hint="@string/todo_create_content"
+        android:padding="@dimen/dp_5"
+        app:layout_constraintTop_toBottomOf="@id/et_todo_title" />
+
+    <LinearLayout
+        android:id="@+id/ll_contain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@id/et_todo_content">
+
+        <TextView
+            android:id="@+id/tv_todo_create_date"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_weight="1"
+            android:background="@color/layoutBackground"
+            android:gravity="center"
+            android:text="2019-8-16"
+            android:textColor="@color/colorBtnBlack" />
+
+        <TextView
+            android:id="@+id/tv_todo_create_type"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_weight="1"
+            android:background="@color/layoutBackground"
+            android:gravity="center"
+            android:text="工作"
+            android:textColor="@color/filter_type_work" />
+
+        <TextView
+            android:id="@+id/tv_todo_create_priority"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_weight="1"
+            android:background="@color/layoutBackground"
+            android:gravity="center"
+            android:text="重要"
+            android:textColor="@color/filter_priority_important" />
+
+        <TextView
+            android:id="@+id/tv_todo_create_status"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:layout_weight="1"
+            android:background="@color/layoutBackground"
+            android:gravity="center"
+            android:text="已完成"
+            android:visibility="gone"
+            android:textColor="@color/filter_status_done" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_todo_create_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/colorPrimary"
+        android:text="@string/todo_create_create"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/ll_contain" />
+
+</android.support.constraint.ConstraintLayout>

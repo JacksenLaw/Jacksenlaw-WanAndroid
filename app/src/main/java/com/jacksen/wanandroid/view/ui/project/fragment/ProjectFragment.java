@@ -66,13 +66,13 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
     public void reload() {
         super.reload();
         showLoading();
-        mPresenter.getProjectClassify();
+        mPresenter.getProjectClassifyData();
     }
 
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.getProjectClassify();
+        mPresenter.getProjectClassifyData();
     }
 
     @Override

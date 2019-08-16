@@ -15,7 +15,7 @@ import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 public class KnowledgeDetailFragmentContract {
     public interface View extends AbstractView {
         /**
-         * Show Knowledge Hierarchy Detail Data
+         * 只是列表详情数据
          *
          * @param feedArticleListData ViewFeedArticleListData
          */
@@ -37,7 +37,7 @@ public class KnowledgeDetailFragmentContract {
         /**
          * 滚动到顶部
          */
-        void showScrollTheTop();
+        void showScrollTheTop(int position);
 
     }
 

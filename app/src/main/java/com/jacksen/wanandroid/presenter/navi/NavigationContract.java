@@ -16,14 +16,27 @@ import java.util.List;
 public class NavigationContract {
     public interface View extends AbstractView {
 
+        /**
+         * 导航数据
+         */
         void showNaviData(List<ElemeGroupedItem> items);
 
+        /**
+         * 滚动到position位置
+         */
         void scrollToTheTop(int position);
+        /**
+         * 是否收藏
+         */
+        void showCollect(boolean isCollect);
 
     }
 
     interface Presenter extends AbstractPresenter<View> {
 
+        /**
+         * 获取导航数据
+         */
         void getNaviData();
 
     }

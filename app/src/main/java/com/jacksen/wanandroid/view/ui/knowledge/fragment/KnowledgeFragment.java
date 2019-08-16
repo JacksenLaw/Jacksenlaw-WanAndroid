@@ -1,10 +1,8 @@
 package com.jacksen.wanandroid.view.ui.knowledge.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +12,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
-import com.jacksen.wanandroid.model.bus.BusConstant;
-import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.presenter.knowledge.KnowledgeContract;
 import com.jacksen.wanandroid.presenter.knowledge.KnowledgePresenter;
 import com.jacksen.wanandroid.view.bean.knowledge.ViewKnowledgeListData;
@@ -75,14 +71,6 @@ public class KnowledgeFragment extends BaseRootFragment<KnowledgePresenter> impl
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.onRefresh();
-        LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_KNOWLEDGE_PAGE,Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        scrollToTheTop(integer);
-                    }
-                });
     }
 
     @Override
@@ -131,7 +119,7 @@ public class KnowledgeFragment extends BaseRootFragment<KnowledgePresenter> impl
             mRefreshLayout.finishLoadMore(500);
             if (viewKnowledgeListData.getItems().size() == 0) {
                 mRefreshLayout.setEnableLoadMore(false);
-                showToast(getString(R.string.load_more_no_data));
+                showToast(getString(R.string.load_more_no_data_ganhuo));
             }
         }
         mDatas.addAll(viewKnowledgeListData.getItems());

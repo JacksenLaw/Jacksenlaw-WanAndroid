@@ -34,6 +34,8 @@ public interface HomePagerContract {
          */
         void scrollToTheTop(int position);
 
+        void setNightModel();
+
         /**
          * 收藏、取消收藏文章
          *

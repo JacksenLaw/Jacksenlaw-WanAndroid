@@ -3,7 +3,6 @@ package com.jacksen.wanandroid.presenter.wx.list;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jacksen.wanandroid.base.presenter.AbstractPresenter;
 import com.jacksen.wanandroid.base.view.AbstractView;
-import com.jacksen.wanandroid.view.bean.main.ViewBannerData;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 
 /**
@@ -51,11 +50,17 @@ public class WxListContract {
     }
 
     interface Presenter extends AbstractPresenter<View> {
-
+        /**
+         * 下拉刷新
+         */
         void onRefresh();
-
+        /**
+         * 上啦加载
+         */
         void onLoadMore();
-
+        /**
+         * 搜索
+         */
         void doSearchClick(String searchText);
 
         /**

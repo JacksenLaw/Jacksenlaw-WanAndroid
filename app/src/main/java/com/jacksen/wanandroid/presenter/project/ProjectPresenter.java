@@ -34,7 +34,7 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
     }
 
     @Override
-    public void getProjectClassify() {
+    public void getProjectClassifyData() {
         addSubscribe(dataManager.getProjectClassifyData()
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())

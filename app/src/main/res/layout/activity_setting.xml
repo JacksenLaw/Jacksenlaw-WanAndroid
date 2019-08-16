@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rootBackground"
-    android:orientation="vertical"
-    app:isSupport="true">
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar_title_left" />
 
@@ -25,8 +24,7 @@
         android:layout_margin="@dimen/dp_8"
         android:background="@color/layoutBackground"
         app:cardCornerRadius="@dimen/dp_3"
-        app:cardElevation="@dimen/dp_2"
-        app:isSupport="true">
+        app:cardElevation="@dimen/dp_2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_auto_cache" />
+                    app:srcCompat="@drawable/ic_auto_cache" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -80,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_no_image" />
+                    app:srcCompat="@drawable/ic_no_image" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -112,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_night_mode" />
+                    app:srcCompat="@drawable/ic_night_mode" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -182,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_cache_clean" />
+                    app:srcCompat="@drawable/ic_cache_clean" />
 
                 <TextView
                     android:layout_width="0dp"

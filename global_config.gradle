@@ -31,9 +31,10 @@ ext {
             "support-v4"                   : "com.android.support:support-v4:${version["supportLibraryVersion"]}",
             "design"                       : "com.android.support:design:${version["supportLibraryVersion"]}",
             "recyclerview"                 : "com.android.support:recyclerview-v7:${version["supportLibraryVersion"]}",
+            "support-vector-drawable"      : "com.android.support:support-vector-drawable:${version["supportLibraryVersion"]}",
             "constraint-layout"            : "com.android.support.constraint:constraint-layout:1.1.3",
 
-            //di
+            //dagger
             "dagger"                       : "com.google.dagger:dagger:${version["daggerVersion"]}",
             "dagger-compiler"              : "com.google.dagger:dagger-compiler:${version["daggerVersion"]}",
             "dagger-android"               : "com.google.dagger:dagger-android:${version["daggerVersion"]}",
@@ -44,9 +45,11 @@ ext {
             "butterknife"                  : "com.jakewharton:butterknife:${version["butterknifeVersion"]}",
             "butterknife-compiler"         : "com.jakewharton:butterknife-compiler:${version["butterknifeVersion"]}",
 
-            //other
+            //lottie动画加载
             "lottie"                       : "com.airbnb.android:lottie:2.3.0",
+            //通用adapter
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
+            //通用Activity、Fragment 的base库
             "fragmentation"                : "me.yokeyword:fragmentation:${version["fragmentationVersion"]}",
             "fragmentation-swipeback"      : "me.yokeyword:fragmentation-swipeback:${version["fragmentationVersion"]}",
             //一个Android行为库让你的标题栏或底部导航隐藏在滚动上，极其简便的快速实现滑动隐藏标题栏和导航栏
@@ -68,29 +71,26 @@ ext {
             //util
             "util"                         : 'com.blankj:utilcode:1.3.5',
 
-            //ui
+            //webview
             "AgentWeb"                     : "com.just.agentweb:agentweb:4.1.2",
+            //webview下载器
             "Downloader"                   : "com.download.library:Downloader:4.1.2",
+            //banner控件
             "banner"                       : "com.youth.banner:banner:1.4.10",
+            //下拉刷新上拉加载布局
             "SmartRefreshLayout"           : "com.scwang.smartrefresh:SmartRefreshLayout:${version["smartrefreshVersion"]}",
             "SmartRefreshHeader"           : "com.scwang.smartrefresh:SmartRefreshHeader:${version["smartrefreshVersion"]}",
             //流式布局
             "flowlayout-lib"               : "com.hyman:flowlayout-lib:1.1.2",
             "flycoTabLayout_lib"           : "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar",
+            //垂直tablayout
             "vertical_tablayout"           : "q.rorbin:VerticalTabLayout:1.2.5",
+            //glide图片加载
             "glide"                        : "com.github.bumptech.glide:glide:4.8.0",
             "glide-compiler"               : "com.github.bumptech.glide:compiler:4.8.0",
-            //material-dialogs
-            "material-dialogs-core"                : "com.afollestad.material-dialogs:core:0.9.4.5",
-            "material-dialogs-commons"             : "com.afollestad.material-dialogs:commons:0.9.4.5",
-//            //换肤 skin-support 基础控件支持
-//            "skin"                         : "skin.support:skin-support:3.1.1",
-//            //换肤 material design 控件支持
-//            "skin-design"                  : "skin.support:skin-support-design:3.1.1",
-//            //换肤 CardView 控件支持
-//            "skin-cardview"                : "skin.support:skin-support-cardview:3.1.1",
-//            //换肤 ConstraintLayout 控件支持
-//            "skin-constraint"              : "skin.support:skin-support-constraint-layout:3.1.1",
+            //MaterialDesign风格dialogs
+            "material-dialogs-core"        : "com.afollestad.material-dialogs:core:0.9.4.5",
+            "material-dialogs-commons"     : "com.afollestad.material-dialogs:commons:0.9.4.5",
 
             //数据库
             "litepal"                      : "org.litepal.android:java:3.0.0",
@@ -99,6 +99,12 @@ ext {
             //Lifecycle
             "lifecycle-runtime"            : "android.arch.lifecycle:runtime:1.1.1",
             "lifecycle-compiler"           : "android.arch.lifecycle:compiler:1.1.1",
+
+            //popupWindow
+            //BasePopup主体库
+            "BasePopup"                    : "com.github.razerdp:BasePopup:2.2.1",
+            //BasePopup lifecycle支持库（如自动适配Activity/Fragment生命期dismiss/回收等）
+            "BasePopup-lifecycle"          : "com.github.razerdp:BasePopup-compat-lifecycle:2.2.1",
 
     ]
 }

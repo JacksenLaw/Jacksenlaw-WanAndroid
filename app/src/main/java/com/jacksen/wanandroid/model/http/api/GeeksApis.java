@@ -11,6 +11,7 @@ import com.jacksen.wanandroid.model.bean.main.usefulsites.UsefulSiteBean;
 import com.jacksen.wanandroid.model.bean.navi.NavigationListBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyBean;
 import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
+import com.jacksen.wanandroid.model.bean.todo.NewTodoBean;
 import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -265,9 +267,10 @@ public interface GeeksApis {
      * @return BaseResponse
      */
     @POST("lg/todo/add/json")
-    Observable<BaseResponse> addNewTodo(@Field("title") String title, @Field("content") String content,
-                                        @Field("date") String date, @Field("type") int type,
-                                        @Field("priority") int priority);
+    @FormUrlEncoded
+    Observable<BaseResponse<NewTodoBean>> addNewTodo(@Field("title") String title, @Field("content") String content,
+                                                     @Field("date") String date, @Field("type") String type,
+                                                     @Field("priority") String priority);
 
     /**
      * 更新一个Todo
@@ -279,42 +282,36 @@ public interface GeeksApis {
      * @param status   0 // 0为未完成，1为完成   如果有当前状态没有携带，会被默认值更新，比如当前 todo status=1，更新时没有带上，会认为被重置。
      * @param type     预定义几个类别,例如：工作1、生活2、 娱乐3,大于0的整数（可选）
      * @param priority 定义优先级，1：重要、2：一般，大于0的整数（可选）
-     * @return
      */
     @POST("lg/todo/update/{id}/json")
-    Observable<BaseResponse> updateTodo(@Path("id") int id, @Field("title") String title,
+    @FormUrlEncoded
+    Observable<BaseResponse<TodoBean>> updateTodo(@Path("id") int id, @Field("title") String title,
                                         @Field("content") String content,
                                         @Field("date") String date, @Field("status") String status,
-                                        @Field("type") int type, @Field("priority") int priority);
+                                        @Field("type") String type, @Field("priority") String priority);
 
     /**
      * 删除一个Todo
      *
      * @param id 拼接在链接上，为唯一标识
-     * @return
      */
     @POST("lg/todo/delete/{id}/json")
-    Observable<BaseResponse> deleteTodo(@Path("id") int id);
+    Observable<ResponseBody> deleteTodo(@Path("id") int id);
 
     /**
      * 仅更新完成状态Todo
      *
      * @param id     拼接在链接上，为唯一标识
      * @param status 0或1，传1代表未完成到已完成，反之则反之。
-     * @return
      */
     @POST("lg/todo/done/{id}/json")
-    Observable<BaseResponse> doneTodo(@Path("id") int id, @Field("status") String status);
+    @FormUrlEncoded
+    Observable<BaseResponse<TodoBean>> updateOnlyStatusTodo(@Path("id") int id, @Field("status") String status);
 
     /**
      * TODO列表
      *
-     * @param page     页码从1开始，拼接在url 上
-     * @param status   状态， 1-完成；0未完成; 默认全部展示；
-     * @param type     创建时传入的类型, 默认全部展示
-     * @param priority 创建时传入的优先级；默认全部展示
-     * @param orderby  1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
-     * @return
+     * @param page 页码从1开始，拼接在url 上
      */
     @GET("lg/todo/v2/list/{page}/json")
     Observable<BaseResponse<TodoBean>> getTodoList(@Path("page") int page, @QueryMap Map<String, String> params);

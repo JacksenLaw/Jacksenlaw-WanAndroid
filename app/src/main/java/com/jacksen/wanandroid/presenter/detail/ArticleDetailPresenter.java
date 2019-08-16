@@ -88,16 +88,14 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
         getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
     }
 
-    @Override
-    public void shareEvent(String title, String articleLink) {
+    private void shareEvent(String title, String articleLink) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, getActivity().getString(R.string.share_type_url, getActivity().getString(R.string.app_name), title, articleLink));
         intent.setType("text/plain");
         getActivity().startActivity(intent);
     }
 
-    @Override
-    public void shareError() {
+    private void shareError() {
         getView().showToast(getActivity().getString(R.string.write_permission_not_allowed));
     }
 
