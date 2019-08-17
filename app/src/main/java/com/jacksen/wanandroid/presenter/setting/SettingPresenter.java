@@ -2,7 +2,6 @@ package com.jacksen.wanandroid.presenter.setting;
 
 import android.Manifest;
 
-import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.core.manager.PermissionManager;
 import com.jacksen.wanandroid.model.DataManager;
@@ -80,7 +79,7 @@ public class SettingPresenter extends BasePresenter<SettingContract.View> implem
     }
 
     private void loadSkin() {
-        SkinManager.getInstance().loadSkin("theme-20190813.skin",
+        SkinManager.getInstance().loadSkin("theme-20190817.skin",
                 new SkinLoaderListener() {
                     @Override
                     public void onStart() {
@@ -91,6 +90,7 @@ public class SettingPresenter extends BasePresenter<SettingContract.View> implem
                     @Override
                     public void onSuccess() {
                         KLog.i("切换成功");
+
                         LiveDataBus.get().with(BusConstant.NIGHT_MODEL).setValue(true);
                     }
 

@@ -84,7 +84,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     protected void initToolbar() {
-        StatusBarUtil.setColor(mActivity, getStatusBarColor());
+        StatusBarUtil.setColor(mActivity, getStatusBarColor(), 0);
     }
 
     @Override
@@ -93,7 +93,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
             if (mActivity instanceof SearchActivity || mActivity instanceof SearchListActivity) {
                 return ContextCompat.getColor(mActivity, R.color.colorPrimarySearchDark);
             }
-            return ContextCompat.getColor(mActivity, R.color.colorPrimaryDark);
+            return ContextCompat.getColor(mActivity, R.color.colorPrimary);
         } else {
             return ContextCompat.getColor(mActivity, R.color.colorPrimaryDark_Night);
         }
@@ -142,6 +142,6 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     public View getRootView() {
-        return null;
+        return getWindow().getDecorView();
     }
 }

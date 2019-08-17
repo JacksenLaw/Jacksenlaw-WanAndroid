@@ -85,7 +85,6 @@ public class TodoFragPresenter extends BasePresenter<TodoFragContract.View> impl
 
     @Override
     public void onRefresh() {
-        isFilter = false;
         pageNo = 1;
         getTodoData(pageNo);
     }

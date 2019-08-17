@@ -1,8 +1,6 @@
 package com.jacksen.wanandroid.view.ui.main.fragment;
 
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.jacksen.wanandroid.R;
+import com.jacksen.wanandroid.app.WanAndroidApp;
 import com.jacksen.wanandroid.base.fragment.BaseDialogFragment;
 import com.jacksen.wanandroid.presenter.useful_sites.UsefulContract;
 import com.jacksen.wanandroid.presenter.useful_sites.UsefulPresenter;
@@ -84,18 +83,7 @@ public class UsefulSitesDialogFragment extends BaseDialogFragment<UsefulPresente
 
     private void initToolbar() {
         mTitleTv.setText(R.string.useful_sites);
-//        if (mPresenter.isNightMode()) {
-//            setToolbarView(R.color.common_text, R.color.colorCard, R.drawable.ic_arrow_back_white_24dp);
-//        } else {
-//            setToolbarView(R.color.title_black, R.color.white, R.drawable.ic_arrow_back_grey_24dp);
-//        }
         mToolbar.setNavigationOnClickListener(v -> mCircularRevealAnim.hide(mTitleTv, mRootView));
-    }
-
-    private void setToolbarView(@ColorRes int textColor, @ColorRes int backgroundColor, @DrawableRes int navigationIcon) {
-        mTitleTv.setTextColor(ContextCompat.getColor(getContext(), textColor));
-        mToolbar.setBackgroundColor(ContextCompat.getColor(getActivity(), backgroundColor));
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(getContext(), navigationIcon));
     }
 
     private void initCircleAnimation() {
@@ -144,7 +132,7 @@ public class UsefulSitesDialogFragment extends BaseDialogFragment<UsefulPresente
                 String name = item.getText();
                 tv.setText(name);
                 tv.setBackgroundColor(CommonUtils.randomTagColor());
-                tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+                tv.setTextColor(ContextCompat.getColor(WanAndroidApp.getInstance(), R.color.white));
                 mUsefulSitesFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     mPresenter.doFlowLayoutClick(view, position1, parent, items.getItems().get(position1));
                     return true;

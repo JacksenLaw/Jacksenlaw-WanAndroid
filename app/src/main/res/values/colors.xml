@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#008577</color><!--决定状态栏颜色-->
     <color name="colorAccent">#D81B60</color>
     <color name="colorPrimaryDark_Night">#262626</color>
 
-    <color name="colorPrimarySearchDark">#FFFFFF</color><!--决定搜索页面状态栏颜色-->
+    <color name="colorPrimarySearchDark">#CCCCCC</color><!--决定搜索页面状态栏颜色-->
     <color name="colorPrimarySearchToolbar">#FFFFFF</color>
     <color name="colorToolbarTitleSearch">#000000</color>
     <color name="colorSearchEditText">#222222</color>

@@ -78,12 +78,8 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
         mAdapter.setOnItemClickListener((adapter, view, position) ->
                 mPresenter.doItemClickListener(adapter, view, position)
         );
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                mPresenter.doItemChildClickListener(adapter, view, position);
-            }
-        });
+        mAdapter.setOnItemChildClickListener((adapter, view, position) ->
+                mPresenter.doItemChildClickListener(adapter, view, position));
 
         mActionButton.setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
     }

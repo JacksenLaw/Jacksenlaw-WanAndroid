@@ -16,7 +16,7 @@ import com.jacksen.wanandroid.di.module.activity.TodoCreateActivityModule;
 import com.jacksen.wanandroid.di.scope.ActivityScope;
 import com.jacksen.wanandroid.view.ui.knowledge.activity.KnowledgeDetailActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.AboutUsActivity;
-import com.jacksen.wanandroid.view.ui.main.activity.ArticleDetailActivity;
+import com.jacksen.wanandroid.view.ui.main.activity.WebActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.LoginActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.MainActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.RegisterActivity;
@@ -59,7 +59,7 @@ public abstract class AbstractAllActivityModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = ArticleDetailActivityModule.class)
-    abstract ArticleDetailActivity contributesArticleDetailActivityInjector();
+    abstract WebActivity contributesArticleDetailActivityInjector();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = AboutUsActivityModule.class)

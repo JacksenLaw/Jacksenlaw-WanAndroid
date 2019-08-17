@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- android:usesCleartextTraffic="true" https支持-->
     <application
         android:name=".app.WanAndroidApp"
         android:allowBackup="false"
@@ -21,8 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        tools:targetApi="m">
         <!-- <receiver android:name=".app.receiver.BootBroadcastReceiver"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
@@ -65,10 +68,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeTheme" />
         <activity
-            android:name=".view.ui.main.activity.ArticleDetailActivity"
+            android:name=".view.ui.main.activity.WebActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".view.ui.main.activity.SettingActivity"
             android:label="@string/app_name"

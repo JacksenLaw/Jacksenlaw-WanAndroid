@@ -87,12 +87,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.cb_setting_night:
-                mPresenter.doNightClick(new SettingPresenter.Callback() {
-                    @Override
-                    public void authorizationDenied() {
-                        buttonView.setChecked(false);
-                    }
-                }, isChecked);
+                mPresenter.doNightClick(() -> buttonView.setChecked(false), isChecked);
                 break;
             case R.id.cb_setting_image:
                 mPresenter.setNoImageModel(isChecked);

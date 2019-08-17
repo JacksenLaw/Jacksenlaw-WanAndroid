@@ -93,7 +93,7 @@ public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConf
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
                                        BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
-        TextView header = ((TextView) holder.getView(R.id.item_header));
+        TextView header = holder.getView(R.id.item_header);
         header.setText(item.header);
 //            header.setTextColor(ContextCompat.getColor(mContext, colors[holder.getAdapterPosition() % colors.length]));
     }

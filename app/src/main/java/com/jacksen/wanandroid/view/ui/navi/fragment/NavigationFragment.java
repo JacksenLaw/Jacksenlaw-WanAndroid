@@ -79,7 +79,8 @@ public class NavigationFragment extends BaseRootFragment<NavigationPresenter> im
     }
 
     @Override
-    public void showNaviData(List<ElemeGroupedItem> items) {
+    @SuppressWarnings("unchecked")
+    public void showNavData(List<ElemeGroupedItem> items) {
         primaryAdapterConfig = new ElemePrimaryAdapterConfig(mPresenter);
         secondaryAdapterConfig = new ElemeSecondaryAdapterConfig();
         linkageRecyclerView.init(items, primaryAdapterConfig, secondaryAdapterConfig);

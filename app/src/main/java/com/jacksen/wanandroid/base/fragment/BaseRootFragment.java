@@ -130,4 +130,8 @@ public abstract class BaseRootFragment<T extends AbstractPresenter> extends Base
         return mNormalView;
     }
 
+    @Override
+    protected boolean isInnerFragment() {
+        return false;
+    }
 }

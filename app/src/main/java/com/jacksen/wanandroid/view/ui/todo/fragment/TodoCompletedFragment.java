@@ -3,6 +3,7 @@ package com.jacksen.wanandroid.view.ui.todo.fragment;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -16,6 +17,7 @@ import com.jacksen.wanandroid.presenter.todo.fragment.completed.TodoCompletedCon
 import com.jacksen.wanandroid.presenter.todo.fragment.completed.TodoCompletedPresenter;
 import com.jacksen.wanandroid.view.bean.todo.FilterResult;
 import com.jacksen.wanandroid.view.bean.todo.ViewTodoData;
+import com.jacksen.wanandroid.view.ui.todo.activity.TodoActivity;
 import com.jacksen.wanandroid.view.ui.todo.adapter.TodoAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -61,7 +63,7 @@ public class TodoCompletedFragment extends BaseRootFragment<TodoCompletedPresent
     }
 
     @Override
-    protected boolean getInnerFragment() {
+    protected boolean isInnerFragment() {
         return true;
     }
 
@@ -75,6 +77,12 @@ public class TodoCompletedFragment extends BaseRootFragment<TodoCompletedPresent
         mAdapter = new TodoAdapter(null);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void reload() {
+        super.reload();
+        mPresenter.onRefresh();
     }
 
     @Override
@@ -160,5 +168,14 @@ public class TodoCompletedFragment extends BaseRootFragment<TodoCompletedPresent
             RECYCLER_VIEW_STATE = LOAD_MORE;
             mPresenter.onLoadMore();
         }
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        if(((TodoActivity)getActivity()).mRightDrawerLayout.isDrawerOpen(GravityCompat.END)){
+            ((TodoActivity)getActivity()).mRightDrawerLayout.closeDrawer(GravityCompat.END);
+            return true;
+        }
+        return super.onBackPressedSupport();
     }
 }

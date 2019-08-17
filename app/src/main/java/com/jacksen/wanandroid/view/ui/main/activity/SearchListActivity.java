@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.bar.library.StatusBarUtil;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.presenter.search.SearchListContract;
@@ -73,6 +74,7 @@ public class SearchListActivity extends BaseActivity<SearchListPresenter> implem
     @Override
     protected void initToolbar() {
         super.initToolbar();
+        StatusBarUtil.setDarkMode(this);
         mTitleTv.setText(mPresenter.getSearchText());
     }
 

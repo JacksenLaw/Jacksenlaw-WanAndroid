@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     //记录上一次打开的fragment，用来隐藏上次的fragment
     private int mLastFgIndex;
     //记录当前抽屉的点击,当抽屉完全关闭后根据此记录打开对应的activity页面
-    private String currentLeftNaviClick;
+    private String currentLeftNavClick;
 
     @Override
     protected int getLayoutId() {
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initToolbar() {
-        StatusBarUtil.setColorForDrawerLayout(mActivity,mDrawerLayout,getStatusBarColor());
+        StatusBarUtil.setColorForDrawerLayout(mActivity,mDrawerLayout,getStatusBarColor(),0);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -159,26 +159,26 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             switch (item.getItemId()) {
                 case R.id.nav_item_wan_android:
                     startMainPager(mPresenter.getCurrentPage());
-                    setCurrentLeftNaviClick(null);
+                    setCurrentLeftNavClick(null);
                     break;
                 case R.id.nav_item_my_collect:
                     startCollectFragment();
-                    setCurrentLeftNaviClick(null);
+                    setCurrentLeftNavClick(null);
                     break;
                 case R.id.nav_item_my_todo:
-                    setCurrentLeftNaviClick("TODO");
+                    setCurrentLeftNavClick("TODO");
                     break;
                 case R.id.nav_item_setting:
-                    setCurrentLeftNaviClick("SETTING");
+                    setCurrentLeftNavClick("SETTING");
                     break;
                 case R.id.nav_item_about_us:
-                    setCurrentLeftNaviClick("ABOUT");
+                    setCurrentLeftNavClick("ABOUT");
                     break;
                 case R.id.nav_item_logout:
-                    setCurrentLeftNaviClick("LOGOUT");
+                    setCurrentLeftNavClick("LOGOUT");
                     break;
                 default:
-                    setCurrentLeftNaviClick(null);
+                    setCurrentLeftNavClick(null);
                     break;
             }
             mDrawerLayout.closeDrawers();
@@ -186,8 +186,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         });
     }
 
-    private void setCurrentLeftNaviClick(String leftNaviClick) {
-        currentLeftNaviClick = leftNaviClick;
+    private void setCurrentLeftNavClick(String leftNaviClick) {
+        currentLeftNavClick = leftNaviClick;
     }
 
     private void startMainPager(int currentPager) {
@@ -290,19 +290,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 KLog.i("onDrawerClosed");
-                if ("TODO".equals(currentLeftNaviClick)) {
+                if ("TODO".equals(currentLeftNavClick)) {
                     mPresenter.doTodoClick();
                 }
-                if ("SETTING".equals(currentLeftNaviClick)) {
+                if ("SETTING".equals(currentLeftNavClick)) {
                     mPresenter.doSettingClick();
                 }
-                if ("ABOUT".equals(currentLeftNaviClick)) {
+                if ("ABOUT".equals(currentLeftNavClick)) {
                     mPresenter.doTurnAboutClick();
                 }
-                if ("LOGOUT".equals(currentLeftNaviClick)) {
+                if ("LOGOUT".equals(currentLeftNavClick)) {
                     mPresenter.doLogOutClick();
                 }
-                setCurrentLeftNaviClick(null);
+                setCurrentLeftNavClick(null);
             }
         };
         mDrawerLayout.addDrawerListener(toggle);
@@ -367,6 +367,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             return;
         }
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_my_collect).setVisible(false);
+        mLeftNavigationView.getMenu().findItem(R.id.nav_item_my_todo).setVisible(false);
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(false);
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_wan_android).setChecked(true);
     }
@@ -380,6 +381,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mUserName.setOnClickListener(null);
         //显示退出登录
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_my_collect).setVisible(true);
+        mLeftNavigationView.getMenu().findItem(R.id.nav_item_my_todo).setVisible(true);
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
 
     }
@@ -402,8 +404,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      * 只适合保存瞬态数据, 比如UI控件的状态, 成员变量的值等，而不应该用来保存持久化数据，
      * 持久化数据应该当用户离开当前的 activity时，在 onPause() 中保存（比如将数据保存到数据库或文件中）
      *
-     * @param outState
-     * @param outPersistentState
+     * @param outState outState
+     * @param outPersistentState outPersistentState
      */
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {

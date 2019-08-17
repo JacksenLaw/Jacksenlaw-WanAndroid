@@ -19,7 +19,7 @@ public class NavigationContract {
         /**
          * 导航数据
          */
-        void showNaviData(List<ElemeGroupedItem> items);
+        void showNavData(List<ElemeGroupedItem> items);
 
         /**
          * 滚动到position位置

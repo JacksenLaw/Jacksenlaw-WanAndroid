@@ -100,7 +100,6 @@ public class TodoCompletedPresenter extends BasePresenter<TodoCompletedContract.
 
     @Override
     public void onRefresh() {
-        isFilter = false;
         pageNo = 1;
         getCompleteTodoData(pageNo);
     }

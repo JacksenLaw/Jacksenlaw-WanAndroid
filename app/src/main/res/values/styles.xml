@@ -10,13 +10,32 @@
         <!-- Set menu background and text color -->
         <item name="android:itemBackground">@color/white</item>
         <item name="android:textColor">@color/black</item>
+        <!-- 添加这一句， 即可改变Toolbar上menu图标的颜色-->
+        <item name="android:textColorSecondary">#FFFFFF</item>
+        <item name="android:textAllCaps">false</item>
 
         //沉浸状态栏
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
-        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+        <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>-->
         <!--<item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>-->
+    </style>
+
+    <!--设置toolbar上menu的PopupWindow在toolbar下方显示-->
+    <style name="ToolbarPopupTheme" parent="AppTheme">
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <!--距离右边间距-->
+        <item name="android:paddingRight">0dp</item>
+        <!--背景颜色-->
+        <item name="android:colorBackground">@color/layoutBackground</item>
+        <!--字体颜色-->
+        <item name="android:textColorPrimary">@color/colorBtnBlack</item>
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
     </style>
 
     <style name="SwipeTheme" parent="AppTheme">
@@ -24,6 +43,7 @@
         <!--<item name="android:windowBackground">@color/transparent</item>-->
         <!--<item name="android:screenOrientation">fullUser</item>-->
     </style>
+
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/bg_wan_android</item>
         <item name="android:windowFullscreen">true</item>

@@ -3,16 +3,15 @@ package com.jacksen.wanandroid.view.ui.todo.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Button;
 
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
-import com.jacksen.wanandroid.base.fragment.BaseFragment;
-import com.jacksen.wanandroid.view.bean.todo.FilterResult;
+import com.jacksen.wanandroid.base.fragment.BaseFilterFragment;
 import com.jacksen.wanandroid.presenter.todo.fragment.filter.FilterContract;
 import com.jacksen.wanandroid.presenter.todo.fragment.filter.FilterPresenter;
 import com.jacksen.wanandroid.view.bean.todo.FilterBean;
+import com.jacksen.wanandroid.view.bean.todo.FilterResult;
 import com.jacksen.wanandroid.view.ui.todo.adapter.FilterAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import butterknife.BindView;
  * 更新时间：2019/8/15/0015
  * 更新内容：
  */
-public class FilterFragment extends BaseFragment<FilterPresenter> implements FilterContract.View {
+public class FilterFragment extends BaseFilterFragment<FilterPresenter> implements FilterContract.View {
 
     @BindView(R.id.filter_recycler)
     RecyclerView mRecyclerView;
@@ -40,7 +39,6 @@ public class FilterFragment extends BaseFragment<FilterPresenter> implements Fil
     private FilterAdapter mAdapter;
 
     private Callback mFilterCallback;
-
     public void setFilterCallback(Callback filterCallback) {
         this.mFilterCallback = filterCallback;
     }
@@ -95,11 +93,6 @@ public class FilterFragment extends BaseFragment<FilterPresenter> implements Fil
     }
 
     @Override
-    public View getRootView() {
-        return null;
-    }
-
-    @Override
     public void showFilterData(List<FilterBean> items) {
         mAdapter.setNewData(items);
     }
@@ -107,5 +100,4 @@ public class FilterFragment extends BaseFragment<FilterPresenter> implements Fil
     public interface Callback {
         void startFilter(List<FilterResult> results);
     }
-
 }

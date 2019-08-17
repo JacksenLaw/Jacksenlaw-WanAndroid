@@ -73,17 +73,13 @@ public class KnowledgeFragment extends BaseRootFragment<KnowledgePresenter> impl
         mPresenter.onRefresh();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void initListener() {
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mPresenter.onItemClick(adapter, view, position);
-            }
-        });
+        mAdapter.setOnItemClickListener((adapter, view, position) ->
+                mPresenter.onItemClick(adapter, view, position));
     }
 
     @Override

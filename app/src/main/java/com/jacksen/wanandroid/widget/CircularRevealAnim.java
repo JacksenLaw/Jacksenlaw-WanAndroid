@@ -44,17 +44,14 @@ public class CircularRevealAnim {
             return;
         }
 
-        /**
-         * 计算 triggerView 的中心位置
-         */
+        //计算 triggerView 的中心位置
         int[] tvLocation = {0, 0};
         triggerView.getLocationInWindow(tvLocation);
         int tvX = (int) (tvLocation[0] + animView.getWidth() * 0.8);
         int tvY = tvLocation[1] + triggerView.getHeight() / 2;
 
-        /**
-         * 计算 animView 的中心位置
-         */
+
+        //计算 animView 的中心位置
         int[] avLocation = {0, 0};
         animView.getLocationInWindow(avLocation);
         int avX = avLocation[0] + animView.getWidth() / 2;

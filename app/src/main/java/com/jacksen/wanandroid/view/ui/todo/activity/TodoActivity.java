@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.base.fragment.BaseFragment;
-import com.jacksen.wanandroid.view.bean.todo.FilterResult;
 import com.jacksen.wanandroid.presenter.todo.activity.TodoContract;
 import com.jacksen.wanandroid.presenter.todo.activity.TodoPresenter;
 import com.jacksen.wanandroid.view.ui.todo.fragment.FilterFragment;
@@ -40,7 +39,7 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
     @BindView(R.id.fragment_contain)
     FrameLayout mFragmentContain;
     @BindView(R.id.right_drawer_layout)
-    DrawerLayout mRightDrawerLayout;
+    public DrawerLayout mRightDrawerLayout;
     @BindView(R.id.id_container_menu)
     FrameLayout mMenuFragmentContain;
     @BindView(R.id.bottom_navigation)
@@ -132,16 +131,13 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
             return false;
         });
 
-        mFilterFragment.setFilterCallback(new FilterFragment.Callback() {
-            @Override
-            public void startFilter(List<FilterResult> results) {
-                mRightDrawerLayout.closeDrawers();
-                if(mTodoFragment.isVisible()){
-                    mTodoFragment.receiveFilterData(results);
-                }
-                if(mTodoCompleteFragment.isVisible()){
-                    mTodoCompleteFragment.receiveFilterData(results);
-                }
+        mFilterFragment.setFilterCallback(results -> {
+            mRightDrawerLayout.closeDrawers();
+            if (mTodoFragment.isVisible()) {
+                mTodoFragment.receiveFilterData(results);
+            }
+            if (mTodoCompleteFragment.isVisible()) {
+                mTodoCompleteFragment.receiveFilterData(results);
             }
         });
 
@@ -174,5 +170,14 @@ public class TodoActivity extends BaseActivity<TodoPresenter> implements TodoCon
         fragmentTransaction.show(mFilterFragment);
         fragmentTransaction.commitAllowingStateLoss();
 
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        if (mRightDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+            mRightDrawerLayout.closeDrawer(GravityCompat.END);
+        } else {
+            super.onBackPressedSupport();
+        }
     }
 }

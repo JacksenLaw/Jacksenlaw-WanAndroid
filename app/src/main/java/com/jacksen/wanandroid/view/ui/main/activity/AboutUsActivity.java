@@ -197,7 +197,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
                 @Override
                 public void onClick(View v) {
                     int color = ContextCompat.getColor(getApplication(), ids[index % ids.length]);
-                    StatusBarUtil.setColor(mActivity, ContextCompat.getColor(mActivity, ids[index % ids.length]));
+                    StatusBarUtil.setColor(mActivity, ContextCompat.getColor(mActivity, ids[index % ids.length]),0);
                     mRefreshLayout.setPrimaryColors(color);
                     mAboutUsFab.setBackgroundColor(color);
                     mAboutUsFab.setBackgroundTintList(ColorStateList.valueOf(color));

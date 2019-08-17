@@ -70,7 +70,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     protected void initEventAndData() {
-        startAnimation(mOneAnimation, "anim_splash/W.json");
+//        startAnimation(mOneAnimation, "anim_splash/W.json");
 //        startAnimation(mTwoAnimation, "anim_splash/A.json");
 //        startAnimation(mThreeAnimation, "anim_splash/N.json");
 //        startAnimation(mFourAnimation, "anim_splash/A.json");

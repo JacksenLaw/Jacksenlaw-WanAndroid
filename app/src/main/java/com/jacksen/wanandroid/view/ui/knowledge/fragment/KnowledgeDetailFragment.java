@@ -55,7 +55,7 @@ public class KnowledgeDetailFragment extends BaseRootFragment<KnowledgeDetailFra
     }
 
     @Override
-    protected boolean getInnerFragment() {
+    protected boolean isInnerFragment() {
         return true;
     }
 

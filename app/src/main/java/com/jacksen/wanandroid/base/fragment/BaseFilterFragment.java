@@ -25,13 +25,10 @@ import dagger.android.support.AndroidSupportInjection;
  * 更新： 本次修改内容
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseFragment<T extends AbstractPresenter> extends AbstractSimpleFragment implements AbstractView {
+public abstract class BaseFilterFragment<T extends AbstractPresenter> extends AbstractSimpleFragment implements AbstractView {
 
-    private long clickTime;
     @Inject
     protected T mPresenter;
-
-    protected abstract boolean isInnerFragment();
 
     @Override
     public void onAttach(Activity activity) {
@@ -99,29 +96,5 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     @Override
     public View getRootView() {
         return getActivity().getWindow().getDecorView();
-    }
-
-    /**
-     * 处理回退事件
-     */
-    @Override
-    public boolean onBackPressedSupport() {
-        if (getChildFragmentManager().getBackStackEntryCount() > 1) {
-            popChild();
-        } else {
-            if (isInnerFragment()) {
-                KLog.i(isInnerFragment());
-                _mActivity.finish();
-                return true;
-            }
-            long currentTime = System.currentTimeMillis();
-            if ((currentTime - clickTime) > 2000) {
-                CommonUtils.showMessage(getString(R.string.double_click_exit_tint));
-                clickTime = System.currentTimeMillis();
-            } else {
-                _mActivity.finish();
-            }
-        }
-        return true;
     }
 }

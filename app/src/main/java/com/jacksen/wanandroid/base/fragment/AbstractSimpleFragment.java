@@ -92,5 +92,4 @@ public abstract class AbstractSimpleFragment extends SkinBaseFragment {
      */
     protected abstract void initEventAndData();
 
-    protected abstract boolean getInnerFragment();
 }

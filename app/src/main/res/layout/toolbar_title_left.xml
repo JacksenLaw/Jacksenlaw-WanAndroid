@@ -10,11 +10,14 @@
     skin:enable="true"
     android:background="@color/colorPrimary"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:navigationIcon="@drawable/ic_arrow_back_white_24dp">
+    app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
+    app:popupTheme="@style/ToolbarPopupTheme">
 
 
     <TextView
         android:id="@+id/left_toolbar_tv"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"

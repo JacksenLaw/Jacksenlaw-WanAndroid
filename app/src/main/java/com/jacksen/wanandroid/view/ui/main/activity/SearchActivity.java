@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bar.library.StatusBarUtil;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
@@ -108,9 +109,10 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     protected void initToolbar() {
         super.initToolbar();
+        StatusBarUtil.setDarkMode(this);
         mToolbar.setNavigationOnClickListener(v -> {
             KeyboardUtils.hideSoftInput(mActivity);
-            finish();
+            onBackPressedSupport();
         });
     }
 
@@ -127,13 +129,12 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         mSearchEdit.setText("");
     }
 
+    @SuppressWarnings("unchecked")
     private void initRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setNestedScrollingEnabled(false);
         mAdapter = new HistorySearchAdapter(null);
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            mSearchEdit.setText(((List<HistorySearchData>) adapter.getData()).get(position).getData());
-        });
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> mSearchEdit.setText(((List<HistorySearchData>) adapter.getData()).get(position).getData()));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }

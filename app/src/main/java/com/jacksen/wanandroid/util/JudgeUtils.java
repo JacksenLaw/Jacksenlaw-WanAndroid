@@ -7,7 +7,7 @@ import android.os.Build;
 
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.view.ui.knowledge.activity.KnowledgeDetailActivity;
-import com.jacksen.wanandroid.view.ui.main.activity.ArticleDetailActivity;
+import com.jacksen.wanandroid.view.ui.main.activity.WebActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.SearchListActivity;
 
 public class JudgeUtils {
@@ -27,7 +27,7 @@ public class JudgeUtils {
                                                   String articleLink, boolean isCollect,
                                                   boolean isCollectPage, boolean isCommonSite,
                                                   String turnType) {
-        Intent intent = new Intent(mActivity, ArticleDetailActivity.class);
+        Intent intent = new Intent(mActivity, WebActivity.class);
         intent.putExtra(Constants.ARTICLE_ID, id);
         intent.putExtra(Constants.ARTICLE_TITLE, articleTitle);
         intent.putExtra(Constants.ARTICLE_LINK, articleLink);

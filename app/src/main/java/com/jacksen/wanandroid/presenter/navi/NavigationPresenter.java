@@ -78,7 +78,7 @@ public class NavigationPresenter extends BasePresenter<NavigationContract.View> 
                             }
                         }
 
-                        getView().showNaviData(items);
+                        getView().showNavData(items);
                         getView().showNormal();
                     }
                 }));

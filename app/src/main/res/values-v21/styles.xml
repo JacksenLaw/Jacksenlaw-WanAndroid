@@ -7,9 +7,7 @@
         <item name="android:windowAnimationStyle">@style/windowAnimation</item>
         //声明允许使用ActivityOptions
         <item name="android:windowContentTransitions">true</item>
-        <!-- Set menu background and text color -->
-        <item name="android:itemBackground">@color/white</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
 
         //沉浸状态栏 只有不透明的全屏activity可以自主设置界面方向,
         //因此将windowIsTranslucent改为windowDisablePreview

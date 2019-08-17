@@ -62,7 +62,7 @@ public class TodoFragment extends BaseRootFragment<TodoFragPresenter>
     }
 
     @Override
-    protected boolean getInnerFragment() {
+    protected boolean isInnerFragment() {
         return true;
     }
 
@@ -76,6 +76,12 @@ public class TodoFragment extends BaseRootFragment<TodoFragPresenter>
         mAdapter = new TodoAdapter(null);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void reload() {
+        super.reload();
+        mPresenter.onRefresh();
     }
 
     @Override
