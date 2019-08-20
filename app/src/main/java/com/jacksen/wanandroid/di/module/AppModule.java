@@ -5,7 +5,7 @@ import com.jacksen.wanandroid.core.prefs.PreferenceHelper;
 import com.jacksen.wanandroid.core.prefs.PreferenceImpl;
 import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.db.DbHelper;
-import com.jacksen.wanandroid.model.db.DbHelperImpl;
+import com.jacksen.wanandroid.model.db.DbImpl;
 import com.jacksen.wanandroid.model.http.HttpHelper;
 import com.jacksen.wanandroid.model.http.HttpImpl;
 
@@ -38,26 +38,26 @@ public class AppModule {
 
     @Provides
     @Singleton
-    HttpImpl provideHttpHelper(HttpHelper httpHelper) {
+    HttpHelper provideHttpHelper(HttpImpl httpHelper) {
         return httpHelper;
     }
 
     @Provides
     @Singleton
-    DbHelperImpl provideDbHelper(DbHelper dbHelper) {
-        return dbHelper;
+    DbHelper provideDbHelper(DbImpl dbImpl) {
+        return dbImpl;
     }
 
     @Provides
     @Singleton
-    PreferenceImpl providePreferenceHelper(PreferenceHelper httpHelper) {
-        return httpHelper;
+    PreferenceHelper providePreferenceHelper(PreferenceImpl preferenceImpl) {
+        return preferenceImpl;
     }
 
     @Provides
     @Singleton
-    DataManager provideDataManager(PreferenceImpl mPreferenceImpl, HttpImpl httpImpl, DbHelperImpl dbHelperImpl) {
-        return new DataManager(mPreferenceImpl, httpImpl, dbHelperImpl);
+    DataManager provideDataManager(PreferenceHelper preferenceHelper, HttpHelper httpHelper, DbHelper dbHelper) {
+        return new DataManager(preferenceHelper, httpHelper, dbHelper);
     }
 
 }

@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private void initNavigationView() {
         mUserName = mLeftNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
-        if (mPresenter.getLoginState()) {
+        if (mPresenter.isLogin()) {
             showLoginOutView();
         } else {
             showLoginView();
@@ -212,7 +212,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void startCollectFragment() {
-        if (mPresenter.getLoginState()) {
+        if (mPresenter.isLogin()) {
             mTitleTv.setText(getString(R.string.my_collect));
             switchFragment(Constants.TYPE_COLLECT_PAGER);
         }
@@ -387,7 +387,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void setUserName() {
-        if (mPresenter.getLoginState()) {
+        if (mPresenter.isLogin()) {
             mUserName.setText(mPresenter.getLoginAccount());
         } else {
             mUserName.setText(getString(R.string.login_in));

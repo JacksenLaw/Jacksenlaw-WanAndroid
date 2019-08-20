@@ -66,7 +66,7 @@ public class TodoCreateActivity extends BaseActivity<TodoCreatePresenter> implem
 
     @Override
     protected void initListener() {
-        tvDate.setOnClickListener(v -> mPresenter.doSwitchDateClick());
+        tvDate.setOnClickListener(v -> mPresenter.doSwitchDateClick(tvDate.getText().toString()));
         tvType.setOnClickListener(v -> mPresenter.doSwitchTypeClick());
         tvPriority.setOnClickListener(v -> mPresenter.doSwitchPriorityClick());
         tvStatus.setOnClickListener(v -> mPresenter.doSwitchStatusClick());

@@ -2,11 +2,15 @@ package com.jacksen.wanandroid.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.blankj.utilcode.utils.Utils;
+import com.jacksen.aspectj.core.login.ILogin;
+import com.jacksen.aspectj.core.login.LoginSDK;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.receiver.NetWorkBroadcastReceiver;
 import com.jacksen.wanandroid.base.lifecycle.AppLifecycleCallback;
@@ -14,6 +18,8 @@ import com.jacksen.wanandroid.di.component.AppComponent;
 import com.jacksen.wanandroid.di.component.DaggerAppComponent;
 import com.jacksen.wanandroid.di.module.AppModule;
 import com.jacksen.wanandroid.di.module.HttpModule;
+import com.jacksen.wanandroid.util.CommonUtils;
+import com.jacksen.wanandroid.view.ui.main.activity.LoginActivity;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
@@ -80,6 +86,40 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
         Utils.init(this);
 
         LitePal.initialize(this);
+
+        LoginSDK.getInstance().init(this, new ILogin() {
+            @Override
+            public void login(Context applicationContext, int userDefine) {
+                switch (userDefine) {
+                    case 0:
+                        Intent intent = new Intent(applicationContext, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        CommonUtils.showMessage(getString(R.string.login_tint));
+                        break;
+                    case 2:
+//                        new AlertDialog.Builder(MyApplication.this)...
+                        break;
+                    default:
+                        CommonUtils.showMessage(getString(R.string.login_tint));
+                        break;
+                }
+            }
+
+            @Override
+            public boolean isLogin(Context applicationContext) {
+                return getAppComponent().getDataManager().isLogin();
+            }
+
+            @Override
+            public void clearLoginState(Context applicationContext) {
+                getAppComponent().getDataManager().setLoginState(false);
+                getAppComponent().getDataManager().setLoginAccount("");
+                getAppComponent().getDataManager().setLoginPassword("");
+            }
+        });
 
     }
 

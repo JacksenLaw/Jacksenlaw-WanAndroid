@@ -20,6 +20,7 @@ import com.jacksen.wanandroid.view.bean.todo.ViewTodoData;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -35,7 +36,8 @@ import javax.inject.Inject;
 public class TodoCreatePresenter extends BasePresenter<TodoCreateContract.View> implements TodoCreateContract.Presenter {
 
     private boolean isNewCreateTodo;
-    private String oldDate = SimpleDateFormat.getDateInstance(3, Locale.CHINA).format(System.currentTimeMillis()).replace("/", "-");
+    private String planDate;
+    private String completedDate = SimpleDateFormat.getDateInstance(3, Locale.CHINA).format(System.currentTimeMillis()).replace("/", "-");
     private int id;
     private String type = "1";
     private String priority = "1";
@@ -60,6 +62,7 @@ public class TodoCreatePresenter extends BasePresenter<TodoCreateContract.View> 
                     status = String.valueOf(bean.getStatus());
                     type = String.valueOf(bean.getType());
                     priority = String.valueOf(bean.getPriority());
+                    planDate = bean.getPlanDate();
                     getView().setTitleText(bean.getTitle());
                     getView().setContentText(bean.getContent());
                     getView().setDateText(bean.getPlanDate());
@@ -74,14 +77,20 @@ public class TodoCreatePresenter extends BasePresenter<TodoCreateContract.View> 
     }
 
     @Override
-    public void doSwitchDateClick() {
-        String[] births = oldDate.split("-");
+    public void doSwitchDateClick(String date) {
+        String[] births = date.split("-");
         String oldYear = births[0];
         String oldMonth = births[1];
         String oldDay = births[2];
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), 0, (view, selectYear, selectMonth, selectDayOfMonth) -> {
-            oldDate = selectYear + "-" + (selectMonth + 1) + "-" + selectDayOfMonth;
-            getView().setDateText(oldDate);
+            if (selectYear < Calendar.getInstance().get(Calendar.YEAR)
+                    || selectMonth < Calendar.getInstance().get(Calendar.MONTH)
+                    || selectDayOfMonth < Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) {
+                getView().showToast("只能选择今天以后的日期！");
+                return;
+            }
+            planDate = selectYear + "-" + (selectMonth + 1) + "-" + selectDayOfMonth;
+            getView().setDateText(planDate);
         }, Integer.parseInt(oldYear), Integer.parseInt(oldMonth) - 1, Integer.parseInt(oldDay));
         datePickerDialog.show();
     }
@@ -159,7 +168,7 @@ public class TodoCreatePresenter extends BasePresenter<TodoCreateContract.View> 
 
         if (isNewCreateTodo) {
             //新建todo
-            addSubscribe(dataManager.addNewTodo(title, content, oldDate, type, priority)
+            addSubscribe(dataManager.addNewTodo(title, content, planDate, type, priority)
 //                .filter(new Predicate<BaseResponse<NewTodoBean>>() {
 //                    @Override
 //                    public boolean test(BaseResponse<NewTodoBean> newTodoBeanBaseResponse) {
@@ -186,7 +195,7 @@ public class TodoCreatePresenter extends BasePresenter<TodoCreateContract.View> 
                     }));
         } else {
             //更新todo
-            addSubscribe(dataManager.updateTodo(id, title, content, oldDate, status, type, priority)
+            addSubscribe(dataManager.updateTodo(id, title, content, "1".equals(status) ? completedDate : planDate, status, type, priority)
                     .compose(RxUtils.rxSchedulerHelper())
                     .compose(RxUtils.handleResult())
                     .doOnSubscribe(disposable -> dialog = MaterialDialogUtils.showIndeterminateProgressDialog(getActivity(), "请稍等...", true).show())

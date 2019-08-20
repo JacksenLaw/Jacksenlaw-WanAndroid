@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.app.WanAndroidApp;
@@ -42,20 +43,16 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
         turnType = getActivity().getIntent().getStringExtra(Constants.TURN_TYPE);
     }
 
+    @Login
     @Override
     public void doCollectEvent(CharSequence title, boolean isCollectPage, int articleId) {
-        if (!getLoginState()) {
-            getView().showToast(getActivity().getString(R.string.login_tint));
-            getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
+        if (title.equals(getActivity().getString(R.string.collect))) {
+            addCollectArticle(articleId);
         } else {
-            if (title.equals(getActivity().getString(R.string.collect))) {
-                addCollectArticle(articleId);
+            if (isCollectPage) {
+                cancelCollectPageArticle(articleId);
             } else {
-                if (isCollectPage) {
-                    cancelCollectPageArticle(articleId);
-                } else {
-                    cancelCollectArticle(articleId);
-                }
+                cancelCollectArticle(articleId);
             }
         }
     }
@@ -112,7 +109,7 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
                     @Override
                     public void onNext(FeedArticleListBean feedArticleListData) {
                         getView().showCollectArticleData(true);
-                        LiveDataBus.get().with(BusConstant.COLLECT).postValue(new Collect(turnType,true));
+                        LiveDataBus.get().with(BusConstant.COLLECT).postValue(new Collect(turnType, true));
 //                        RxBus.getDefault().post(new Collect(turnType, true));
                     }
                 }));
@@ -132,7 +129,7 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
                     @Override
                     public void onNext(FeedArticleListBean feedArticleListData) {
                         getView().showCollectArticleData(false);
-                        LiveDataBus.get().with(BusConstant.COLLECT).postValue(new Collect(turnType,false));
+                        LiveDataBus.get().with(BusConstant.COLLECT).postValue(new Collect(turnType, false));
 //                        RxBus.getDefault().post(new Collect(turnType, false));
                     }
                 }));
@@ -151,7 +148,7 @@ public class ArticleDetailPresenter extends BasePresenter<ArticleDetailContract.
                     @Override
                     public void onNext(FeedArticleListBean feedArticleListData) {
                         getView().showCollectArticleData(false);
-                        LiveDataBus.get().with(BusConstant.COLLECT).postValue(new Collect(turnType,false));
+                        LiveDataBus.get().with(BusConstant.COLLECT).postValue(new Collect(turnType, false));
 //                        RxBus.getDefault().post(new Collect(turnType, false));
                     }
                 }));

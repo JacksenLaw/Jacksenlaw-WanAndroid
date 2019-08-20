@@ -1,5 +1,7 @@
 //设置app空壳始终是application模式
 apply plugin: 'com.android.application'
+//切面插件声明
+apply plugin: 'android-aspectjx'
 
 android {
     signingConfigs {
@@ -60,6 +62,8 @@ dependencies {
     implementation project(':linkage_recyclerview')
     //状态栏库
     implementation project(':status_bar_library')
+    //切面库
+    implementation project(':aspectj')
 
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["cardview-v7"]
@@ -123,6 +127,8 @@ dependencies {
     //PopupWindow
 //    implementation rootProject.ext.dependencies["BasePopup"]
 //    implementation rootProject.ext.dependencies["BasePopup-lifecycle"]
+
+//    implementation rootProject.ext.dependencies["aspectj"]
 
 
     //di

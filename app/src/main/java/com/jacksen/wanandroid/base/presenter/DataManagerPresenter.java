@@ -68,8 +68,8 @@ public abstract class DataManagerPresenter<T extends AbstractView> implements Ab
      *
      * @return if is login
      */
-    public boolean getLoginState() {
-        return dataManager.getLoginState();
+    public boolean isLogin() {
+        return dataManager.isLogin();
     }
 
     /**

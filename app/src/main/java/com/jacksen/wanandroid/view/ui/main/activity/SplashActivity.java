@@ -3,8 +3,10 @@ package com.jacksen.wanandroid.view.ui.main.activity;
 import android.animation.Animator;
 import android.os.Build;
 import android.view.View;
+import android.widget.Button;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.presenter.splash.SplashContract;
@@ -21,26 +23,28 @@ import butterknife.BindView;
  */
 public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View {
 
-    @BindView(R.id.one_animation)
-    LottieAnimationView mOneAnimation;
-    @BindView(R.id.two_animation)
-    LottieAnimationView mTwoAnimation;
-    @BindView(R.id.three_animation)
-    LottieAnimationView mThreeAnimation;
-    @BindView(R.id.four_animation)
-    LottieAnimationView mFourAnimation;
-    @BindView(R.id.five_animation)
-    LottieAnimationView mFiveAnimation;
-    @BindView(R.id.six_animation)
-    LottieAnimationView mSixAnimation;
-    @BindView(R.id.seven_animation)
-    LottieAnimationView mSevenAnimation;
-    @BindView(R.id.eight_animation)
-    LottieAnimationView mEightAnimation;
-    @BindView(R.id.nine_animation)
-    LottieAnimationView mNineAnimation;
-    @BindView(R.id.ten_animation)
-    LottieAnimationView mTenAnimation;
+//    @BindView(R.id.one_animation)
+//    LottieAnimationView mOneAnimation;
+//    @BindView(R.id.two_animation)
+//    LottieAnimationView mTwoAnimation;
+//    @BindView(R.id.three_animation)
+//    LottieAnimationView mThreeAnimation;
+//    @BindView(R.id.four_animation)
+//    LottieAnimationView mFourAnimation;
+//    @BindView(R.id.five_animation)
+//    LottieAnimationView mFiveAnimation;
+//    @BindView(R.id.six_animation)
+//    LottieAnimationView mSixAnimation;
+//    @BindView(R.id.seven_animation)
+//    LottieAnimationView mSevenAnimation;
+//    @BindView(R.id.eight_animation)
+//    LottieAnimationView mEightAnimation;
+//    @BindView(R.id.nine_animation)
+//    LottieAnimationView mNineAnimation;
+//    @BindView(R.id.ten_animation)
+//    LottieAnimationView mTenAnimation;
+//    @BindView(R.id.login)
+//    Button login;
 
     @Override
     protected int getLayoutId() {
@@ -65,8 +69,18 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     protected void initListener() {
-
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                login();
+//            }
+//        });
     }
+
+//    @Login
+//    private void login(){
+//        showToast("已登录");
+//    }
 
     @Override
     protected void initEventAndData() {
@@ -80,21 +94,19 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 //        startAnimation(mEightAnimation, "anim_splash/O.json");
 //        startAnimation(mNineAnimation, "anim_splash/I.json");
 //        startAnimation(mTenAnimation, "anim_splash/D.json");
-        addAnimatorListener(mOneAnimation, mTwoAnimation, mThreeAnimation, mFourAnimation, mFiveAnimation,
-                mSixAnimation, mSevenAnimation, mEightAnimation, mNineAnimation, mTenAnimation);
     }
 
     private void cancelAnimation() {
-        cancelAnimation(mOneAnimation);
-        cancelAnimation(mTwoAnimation);
-        cancelAnimation(mThreeAnimation);
-        cancelAnimation(mFourAnimation);
-        cancelAnimation(mFiveAnimation);
-        cancelAnimation(mSixAnimation);
-        cancelAnimation(mSevenAnimation);
-        cancelAnimation(mEightAnimation);
-        cancelAnimation(mNineAnimation);
-        cancelAnimation(mTenAnimation);
+//        cancelAnimation(mOneAnimation);
+//        cancelAnimation(mTwoAnimation);
+//        cancelAnimation(mThreeAnimation);
+//        cancelAnimation(mFourAnimation);
+//        cancelAnimation(mFiveAnimation);
+//        cancelAnimation(mSixAnimation);
+//        cancelAnimation(mSevenAnimation);
+//        cancelAnimation(mEightAnimation);
+//        cancelAnimation(mNineAnimation);
+//        cancelAnimation(mTenAnimation);
     }
 
     private void startAnimation(LottieAnimationView mLottieAnimationView, String animationName) {

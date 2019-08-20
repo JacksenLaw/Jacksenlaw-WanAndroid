@@ -1,7 +1,5 @@
 package com.jacksen.wanandroid.presenter.search;
 
-import android.view.View;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jacksen.wanandroid.base.presenter.AbstractPresenter;
 import com.jacksen.wanandroid.base.view.AbstractView;

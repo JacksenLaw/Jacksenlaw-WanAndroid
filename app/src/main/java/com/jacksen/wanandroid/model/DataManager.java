@@ -1,6 +1,6 @@
 package com.jacksen.wanandroid.model;
 
-import com.jacksen.wanandroid.core.prefs.PreferenceImpl;
+import com.jacksen.wanandroid.core.prefs.PreferenceHelper;
 import com.jacksen.wanandroid.model.bean.base.BaseResponse;
 import com.jacksen.wanandroid.model.bean.db.HistorySearchData;
 import com.jacksen.wanandroid.model.bean.hierarchy.KnowledgeHierarchyData;
@@ -15,15 +15,14 @@ import com.jacksen.wanandroid.model.bean.project.ProjectClassifyListBean;
 import com.jacksen.wanandroid.model.bean.todo.NewTodoBean;
 import com.jacksen.wanandroid.model.bean.todo.TodoBean;
 import com.jacksen.wanandroid.model.bean.wx.WxAuthorBean;
-import com.jacksen.wanandroid.model.db.DbHelperImpl;
-import com.jacksen.wanandroid.model.http.HttpImpl;
+import com.jacksen.wanandroid.model.db.DbHelper;
+import com.jacksen.wanandroid.model.http.HttpHelper;
 import com.jacksen.wanandroid.view.bean.todo.FilterBean;
 
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
@@ -33,267 +32,267 @@ import okhttp3.ResponseBody;
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
-public class DataManager implements PreferenceImpl, DbHelperImpl, HttpImpl {
+public class DataManager implements PreferenceHelper, DbHelper, HttpHelper {
 
-    private PreferenceImpl mPreferenceHelperImpl;
-    private HttpImpl mHttpImpl;
-    private DbHelperImpl mDbHelperImpl;
+    private PreferenceHelper mPreferenceHelper;
+    private HttpHelper mHttpHelper;
+    private DbHelper mDbDbHelper;
 
-    public DataManager(PreferenceImpl preferenceHelperImpl, HttpImpl httpImpl, DbHelperImpl dbHelperImpl) {
+    public DataManager(PreferenceHelper mPreferenceHelper, HttpHelper mHttpHelper, DbHelper mDbDbHelper) {
         super();
-        this.mPreferenceHelperImpl = preferenceHelperImpl;
-        this.mHttpImpl = httpImpl;
-        this.mDbHelperImpl = dbHelperImpl;
+        this.mPreferenceHelper = mPreferenceHelper;
+        this.mHttpHelper = mHttpHelper;
+        this.mDbDbHelper = mDbDbHelper;
     }
 
-    /* PreferenceHelper */
+    /* PreferenceImpl */
     @Override
     public void setLoginAccount(String account) {
-        mPreferenceHelperImpl.setLoginAccount(account);
+        mPreferenceHelper.setLoginAccount(account);
     }
 
     @Override
     public String getLoginAccount() {
-        return mPreferenceHelperImpl.getLoginAccount();
+        return mPreferenceHelper.getLoginAccount();
     }
 
     @Override
     public void setLoginPassword(String password) {
-        mPreferenceHelperImpl.setLoginPassword(password);
+        mPreferenceHelper.setLoginPassword(password);
     }
 
 
     @Override
     public String getLoginPassword() {
-        return mPreferenceHelperImpl.getLoginPassword();
+        return mPreferenceHelper.getLoginPassword();
     }
 
     @Override
     public void setLoginState(boolean isLogin) {
-        mPreferenceHelperImpl.setLoginState(isLogin);
+        mPreferenceHelper.setLoginState(isLogin);
     }
 
     @Override
-    public boolean getLoginState() {
-        return mPreferenceHelperImpl.getLoginState();
+    public boolean isLogin() {
+        return mPreferenceHelper.isLogin();
     }
 
     @Override
     public void setCookie(String domain, String cookie) {
-        mPreferenceHelperImpl.setCookie(domain, cookie);
+        mPreferenceHelper.setCookie(domain, cookie);
     }
 
     @Override
     public String getCookie(String domain) {
-        return mPreferenceHelperImpl.getCookie(domain);
+        return mPreferenceHelper.getCookie(domain);
     }
 
     @Override
     public void setCurrentPage(int position) {
-        mPreferenceHelperImpl.setCurrentPage(position);
+        mPreferenceHelper.setCurrentPage(position);
     }
 
     @Override
     public int getCurrentPage() {
-        return mPreferenceHelperImpl.getCurrentPage();
+        return mPreferenceHelper.getCurrentPage();
     }
 
     @Override
     public int getProjectCurrentPage() {
-        return mPreferenceHelperImpl.getProjectCurrentPage();
+        return mPreferenceHelper.getProjectCurrentPage();
     }
 
 
     @Override
     public void setProjectCurrentPage(int position) {
-        mPreferenceHelperImpl.setProjectCurrentPage(position);
+        mPreferenceHelper.setProjectCurrentPage(position);
     }
 
     @Override
     public void setNoCacheModel(boolean b) {
-        mPreferenceHelperImpl.setNoCacheModel(b);
+        mPreferenceHelper.setNoCacheModel(b);
     }
 
     @Override
     public boolean isNoCacheModel() {
-        return mPreferenceHelperImpl.isNoCacheModel();
+        return mPreferenceHelper.isNoCacheModel();
     }
 
     @Override
     public void setNoImageModel(boolean b) {
-        mPreferenceHelperImpl.setNoImageModel(b);
+        mPreferenceHelper.setNoImageModel(b);
     }
 
     @Override
     public boolean isNoImageModel() {
-        return mPreferenceHelperImpl.isNoImageModel();
+        return mPreferenceHelper.isNoImageModel();
     }
 
     @Override
     public void setNightMode(boolean nightModel) {
-        mPreferenceHelperImpl.setNightMode(nightModel);
+        mPreferenceHelper.setNightMode(nightModel);
     }
 
     @Override
     public boolean isNightMode() {
-        return mPreferenceHelperImpl.isNightMode();
+        return mPreferenceHelper.isNightMode();
     }
 
-    /* PreferenceHelper */
+    /* PreferenceImpl */
 
-    /* DbHelperImpl */
+    /* DbHelper */
     @Override
     public List<HistorySearchData> addHistoryData(String data) {
-        return mDbHelperImpl.addHistoryData(data);
+        return mDbDbHelper.addHistoryData(data);
     }
 
     @Override
     public List<HistorySearchData> loadAllHistoryData() {
-        return mDbHelperImpl.loadAllHistoryData();
+        return mDbDbHelper.loadAllHistoryData();
     }
 
     @Override
     public void clearHistoryData() {
-        mDbHelperImpl.clearHistoryData();
+        mDbDbHelper.clearHistoryData();
     }
-    /* DbHelperImpl */
+    /* DbHelper */
 
 
-    /* HttpImpl */
+    /* HttpHelper */
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getFeedArticleList(int pageNum) {
-        return mHttpImpl.getFeedArticleList(pageNum);
+        return mHttpHelper.getFeedArticleList(pageNum);
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getSearchList(int pageNum, String k) {
-        return mHttpImpl.getSearchList(pageNum, k);
+        return mHttpHelper.getSearchList(pageNum, k);
     }
 
     @Override
     public Observable<BaseResponse<List<TopSearchBean>>> getTopSearchData() {
-        return mHttpImpl.getTopSearchData();
+        return mHttpHelper.getTopSearchData();
     }
 
     @Override
     public Observable<BaseResponse<List<UsefulSiteBean>>> getUsefulSites() {
-        return mHttpImpl.getUsefulSites();
+        return mHttpHelper.getUsefulSites();
     }
 
     @Override
     public Observable<BaseResponse<List<KnowledgeHierarchyData>>> getKnowledgeHierarchyData() {
-        return mHttpImpl.getKnowledgeHierarchyData();
+        return mHttpHelper.getKnowledgeHierarchyData();
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getKnowledgeHierarchyDetailData(int page, int cid) {
-        return mHttpImpl.getKnowledgeHierarchyDetailData(page, cid);
+        return mHttpHelper.getKnowledgeHierarchyDetailData(page, cid);
     }
 
     @Override
     public Observable<BaseResponse<ProjectClassifyListBean>> getProjectListData(int page, int cid) {
-        return mHttpImpl.getProjectListData(page, cid);
+        return mHttpHelper.getProjectListData(page, cid);
     }
 
     @Override
     public Observable<BaseResponse<List<ProjectClassifyBean>>> getProjectClassifyData() {
-        return mHttpImpl.getProjectClassifyData();
+        return mHttpHelper.getProjectClassifyData();
     }
 
     @Override
     public Observable<BaseResponse<List<NavigationListBean>>> getNavigationListData() {
-        return mHttpImpl.getNavigationListData();
+        return mHttpHelper.getNavigationListData();
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> addCollectOutsideArticle(String title, String author, String link) {
-        return mHttpImpl.addCollectOutsideArticle(title, author, link);
+        return mHttpHelper.addCollectOutsideArticle(title, author, link);
     }
 
     @Override
     public Observable<BaseResponse<List<WxAuthorBean>>> getWxAuthorListData() {
-        return mHttpImpl.getWxAuthorListData();
+        return mHttpHelper.getWxAuthorListData();
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getWxSumData(int id, int page) {
-        return mHttpImpl.getWxSumData(id, page);
+        return mHttpHelper.getWxSumData(id, page);
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getWxSearchSumData(int id, int page, String k) {
-        return mHttpImpl.getWxSearchSumData(id, page, k);
+        return mHttpHelper.getWxSearchSumData(id, page, k);
     }
 
     @Override
     public Observable<BaseResponse<LoginBean>> getLoginData(String username, String password) {
-        return mHttpImpl.getLoginData(username, password);
+        return mHttpHelper.getLoginData(username, password);
     }
 
     @Override
     public Observable<BaseResponse<LoginBean>> getRegisterData(String username, String password, String rePassword) {
-        return mHttpImpl.getRegisterData(username, password, rePassword);
+        return mHttpHelper.getRegisterData(username, password, rePassword);
     }
 
     @Override
     public Observable<BaseResponse<LoginBean>> logout() {
-        return mHttpImpl.logout();
+        return mHttpHelper.logout();
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> addCollectArticle(int id) {
-        return mHttpImpl.addCollectArticle(id);
+        return mHttpHelper.addCollectArticle(id);
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> getCollectList(int page) {
-        return mHttpImpl.getCollectList(page);
+        return mHttpHelper.getCollectList(page);
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> cancelCollectPageArticle(int id) {
-        return mHttpImpl.cancelCollectPageArticle(id);
+        return mHttpHelper.cancelCollectPageArticle(id);
     }
 
     @Override
     public Observable<BaseResponse<FeedArticleListBean>> cancelCollectArticle(int id) {
-        return mHttpImpl.cancelCollectArticle(id);
+        return mHttpHelper.cancelCollectArticle(id);
     }
 
     @Override
     public Observable<BaseResponse<List<BannerBean>>> getBannerData() {
-        return mHttpImpl.getBannerData();
+        return mHttpHelper.getBannerData();
     }
 
     @Override
     public Observable<BaseResponse<TodoBean>> getTodoData(int pageNo, Map<String, String> params) {
-        return mHttpImpl.getTodoData(pageNo, params);
+        return mHttpHelper.getTodoData(pageNo, params);
     }
 
     @Override
     public Observable<BaseResponse<NewTodoBean>> addNewTodo(String title, String content, String date, String type, String priority) {
-        return mHttpImpl.addNewTodo(title, content, date, type, priority);
+        return mHttpHelper.addNewTodo(title, content, date, type, priority);
     }
 
     @Override
     public Observable<BaseResponse<TodoBean>> updateTodo(int id, String title, String content, String date, String status, String type, String priority) {
-        return mHttpImpl.updateTodo(id, title, content, date, status, type, priority);
+        return mHttpHelper.updateTodo(id, title, content, date, status, type, priority);
     }
 
     @Override
     public Observable<ResponseBody> deleteTodo(int id) {
-        return mHttpImpl.deleteTodo(id);
+        return mHttpHelper.deleteTodo(id);
     }
 
     @Override
     public Observable<BaseResponse<TodoBean>> updateOnlyStatusTodo(int id, String status) {
-        return mHttpImpl.updateOnlyStatusTodo(id, status);
+        return mHttpHelper.updateOnlyStatusTodo(id, status);
     }
 
     @Override
     public Observable<List<FilterBean>> getFilterData() {
-        return mHttpImpl.getFilterData();
+        return mHttpHelper.getFilterData();
     }
 
-    /* HttpImpl */
+    /* HttpHelper */
 }

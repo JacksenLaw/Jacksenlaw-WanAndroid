@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
@@ -133,13 +134,9 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
                 false, BusConstant.SEARCH_LIST_ACTIVITY);
     }
 
+    @Login
     @Override
     public void doCollectClick(BaseQuickAdapter adapter, int position) {
-        if (!getLoginState()) {
-            getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
-            getView().showToast(getActivity().getString(R.string.login_tint));
-            return;
-        }
         if (adapter.getData().size() <= 0 || adapter.getData().size() <= position) {
             return;
         }

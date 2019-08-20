@@ -1,139 +1,118 @@
 package com.jacksen.wanandroid.core.prefs;
 
+import com.jacksen.wanandroid.app.Constants;
+
+import javax.inject.Inject;
+
 /**
  * 作者： LuoM
  * 时间： 2019/3/29 0029
- * 描述： 本地存储
+ * 描述： PreferenceHelper 的实现
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
-public interface PreferenceImpl {
+public class PreferenceImpl implements PreferenceHelper {
 
-    /**
-     * Set login account
-     *
-     * @param account Account
-     */
-    void setLoginAccount(String account);
+    private PreferenceUtils mPreferences;
 
-    /**
-     * Set login password
-     *
-     * @param password Password
-     */
-    void setLoginPassword(String password);
+    @Inject
+    public PreferenceImpl() {
+        if (mPreferences == null) {
+//            mPreferences = new SPUtils(Constants.MY_SHARED_PREFERENCE);
+            mPreferences = PreferenceUtils.getInstance();
+            //WanAndroidApp.getInstance().getSharedPreferences(Constants.MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        }
+    }
 
-    /**
-     * Get login account
-     *
-     * @return account
-     */
-    String getLoginAccount();
+    @Override
+    public void setLoginAccount(String account) {
+        mPreferences.putString(Constants.ACCOUNT, account, PreferenceUtils.TIME_DAY * 7);
+    }
 
-    /**
-     * Get login password
-     *
-     * @return password
-     */
-    String getLoginPassword();
+    @Override
+    public String getLoginAccount() {
+        return mPreferences.getString(Constants.ACCOUNT, "");
+    }
 
-    /**
-     * Set login status
-     *
-     * @param isLogin IsLogin
-     */
-    void setLoginState(boolean isLogin);
+    @Override
+    public void setLoginPassword(String password) {
+        mPreferences.putString(Constants.PASSWORD, password, PreferenceUtils.TIME_DAY * 7);
+    }
 
-    /**
-     * Get login status
-     *
-     * @return login status
-     */
-    boolean getLoginState();
+    @Override
+    public String getLoginPassword() {
+        return mPreferences.getString(Constants.PASSWORD, "");
+    }
 
-    /**
-     * Set cookie
-     *
-     * @param domain Domain
-     * @param cookie Cookie
-     */
-    void setCookie(String domain, String cookie);
+    @Override
+    public void setLoginState(boolean isLogin) {
+        mPreferences.putBoolean(Constants.LOGIN_STATUS, isLogin, PreferenceUtils.TIME_DAY * 7);
+    }
 
-    /**
-     * Get cookie
-     *
-     * @param domain Domain
-     * @return cookie
-     */
-    String getCookie(String domain);
+    @Override
+    public boolean isLogin() {
+        return mPreferences.getBoolean(Constants.LOGIN_STATUS, false);
+    }
 
-    /**
-     * Set current page
-     *
-     * @param position Position
-     */
-    void setCurrentPage(int position);
+    @Override
+    public void setCookie(String domain, String cookie) {
+        mPreferences.putString(domain, cookie);
+    }
 
-    /**
-     * Get current page
-     *
-     * @return current page
-     */
-    int getCurrentPage();
+    @Override
+    public String getCookie(String domain) {
+        return mPreferences.getString(Constants.COOKIE, "");
+    }
 
-    /**
-     * Set project current page
-     *
-     * @param position Position
-     */
-    void setProjectCurrentPage(int position);
+    @Override
+    public void setCurrentPage(int position) {
+        mPreferences.putInt(Constants.CURRENT_PAGE, position);
+    }
 
-    /**
-     * Get project current page
-     *
-     * @return current page
-     */
-    int getProjectCurrentPage();
+    @Override
+    public int getCurrentPage() {
+        return mPreferences.getInt(Constants.CURRENT_PAGE, 0);
+    }
 
-    /**
-     * 获取自动缓存
-     * @return boolean
-     */
-    boolean isNoCacheModel();
+    @Override
+    public void setProjectCurrentPage(int position) {
+        mPreferences.putInt(Constants.PROJECT_CURRENT_PAGE, position);
+    }
 
-    /**
-     * Get no image state
-     *
-     * @return if has image state
-     */
-    boolean isNoImageModel();
+    @Override
+    public int getProjectCurrentPage() {
+        return mPreferences.getInt(Constants.PROJECT_CURRENT_PAGE, 0);
+    }
 
-    /**
-     * Get night mode state
-     *
-     * @return if is night mode
-     */
-    boolean isNightMode();
+    @Override
+    public boolean isNoCacheModel() {
+        return mPreferences.getBoolean(Constants.AUTO_CACHE_STATE, true);
+    }
 
-    /**
-     * Set night mode state
-     *
-     * @param b current night mode state
-     */
-    void setNightMode(boolean b);
+    @Override
+    public boolean isNoImageModel() {
+        return mPreferences.getBoolean(Constants.NO_IMAGE_STATE, false);
+    }
 
-    /**
-     * Set no image state
-     *
-     * @param b current no image state
-     */
-    void setNoImageModel(boolean b);
+    @Override
+    public boolean isNightMode() {
+        return mPreferences.getBoolean(Constants.NIGHT_MODE_STATE, false);
+    }
 
-    /**
-     * Set auto cache state
-     *
-     * @param b current auto cache state
-     */
-    void setNoCacheModel(boolean b);
+    @Override
+    public void setNightMode(boolean nightModel) {
+        mPreferences.putBoolean(Constants.NIGHT_MODE_STATE, nightModel);
+    }
+
+    @Override
+    public void setNoImageModel(boolean b) {
+        mPreferences.putBoolean(Constants.NO_IMAGE_STATE, b);
+    }
+
+    @Override
+    public void setNoCacheModel(boolean b) {
+        mPreferences.putBoolean(Constants.AUTO_CACHE_STATE, b);
+    }
+
 
 }

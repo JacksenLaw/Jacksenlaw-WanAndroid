@@ -47,8 +47,10 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
         //每个继承此类的activity必须要有对应的@Module注解的类 ， 否则报错：java.lang.IllegalArgumentException: No injector factory bound for Class<XXX.class>
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+        //设置是否可滑动
         setSwipeBackEnable(getSwipeBackEnable());
-        setEdgeLevel(200);
+        //设置滑动返回可触发的距离
+        setEdgeLevel(100);
     }
 
     @CallSuper

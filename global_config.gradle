@@ -7,8 +7,8 @@ ext {
             buildToolsVersion    : "28.0.3",
             minSdkVersion        : 19,
             targetSdkVersion     : 28,
-            versionCode          : 4,
-            versionName          : "1.0.4",
+            versionCode          : 5,
+            versionName          : "1.0.5",
             renderscriptTargetApi: 21
     ]
 
@@ -106,5 +106,7 @@ ext {
             //BasePopup lifecycle支持库（如自动适配Activity/Fragment生命期dismiss/回收等）
             "BasePopup-lifecycle"          : "com.github.razerdp:BasePopup-compat-lifecycle:2.2.1",
 
+            //切面aop
+            "aspectj"                 : "org.aspectj:aspectjrt:1.8.9",
     ]
 }

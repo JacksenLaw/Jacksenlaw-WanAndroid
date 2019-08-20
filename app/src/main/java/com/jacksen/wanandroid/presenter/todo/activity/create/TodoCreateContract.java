@@ -62,7 +62,7 @@ public class TodoCreateContract {
         /**
          * 选择时间
          */
-        void doSwitchDateClick();
+        void doSwitchDateClick(String date);
 
         /**
          * 选择类型

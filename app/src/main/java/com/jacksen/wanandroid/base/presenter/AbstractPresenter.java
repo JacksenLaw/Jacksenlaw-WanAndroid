@@ -83,7 +83,7 @@ public interface AbstractPresenter<T extends AbstractView> extends LifecycleOwne
      *
      * @return if is login
      */
-    boolean getLoginState();
+    boolean isLogin();
 
     /**
      * 设置无图模式

@@ -78,8 +78,9 @@ public class HttpLoggingInterceptor implements Interceptor {
 
         KLog.i(
                 "收到响应: code:" + response.code()
-                + "\n请求url："+response.request().url()
-                + "\n请求body：" + body
+                        + "\n请求url：" + response.request().url()
+                        + "\n请求body：" + body
+                        + "\n请求header：" + response.headers().toString()
                         + "\nResponse: " + rBody);
 
         return response;

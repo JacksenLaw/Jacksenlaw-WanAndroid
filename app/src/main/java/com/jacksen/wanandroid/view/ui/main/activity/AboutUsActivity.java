@@ -171,7 +171,7 @@ public class AboutUsActivity extends BaseActivity<AboutUsPresenter> implements A
         mAboutContent.setMovementMethod(LinkMovementMethod.getInstance());
         try {
             String versionStr = getString(R.string.app_name)
-                    + " V" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+                    + "  v_" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             mAboutVersion.setText(versionStr);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

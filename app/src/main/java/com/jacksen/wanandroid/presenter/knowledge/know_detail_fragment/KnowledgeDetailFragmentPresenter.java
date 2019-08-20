@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
@@ -133,13 +134,9 @@ public class KnowledgeDetailFragmentPresenter extends BasePresenter<KnowledgeDet
                 }));
     }
 
+    @Login
     @Override
     public void doCollectClick(BaseQuickAdapter adapter, int position) {
-        if (!getLoginState()) {
-            getFragment().startActivity(new Intent(getFragment().getContext(), LoginActivity.class));
-            getView().showToast(getFragment().getString(R.string.login_tint));
-            return;
-        }
         if (adapter.getData().size() <= 0 || adapter.getData().size() <= position) {
             return;
         }

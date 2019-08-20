@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.jacksen.wanandroid.app.WanAndroidApp;
+import com.jacksen.wanandroid.util.KLog;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,7 +29,6 @@ import okhttp3.HttpUrl;
 
 public class PersistentCookieStore {
 
-    private static final String LOG_TAG = "PersistentCookieStore";
     private static final String COOKIE_PREFS = "Cookies_Prefs";
     private final Map<String, ConcurrentHashMap<String, Cookie>> cookies;
     private final SharedPreferences cookiePrefs;
@@ -139,7 +139,7 @@ public class PersistentCookieStore {
             ObjectOutputStream outputStream = new ObjectOutputStream(os);
             outputStream.writeObject(cookie);
         } catch (IOException e) {
-            Log.d(LOG_TAG, "IOException in encodeCookie", e);
+            KLog.e("IOException in encodeCookie", e);
             return null;
         }
 
@@ -160,9 +160,9 @@ public class PersistentCookieStore {
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
             cookie = ((OkHttpCookies) objectInputStream.readObject()).getCookies();
         } catch (IOException e) {
-            Log.d(LOG_TAG, "IOException in decodeCookie", e);
+            KLog.e("IOException in decodeCookie", e);
         } catch (ClassNotFoundException e) {
-            Log.d(LOG_TAG, "ClassNotFoundException in decodeCookie", e);
+            KLog.e("ClassNotFoundException in decodeCookie", e);
         }
 
         return cookie;
