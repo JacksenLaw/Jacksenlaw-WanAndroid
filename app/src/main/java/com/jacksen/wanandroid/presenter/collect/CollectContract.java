@@ -29,6 +29,11 @@ public class CollectContract {
          * 设置夜间模式后，通知更新列表的收藏图片颜色
          */
         void setNightModel();
+
+        /**
+         * 滚动
+         */
+        void scrollToTop(int position);
     }
 
     interface Presenter extends AbstractPresenter<View> {

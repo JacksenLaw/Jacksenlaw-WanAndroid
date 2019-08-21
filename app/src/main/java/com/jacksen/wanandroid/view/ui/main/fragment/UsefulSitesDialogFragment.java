@@ -126,7 +126,7 @@ public class UsefulSitesDialogFragment extends BaseDialogFragment<UsefulPresente
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public View getView(FlowLayout parent, int position, ViewTextBean.ViewTextItem item) {
-                TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv,
+                TextView tv = (TextView) LayoutInflater.from(_mActivity).inflate(R.layout.flow_layout_tv,
                         parent, false);
                 assert item != null;
                 String name = item.getText();

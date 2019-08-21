@@ -98,7 +98,7 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
 
     @Override
     public View getRootView() {
-        return getActivity().getWindow().getDecorView();
+        return _mActivity.getWindow().getDecorView();
     }
 
     /**

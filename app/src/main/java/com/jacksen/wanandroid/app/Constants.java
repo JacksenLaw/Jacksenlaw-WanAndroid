@@ -99,11 +99,6 @@ public class Constants {
     public static final String ARTICLE_DATA = "article_data";
 
     /**
-     * Refresh theme color
-     */
-    public static final int BLUE_THEME = R.color.colorPrimary;
-
-    /**
      * Avoid double click time area
      */
     public static final long CLICK_TIME_AREA = 1000;

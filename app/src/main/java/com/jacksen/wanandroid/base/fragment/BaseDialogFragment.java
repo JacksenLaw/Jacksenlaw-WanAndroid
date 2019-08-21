@@ -1,5 +1,6 @@
 package com.jacksen.wanandroid.base.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -24,9 +25,12 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     @Inject
     protected T mPresenter;
 
+    protected Activity _mActivity;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        _mActivity = (Activity) context;
         AndroidSupportInjection.inject(this);
     }
 
@@ -70,19 +74,13 @@ public abstract class BaseDialogFragment<T extends AbstractPresenter> extends Ab
     }
 
     @Override
-    public void showToast( String message) {
-        if (getActivity() == null) {
-            return;
-        }
+    public void showToast(String message) {
         CommonUtils.showMessage(message);
     }
 
     @Override
-    public void showSnackBar(View view,String message) {
-        if (getActivity() == null) {
-            return;
-        }
-        CommonUtils.showSnackMessage(getActivity(), message);
+    public void showSnackBar(View view, String message) {
+        CommonUtils.showSnackMessage(view, message);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.jacksen.wanandroid.presenter.collect;
 
 import android.app.ActivityOptions;
-import android.arch.lifecycle.Observer;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -42,10 +40,6 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
     private int currentPosition;
     private List<ViewFeedArticleListData.ViewFeedArticleItem> mCollect = new ArrayList<>();
 
-    public int getCurrentPosition() {
-        return currentPosition;
-    }
-
     @Inject
     public CollectPresenter(DataManager dataManager) {
         super(dataManager);
@@ -56,19 +50,17 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.NIGHT_MODEL, Boolean.class)
-                .observe(this, aBoolean -> {
-                    getView().setNightModel();
-                });
+                .observe(this, aBoolean -> getView().setNightModel());
         LiveDataBus.get()
                 .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        if (BusConstant.COLLECT_PAGE.equals(collect.getType())) {
-                            getView().showCancelCollect(getCurrentPosition());
-                        }
+                .observe(this, collect -> {
+                    if (BusConstant.COLLECT_PAGE.equals(collect.getType())) {
+                        getView().showCancelCollect(currentPosition);
                     }
                 });
+        LiveDataBus.get()
+                .with(BusConstant.SCROLL_TO_COLLECT_PAGE, Integer.class)
+                .observe(this, integer -> getView().scrollToTop(integer));
     }
 
     @Override
@@ -129,11 +121,9 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
 
     @Override
     public void doItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
-
-        switch (view.getId()) {
-            case R.id.item_article_pager_like_iv://收藏
-                cancelCollectArticle(position, mCollect.get(position));
-                break;
+        //收藏
+        if (view.getId() == R.id.item_article_pager_like_iv) {
+            cancelCollectArticle(position, mCollect.get(position));
         }
 
     }

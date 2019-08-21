@@ -5,7 +5,6 @@ import android.os.PersistableBundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -25,7 +24,6 @@ import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.presenter.main.MainContract;
 import com.jacksen.wanandroid.presenter.main.MainPresenter;
-import com.jacksen.wanandroid.util.BottomNavUtil;
 import com.jacksen.wanandroid.util.KLog;
 import com.jacksen.wanandroid.view.ui.knowledge.fragment.KnowledgeFragment;
 import com.jacksen.wanandroid.view.ui.main.fragment.CollectFragment;
@@ -63,7 +61,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     FrameLayout mFrameGroup;
     private TextView mUserName;
 
-    private ArrayList<Fragment> mFragments;
+    private ArrayList<Fragment> mFragments = new ArrayList<>();
     private HomePageFragment mMainPagerFragment;
     private KnowledgeFragment mKnowledgeHierarchyFragment;
     private WxFragment mWxArticleFragment;
@@ -73,21 +71,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     //记录上一次打开的fragment，用来隐藏上次的fragment
     private int mLastFgIndex;
+    //记录打开收藏页面时上一次的页面
+    private int lastPage;
     //记录当前抽屉的点击,当抽屉完全关闭后根据此记录打开对应的activity页面
     private String currentLeftNavClick;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    public void onBackPressedSupport() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            pop();
-        } else {
-            ActivityCompat.finishAfterTransition(this);
-        }
     }
 
     @Override
@@ -99,7 +90,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initToolbar() {
-        StatusBarUtil.setColorForDrawerLayout(mActivity,mDrawerLayout,getStatusBarColor(),0);
+        StatusBarUtil.setColorForDrawerLayout(mActivity, mDrawerLayout, getStatusBarColor(), 0);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -112,20 +103,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
         super.onCreateView(savedInstanceState);
-        mFragments = new ArrayList<>();
-        init();
+        initNavigationView();
+        initBottomNavigationView();
+        initDrawerLayout();
         if (savedInstanceState == null) {
+            mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
             initPager(false, Constants.TYPE_MAIN_PAGER);
         } else {
             initPager(true, mPresenter.getCurrentPage());
         }
-    }
-
-    private void init() {
-        mPresenter.setCurrentPage(Constants.TYPE_MAIN_PAGER);
-        initNavigationView();
-        initBottomNavigationView();
-        initDrawerLayout();
     }
 
     private void initPager(boolean isRecreate, int position) {
@@ -158,11 +144,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mLeftNavigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_item_wan_android:
-                    startMainPager(mPresenter.getCurrentPage());
+                    startMainPager(lastPage);
                     setCurrentLeftNavClick(null);
                     break;
                 case R.id.nav_item_my_collect:
-                    startCollectFragment();
+                    lastPage = mPresenter.getCurrentPage();
+                    loadPager(getString(R.string.my_collect), 5, Constants.TYPE_COLLECT_PAGER);
                     setCurrentLeftNavClick(null);
                     break;
                 case R.id.nav_item_my_todo:
@@ -194,7 +181,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mBottomNavigationView.setVisibility(View.VISIBLE);
         switch (currentPager) {
             case Constants.TYPE_MAIN_PAGER:
-                loadPager(getString(R.string.home_pager), 0, Constants.TYPE_MAIN_PAGER);
+                mBottomNavigationView.setSelectedItemId(R.id.tab_main_pager);
                 break;
             case Constants.TYPE_KNOWLEDGE_PAGER:
                 mBottomNavigationView.setSelectedItemId(R.id.tab_knowledge_hierarchy);
@@ -211,15 +198,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
-    private void startCollectFragment() {
-        if (mPresenter.isLogin()) {
-            mTitleTv.setText(getString(R.string.my_collect));
-            switchFragment(Constants.TYPE_COLLECT_PAGER);
-        }
-    }
-
     private void initBottomNavigationView() {
-        BottomNavUtil.disableShiftMode(mBottomNavigationView);
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tab_main_pager:
@@ -316,10 +295,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      */
     private void switchFragment(int position) {
         if (position >= Constants.TYPE_COLLECT_PAGER) {
-            mFloatingActionButton.setVisibility(View.INVISIBLE);
-            mBottomNavigationView.setVisibility(View.INVISIBLE);
+            mBottomNavigationView.setVisibility(View.GONE);
         } else {
-            mFloatingActionButton.setVisibility(View.VISIBLE);
             mBottomNavigationView.setVisibility(View.VISIBLE);
         }
         if (position >= mFragments.size()) {
@@ -404,7 +381,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      * 只适合保存瞬态数据, 比如UI控件的状态, 成员变量的值等，而不应该用来保存持久化数据，
      * 持久化数据应该当用户离开当前的 activity时，在 onPause() 中保存（比如将数据保存到数据库或文件中）
      *
-     * @param outState outState
+     * @param outState           outState
      * @param outPersistentState outPersistentState
      */
     @Override

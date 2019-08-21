@@ -4,12 +4,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
@@ -40,8 +37,8 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
     RecyclerView mRecyclerView;
     @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
-    @BindView(R.id.collect_floating_action_btn)
-    FloatingActionButton mActionButton;
+//    @BindView(R.id.collect_floating_action_btn)
+//    FloatingActionButton mActionButton;
 
     private ArticleListAdapter mAdapter;
     private List<ViewFeedArticleListData.ViewFeedArticleItem> data;
@@ -81,7 +78,7 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
         mAdapter.setOnItemChildClickListener((adapter, view, position) ->
                 mPresenter.doItemChildClickListener(adapter, view, position));
 
-        mActionButton.setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
+//        mActionButton.setOnClickListener(v -> mRecyclerView.scrollToPosition(0));
     }
 
     @Override
@@ -151,6 +148,13 @@ public class CollectFragment extends BaseRootFragment<CollectPresenter> implemen
     public void setNightModel() {
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void scrollToTop(int position) {
+        if (mRecyclerView != null) {
+            mRecyclerView.scrollToPosition(0);
         }
     }
 }

@@ -74,7 +74,7 @@ public class TodoFragment extends BaseRootFragment<TodoFragPresenter>
     @Override
     protected void initOnCreateView() {
         mAdapter = new TodoAdapter(null);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(_mActivity, 2));
         mRecyclerView.setAdapter(mAdapter);
     }
 

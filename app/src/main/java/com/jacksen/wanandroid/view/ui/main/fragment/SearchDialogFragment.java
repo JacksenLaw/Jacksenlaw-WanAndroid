@@ -116,7 +116,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
                 }
                 if (isKeyboardShow) {
                     isKeyboardShow = false;
-                    KeyboardUtils.hideSoftInput(getActivity());
+                    KeyboardUtils.hideSoftInput(_mActivity);
                 }
             }
             return false;
@@ -125,7 +125,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                KeyboardUtils.hideSoftInput(getActivity());
+                KeyboardUtils.hideSoftInput(_mActivity);
             }
         });
     }
@@ -204,7 +204,7 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             mSearchEdit.setText(((List<HistorySearchData>) adapter.getData()).get(position).getData());
         });
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -224,13 +224,13 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
         mTopSearchFlowLayout.setAdapter(new TagAdapter<ViewTextBean.ViewTextItem>(items.getItems()) {
             @Override
             public View getView(FlowLayout parent, int position, ViewTextBean.ViewTextItem item) {
-                TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.flow_layout_tv,
+                TextView tv = (TextView) LayoutInflater.from(_mActivity).inflate(R.layout.flow_layout_tv,
                         parent, false);
                 assert item != null;
                 String name = item.getText();
                 tv.setText(name);
                 tv.setBackgroundColor(CommonUtils.randomTagColor());
-                tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+                tv.setTextColor(ContextCompat.getColor(_mActivity, R.color.white));
                 mTopSearchFlowLayout.setOnTagClickListener((view, position1, parent1) -> {
                     mSearchEdit.setText(items.getItems().get(position1).getText().trim());
                     mSearchEdit.setSelection(mSearchEdit.getText().length());
@@ -253,8 +253,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
     private void setHistoryTvStatus(int visibility, @ColorRes int textColor, @DrawableRes int clearDrawable) {
         Drawable drawable;
         mHistoryNullTintTv.setVisibility(visibility);
-        mClearAllHistoryTv.setTextColor(ContextCompat.getColor(getActivity(), textColor));
-        drawable = ContextCompat.getDrawable(getActivity(), clearDrawable);
+        mClearAllHistoryTv.setTextColor(ContextCompat.getColor(_mActivity, textColor));
+        drawable = ContextCompat.getDrawable(_mActivity, clearDrawable);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         mClearAllHistoryTv.setCompoundDrawables(drawable, null, null, null);
         mClearAllHistoryTv.setCompoundDrawablePadding(CommonUtils.dp2px(6));
@@ -262,8 +262,8 @@ public class SearchDialogFragment extends BaseDialogFragment<SearchPresenter> im
 
     @Override
     public void judgeToTheSearchListActivity() {
-        KeyboardUtils.hideSoftInput(getActivity());
+        KeyboardUtils.hideSoftInput(_mActivity);
         mCircularRevealAnim.hide(mSearchEdit, mRootView);
-        JudgeUtils.startSearchListActivity(getActivity(), mSearchEdit.getText().toString().trim());
+        JudgeUtils.startSearchListActivity(_mActivity, mSearchEdit.getText().toString().trim());
     }
 }

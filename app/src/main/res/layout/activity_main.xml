@@ -5,16 +5,16 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.main.activity.MainActivity"
     android:background="@color/layoutBackground"
     android:fitsSystemWindows="true"
+    tools:context=".view.ui.main.activity.MainActivity"
     tools:openDrawer="start">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -26,10 +26,10 @@
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
-            android:background="@color/rootBackground"
             android:id="@+id/fragment_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/rootBackground"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.FloatingActionButton
@@ -48,9 +48,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:elevation="@dimen/dp_16"
-            app:layout_behavior="@string/bye_burger_bottom_behavior"
             android:background="@color/layoutBackground"
+            app:elevation="@dimen/dp_16"
+            app:labelVisibilityMode="labeled"
+            app:layout_behavior="@string/bye_burger_bottom_behavior"
             app:menu="@menu/bottom_navigation_main" />
     </android.support.design.widget.CoordinatorLayout>
 
@@ -58,8 +59,8 @@
         android:id="@+id/nav_view"
         android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:background="@color/rootBackground"
         android:layout_gravity="start"
+        android:background="@color/rootBackground"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/nav_navigation" />

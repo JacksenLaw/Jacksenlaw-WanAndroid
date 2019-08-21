@@ -20,12 +20,12 @@ import dagger.android.support.AndroidSupportInjection;
 /**
  * 作者： LuoM
  * 时间： 2019/3/29 0029
- * 描述： MVP模式的BaseFragment
+ * 描述： MVP模式的BaseOnlyFragment,不需要onBackPressedSupport的拦截判断
  * 版本： v1.0.0
  * 更新： 本次修改内容
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseFilterFragment<T extends AbstractPresenter> extends AbstractSimpleFragment implements AbstractView {
+public abstract class BaseOnlyFragment<T extends AbstractPresenter> extends AbstractSimpleFragment implements AbstractView {
 
     @Inject
     protected T mPresenter;
@@ -95,6 +95,6 @@ public abstract class BaseFilterFragment<T extends AbstractPresenter> extends Ab
 
     @Override
     public View getRootView() {
-        return getActivity().getWindow().getDecorView();
+        return _mActivity.getWindow().getDecorView();
     }
 }

@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
-import com.jacksen.wanandroid.base.fragment.BaseFilterFragment;
+import com.jacksen.wanandroid.base.fragment.BaseOnlyFragment;
 import com.jacksen.wanandroid.presenter.todo.fragment.filter.FilterContract;
 import com.jacksen.wanandroid.presenter.todo.fragment.filter.FilterPresenter;
 import com.jacksen.wanandroid.view.bean.todo.FilterBean;
@@ -28,7 +28,7 @@ import butterknife.BindView;
  * 更新时间：2019/8/15/0015
  * 更新内容：
  */
-public class FilterFragment extends BaseFilterFragment<FilterPresenter> implements FilterContract.View {
+public class FilterFragment extends BaseOnlyFragment<FilterPresenter> implements FilterContract.View {
 
     @BindView(R.id.filter_recycler)
     RecyclerView mRecyclerView;
@@ -64,7 +64,7 @@ public class FilterFragment extends BaseFilterFragment<FilterPresenter> implemen
 
     private void initRecyclerView() {
         mAdapter = new FilterAdapter(null);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mRecyclerView.setAdapter(mAdapter);
     }
 

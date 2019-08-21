@@ -20,8 +20,6 @@ import java.util.Objects;
  */
 public class AppLifecycleCallback implements Application.ActivityLifecycleCallbacks {
 
-    private static final String TAG = "AppLifecycleCallback";
-
     private static final int APP_STATUS_UNKNOWN = -1;
     private static final int APP_STATUS_LIVE = 0;
 

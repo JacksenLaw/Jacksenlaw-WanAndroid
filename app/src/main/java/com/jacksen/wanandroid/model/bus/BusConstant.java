@@ -42,6 +42,8 @@ public class BusConstant {
     public static String SCROLL_TO_NAVI_PAGE = "scroll_to_navi_page";
     //项目
     public static String SCROLL_TO_PROJECT_PAGE = "scroll_to_project_page";
+    //收藏
+    public static String SCROLL_TO_COLLECT_PAGE = "scroll_to_collect_page";
 
     //登录状态
     public static final String LOGIN_STATE = "login_state";
