@@ -20,6 +20,7 @@ import com.jacksen.wanandroid.di.component.DaggerAppComponent;
 import com.jacksen.wanandroid.di.module.AppModule;
 import com.jacksen.wanandroid.di.module.HttpModule;
 import com.jacksen.wanandroid.util.CommonUtils;
+import com.jacksen.wanandroid.util.KLog;
 import com.jacksen.wanandroid.view.ui.main.activity.LoginActivity;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -98,19 +99,23 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
             public void login(Context applicationContext, int userDefine) {
                 switch (userDefine) {
                     case 0:
+                        KLog.i(userDefine);
                         CommonUtils.showMessage(getString(R.string.login_tint));
                         Intent intent = new Intent(applicationContext, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         break;
                     case 1:
+                        KLog.i(userDefine);
                         CommonUtils.showMessage(getString(R.string.login_tint));
                         break;
                     case 2:
+                        KLog.i(userDefine);
                         CommonUtils.showMessage(getString(R.string.login_tint));
 //                        new AlertDialog.Builder(MyApplication.this)...
                         break;
                     default:
+                        KLog.i(userDefine);
                         CommonUtils.showMessage(getString(R.string.login_tint));
                         break;
                 }

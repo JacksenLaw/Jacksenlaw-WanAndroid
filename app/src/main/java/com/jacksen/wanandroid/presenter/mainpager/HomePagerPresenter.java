@@ -64,9 +64,7 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.NIGHT_MODEL, Boolean.class)
-                .observe(this, aBoolean -> {
-                    getView().setNightModel();
-                });
+                .observe(this, aBoolean -> getView().setNightModel());
         LiveDataBus.get()
                 .with(BusConstant.SCROLL_TO_HOME_PAGE, Integer.class)
                 .observe(this, integer -> getView().scrollToTheTop(0));
@@ -298,7 +296,7 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
      * @return T
      */
     @SuppressWarnings("unchecked")
-    public static <T> T cast(Object object) {
+    private <T> T cast(Object object) {
         return (T) object;
     }
 }

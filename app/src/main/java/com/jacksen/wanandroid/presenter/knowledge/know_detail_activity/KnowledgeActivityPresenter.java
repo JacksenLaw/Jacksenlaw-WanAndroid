@@ -1,8 +1,6 @@
 package com.jacksen.wanandroid.presenter.knowledge.know_detail_activity;
 
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
@@ -38,20 +36,10 @@ public class KnowledgeActivityPresenter extends BasePresenter<KnowledgeActivityC
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.SWITCH_NAVIGATION_PAGE)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        getView().showSwitchNavigation();
-                    }
-                });
+                .observe(this, o -> getView().showSwitchNavigation());
         LiveDataBus.get()
                 .with(BusConstant.SWITCH_PROJECT_PAGE)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        getView().showSwitchProject();
-                    }
-                });
+                .observe(this, o -> getView().showSwitchProject());
     }
 
     @Override

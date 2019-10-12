@@ -1,10 +1,7 @@
 package com.jacksen.wanandroid.presenter.wx.list;
 
 import android.app.ActivityOptions;
-import android.arch.lifecycle.Observer;
-import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -23,7 +20,6 @@ import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
-import com.jacksen.wanandroid.view.ui.main.activity.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -47,10 +43,6 @@ public class WxListPresenter extends BasePresenter<WxListContract.View> implemen
     private int authorId;
     private String authorName;
 
-    public int getClickPosition() {
-        return clickPosition;
-    }
-
     public String getSearchHint() {
         return "搜索" + authorName + "公众号内更多干货";
     }
@@ -65,21 +57,13 @@ public class WxListPresenter extends BasePresenter<WxListContract.View> implemen
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.SCROLL_TO_WX_LIST_PAGE, Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        getView().scrollToTheTop(integer);
-                    }
-                });
+                .observe(this, integer -> getView().scrollToTheTop(integer));
         LiveDataBus.get()
                 .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.WX_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
-                            getView().onEventCollect(getClickPosition(), collect.isCollected());
-                        }
+                .observe(this, collect -> {
+                    //通知收藏图标改变颜色
+                    if (BusConstant.WX_PAGE.equals(collect.getType()) && clickPosition >= 0) {
+                        getView().onEventCollect(clickPosition, collect.isCollected());
                     }
                 });
     }

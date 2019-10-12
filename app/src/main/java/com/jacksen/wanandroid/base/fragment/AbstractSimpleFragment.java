@@ -7,9 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jacksen.wanandroid.R;
-import com.jacksen.wanandroid.util.CommonUtils;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 

@@ -1,8 +1,5 @@
 package com.jacksen.wanandroid.presenter.navi;
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
-
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
@@ -38,21 +35,13 @@ public class NavigationPresenter extends BasePresenter<NavigationContract.View> 
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.SCROLL_TO_NAVI_PAGE, Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        getView().scrollToTheTop(0);
-                    }
-                });
+                .observe(this, integer -> getView().scrollToTheTop(0));
 
         LiveDataBus.get()
                 .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        if (BusConstant.NAVI_PAGE.equals(collect.getType())) {
-                            getView().showCollect(collect.isCollected());
-                        }
+                .observe(this, collect -> {
+                    if (BusConstant.NAVI_PAGE.equals(collect.getType())) {
+                        getView().showCollect(collect.isCollected());
                     }
                 });
     }

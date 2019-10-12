@@ -3,6 +3,8 @@ package com.jacksen.wanandroid.util;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.jacksen.wanandroid.BuildConfig;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +17,7 @@ import org.json.JSONObject;
  */
 public class KLog {
 
-    private static boolean IS_SHOW_LOG = true;
+    private static boolean IS_SHOW_LOG = BuildConfig.DEBUG;
 
     private static final String DEFAULT_MESSAGE = "execute";
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");

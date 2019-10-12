@@ -1,9 +1,7 @@
 package com.jacksen.wanandroid.presenter.project.list;
 
 import android.app.ActivityOptions;
-import android.arch.lifecycle.Observer;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -55,21 +53,13 @@ public class ProjectListPresenter extends BasePresenter<ProjectListContract.View
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.SCROLL_TO_PROJECT_PAGE, Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        getView().scrollToTheTop(integer);
-                    }
-                });
+                .observe(this, integer -> getView().scrollToTheTop(integer));
         LiveDataBus.get()
                 .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.PROJECT_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
-                            getView().onEventCollect(getClickPosition(), collect.isCollected());
-                        }
+                .observe(this, collect -> {
+                    //通知收藏图标改变颜色
+                    if (BusConstant.PROJECT_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
+                        getView().onEventCollect(getClickPosition(), collect.isCollected());
                     }
                 });
     }

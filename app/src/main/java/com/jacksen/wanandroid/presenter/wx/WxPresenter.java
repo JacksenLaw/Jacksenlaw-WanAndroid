@@ -1,8 +1,5 @@
 package com.jacksen.wanandroid.presenter.wx;
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
-
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
@@ -36,13 +33,10 @@ public class WxPresenter extends BasePresenter<WxContract.View> implements WxCon
     public void injectEvent() {
         super.injectEvent();
         LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_WX_PAGE,Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        LiveDataBus.get().with(BusConstant.SCROLL_TO_WX_LIST_PAGE).postValue(integer);
-                    }
-                });
+                .with(BusConstant.SCROLL_TO_WX_PAGE, Integer.class)
+                .observe(this, integer ->
+                        LiveDataBus.get().with(BusConstant.SCROLL_TO_WX_LIST_PAGE).postValue(integer)
+                );
     }
 
     @Override
@@ -58,7 +52,7 @@ public class WxPresenter extends BasePresenter<WxContract.View> implements WxCon
                         ArrayList<ViewWxAuthorBean.ViewWxAuthorItemBean> itemBeans = new ArrayList<>();
                         for (WxAuthorBean wxAuthorBean : wxAuthorBeans) {
                             ViewWxAuthorBean.ViewWxAuthorItemBean itemBean = new ViewWxAuthorBean.ViewWxAuthorItemBean(
-                                    wxAuthorBean.getId(),wxAuthorBean.getName());
+                                    wxAuthorBean.getId(), wxAuthorBean.getName());
                             itemBeans.add(itemBean);
                         }
                         ViewWxAuthorBean viewWxAuthorBean = new ViewWxAuthorBean(itemBeans);

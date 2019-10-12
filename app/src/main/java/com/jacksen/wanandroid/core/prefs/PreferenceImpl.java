@@ -46,7 +46,7 @@ public class PreferenceImpl implements PreferenceHelper {
 
     @Override
     public void setLoginState(boolean isLogin) {
-        mPreferences.putBoolean(Constants.LOGIN_STATUS, isLogin, PreferenceUtils.TIME_SECOND * 7);
+        mPreferences.putBoolean(Constants.LOGIN_STATUS, isLogin, PreferenceUtils.TIME_DAY * 7);
     }
 
     @Override

@@ -1,10 +1,7 @@
 package com.jacksen.wanandroid.presenter.search;
 
 import android.app.ActivityOptions;
-import android.arch.lifecycle.Observer;
-import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -23,7 +20,6 @@ import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
-import com.jacksen.wanandroid.view.ui.main.activity.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -63,13 +59,10 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.SEARCH_LIST_ACTIVITY.equals(collect.getType()) && getClickPosition() >= 0) {
-                            getView().onEventCollect(getClickPosition(), collect.isCollected());
-                        }
+                .observe(this, collect -> {
+                    //通知收藏图标改变颜色
+                    if (BusConstant.SEARCH_LIST_ACTIVITY.equals(collect.getType()) && getClickPosition() >= 0) {
+                        getView().onEventCollect(getClickPosition(), collect.isCollected());
                     }
                 });
     }
@@ -162,7 +155,7 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
                     public void onNext(FeedArticleListBean feedArticleListData) {
                         feedArticleData.setCollect(true);
                         getView().onCollectArticleData(position, feedArticleData);
-                        getView().showSnackBar(getView().getRootView(),getActivity().getString(R.string.collect_success));
+                        getView().showSnackBar(getView().getRootView(), getActivity().getString(R.string.collect_success));
                     }
                 }));
     }
@@ -182,7 +175,7 @@ public class SearchListPresenter extends BasePresenter<SearchListContract.View> 
                     public void onNext(FeedArticleListBean feedArticleListData) {
                         feedArticleData.setCollect(false);
                         getView().onCollectArticleData(position, feedArticleData);
-                        getView().showSnackBar(getView().getRootView(),getActivity().getString(R.string.cancel_collect));
+                        getView().showSnackBar(getView().getRootView(), getActivity().getString(R.string.cancel_collect));
                     }
                 }));
     }

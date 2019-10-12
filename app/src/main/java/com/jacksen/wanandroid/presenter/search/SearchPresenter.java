@@ -1,7 +1,5 @@
 package com.jacksen.wanandroid.presenter.search;
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.jacksen.wanandroid.R;
@@ -44,12 +42,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         super.injectEvent();
         LiveDataBus.get()
                 .with(BusConstant.FINISH_SEARCH_ACTIVITY)
-                .observe(this, new Observer<Object>() {
-                    @Override
-                    public void onChanged(@Nullable Object o) {
-                        getActivity().finish();
-                    }
-                });
+                .observe(this, o -> getActivity().finish());
     }
 
     @Override
