@@ -14,6 +14,7 @@ import com.jacksen.wanandroid.base.presenter.AbstractPresenter;
 import com.jacksen.wanandroid.base.view.AbstractView;
 import com.jacksen.wanandroid.core.manager.PermissionManager;
 import com.jacksen.wanandroid.util.CommonUtils;
+import com.jacksen.wanandroid.util.KLog;
 import com.jacksen.wanandroid.view.ui.main.activity.SearchActivity;
 import com.jacksen.wanandroid.view.ui.main.activity.SearchListActivity;
 
@@ -118,7 +119,7 @@ public abstract class BaseActivity<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void reload() {
-
+        KLog.i("reload");
     }
 
     @Override

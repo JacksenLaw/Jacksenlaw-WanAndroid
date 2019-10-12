@@ -2,6 +2,7 @@ package com.jacksen.wanandroid.presenter.main;
 
 import android.support.v4.app.Fragment;
 
+import com.jacksen.wanandroid.base.fragment.BaseFragment;
 import com.jacksen.wanandroid.base.presenter.AbstractPresenter;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.base.view.AbstractView;
@@ -35,6 +36,11 @@ public interface MainContract {
          * 选择导航栏目
          */
         void selectNavigationTab();
+
+        /**
+         * 选择首页栏目
+         */
+        void selectMainTab();
 
         /**
          * 显示自动登录的view
@@ -85,5 +91,9 @@ public interface MainContract {
          */
         void jumpToTheTop(Fragment fragment);
 
+        /**
+         * 刷新对应的fragment
+         */
+        void reloadFragment(BaseFragment fragment);
     }
 }

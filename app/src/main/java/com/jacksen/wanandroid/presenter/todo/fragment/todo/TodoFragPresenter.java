@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
@@ -124,6 +125,7 @@ public class TodoFragPresenter extends BasePresenter<TodoFragContract.View> impl
     }
 
     @Override
+    @Login
     public void doDoneTodoClick(BaseQuickAdapter adapter, View view, int position) {
         MaterialDialogUtils.showBasicDialog(getFragment().getActivity(), getFragment().getString(R.string.todo_update_status_done))
                 .onNegative((dialog, which) -> dialog.dismiss())

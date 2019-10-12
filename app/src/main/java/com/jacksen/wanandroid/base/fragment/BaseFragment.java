@@ -83,7 +83,7 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
 
     @Override
     public void reload() {
-
+        KLog.i("reload");
     }
 
     @Override

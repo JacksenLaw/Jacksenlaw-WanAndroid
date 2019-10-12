@@ -6,6 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
@@ -120,6 +121,7 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
     }
 
     @Override
+    @Login
     public void doItemChildClickListener(BaseQuickAdapter adapter, View view, int position) {
         //收藏
         if (view.getId() == R.id.item_article_pager_like_iv) {

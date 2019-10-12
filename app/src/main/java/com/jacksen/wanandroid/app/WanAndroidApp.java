@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatDelegate;
 import com.blankj.utilcode.utils.Utils;
 import com.jacksen.aspectj.core.login.ILogin;
 import com.jacksen.aspectj.core.login.LoginSDK;
+import com.jacksen.wanandroid.BuildConfig;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.receiver.NetWorkBroadcastReceiver;
 import com.jacksen.wanandroid.base.lifecycle.AppLifecycleCallback;
@@ -87,11 +88,17 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
         LitePal.initialize(this);
 
+        initLoginSdk();
+
+    }
+
+    private void initLoginSdk() {
         LoginSDK.getInstance().init(this, new ILogin() {
             @Override
             public void login(Context applicationContext, int userDefine) {
                 switch (userDefine) {
                     case 0:
+                        CommonUtils.showMessage(getString(R.string.login_tint));
                         Intent intent = new Intent(applicationContext, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
@@ -100,6 +107,7 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
                         CommonUtils.showMessage(getString(R.string.login_tint));
                         break;
                     case 2:
+                        CommonUtils.showMessage(getString(R.string.login_tint));
 //                        new AlertDialog.Builder(MyApplication.this)...
                         break;
                     default:
@@ -120,14 +128,13 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
                 getAppComponent().getDataManager().setLoginPassword("");
             }
         });
-
     }
 
     private void initSkinConfig() {
         SkinManager.getInstance().init(this);
         SkinConfig.setCanChangeStatusColor(true);
         SkinConfig.setCanChangeFont(true);
-        SkinConfig.setDebug(true);
+        SkinConfig.setDebug(BuildConfig.DEBUG);
 //        SkinConfig.addSupportAttr("tabLayoutIndicator", new TabLayoutIndicatorAttr());
 //        SkinConfig.addSupportAttr("button", new RadioButtonAttr());
         SkinConfig.enableGlobalSkinApply();

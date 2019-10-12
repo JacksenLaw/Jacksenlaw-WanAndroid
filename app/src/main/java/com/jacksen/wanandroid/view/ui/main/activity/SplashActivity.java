@@ -3,16 +3,12 @@ package com.jacksen.wanandroid.view.ui.main.activity;
 import android.animation.Animator;
 import android.os.Build;
 import android.view.View;
-import android.widget.Button;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
 import com.jacksen.wanandroid.presenter.splash.SplashContract;
 import com.jacksen.wanandroid.presenter.splash.SplashPresenter;
-
-import butterknife.BindView;
 
 /**
  * 作者： LuoM
@@ -43,8 +39,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 //    LottieAnimationView mNineAnimation;
 //    @BindView(R.id.ten_animation)
 //    LottieAnimationView mTenAnimation;
-//    @BindView(R.id.login)
-//    Button login;
 
     @Override
     protected int getLayoutId() {
@@ -69,18 +63,8 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     protected void initListener() {
-//        login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                login();
-//            }
-//        });
     }
 
-//    @Login
-//    private void login(){
-//        showToast("已登录");
-//    }
 
     @Override
     protected void initEventAndData() {

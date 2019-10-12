@@ -9,9 +9,9 @@
     app:elevation="@dimen/dp_2"
     skin:enable="true"
     android:background="@color/colorPrimary"
-    app:layout_scrollFlags="scroll|enterAlways"
     app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
     app:popupTheme="@style/ToolbarPopupTheme">
+    <!--app:layout_scrollFlags="scroll|enterAlways"-->
 
     <TextView
         android:id="@+id/common_toolbar_title_tv"

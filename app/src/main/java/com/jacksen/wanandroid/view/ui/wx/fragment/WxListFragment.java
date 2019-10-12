@@ -20,12 +20,14 @@ import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
 import com.jacksen.wanandroid.presenter.wx.list.WxListContract;
 import com.jacksen.wanandroid.presenter.wx.list.WxListPresenter;
+import com.jacksen.wanandroid.util.KLog;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 import com.jacksen.wanandroid.view.ui.mainpager.adapter.ArticleListAdapter;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.wingsofts.byeburgernavigationview.ByeBurgerBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,11 +152,28 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
         );
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            /**
+             * recyclerView的滑动状态，
+             * @param recyclerView recyclerView
+             * @param newState 0：停止 1：慢速滑动 2:快速滑动
+             */
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 KeyboardUtils.hideSoftInput(_mActivity);
+//                if(newState > 100){
+//                    ByeBurgerBehavior.from(mToolbar).hide();
+//                }else{
+//
+//                }
             }
+
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                KLog.i("dx = " + dx + "    dy = " + dx);
+            }
+
+
         });
     }
 
@@ -166,7 +185,7 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
     }
 
     @Override
-    public void onCollectArticleData(int position,ViewFeedArticleListData.ViewFeedArticleItem feedArticleData) {
+    public void onCollectArticleData(int position, ViewFeedArticleListData.ViewFeedArticleItem feedArticleData) {
         mAdapter.setData(position, feedArticleData);
     }
 
@@ -214,7 +233,7 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
             }
         } else {
             mRecyclerView.setVisibility(View.INVISIBLE);
-            showSnackBar(getRootView(),getString(R.string.load_more_no_data_ganhuo));
+            showSnackBar(getRootView(), getString(R.string.load_more_no_data_ganhuo));
         }
     }
 

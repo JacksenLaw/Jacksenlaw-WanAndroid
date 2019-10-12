@@ -1,11 +1,8 @@
 package com.jacksen.wanandroid.presenter.mainpager;
 
 import android.app.ActivityOptions;
-import android.arch.lifecycle.Observer;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
@@ -26,10 +23,10 @@ import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
+import com.jacksen.wanandroid.model.http.cookies.CookiesManager;
 import com.jacksen.wanandroid.util.JudgeUtils;
 import com.jacksen.wanandroid.view.bean.main.ViewBannerData;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
-import com.jacksen.wanandroid.view.ui.main.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,21 +69,13 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
                 });
         LiveDataBus.get()
                 .with(BusConstant.SCROLL_TO_HOME_PAGE, Integer.class)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer integer) {
-                        getView().scrollToTheTop(0);
-                    }
-                });
+                .observe(this, integer -> getView().scrollToTheTop(0));
         LiveDataBus.get()
                 .with(BusConstant.COLLECT, Collect.class)
-                .observe(this, new Observer<Collect>() {
-                    @Override
-                    public void onChanged(@Nullable Collect collect) {
-                        //通知收藏图标改变颜色
-                        if (BusConstant.HOME_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
-                            getView().onEventCollect(getClickPosition(), collect.isCollected());
-                        }
+                .observe(this, collect -> {
+                    //通知收藏图标改变颜色
+                    if (BusConstant.HOME_PAGE.equals(collect.getType()) && getClickPosition() >= 0) {
+                        getView().onEventCollect(getClickPosition(), collect.isCollected());
                     }
                 });
     }
@@ -94,11 +83,6 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
     @Login
     @Override
     public void doCollectClick(BaseQuickAdapter adapter, int position) {
-//        if (!isLogin()) {
-//            getFragment().startActivity(new Intent(getFragment().getContext(), LoginActivity.class));
-//            getView().showToast(getFragment().getString(R.string.login_tint));
-//            return;
-//        }
         if (adapter.getData().size() <= 0 || adapter.getData().size() <= position) {
             return;
         }
@@ -136,6 +120,20 @@ public class HomePagerPresenter extends BasePresenter<HomePagerContract.View> im
 
     @Override
     public void onRefresh() {
+        if (!dataManager.isLogin()) {
+            addSubscribe(dataManager.logout()
+                    .compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleLogoutResult())
+                    .subscribeWith(new BaseObserver<LoginBean>(getView()) {
+                        @Override
+                        public void onNext(LoginBean loginData) {
+                            setLoginState(false);
+                            CookiesManager.clearAllCookies();
+                            pageNo = 0;
+                            getAllData(pageNo);
+                        }
+                    }));
+            return;
+        }
         pageNo = 0;
         getAllData(pageNo);
     }

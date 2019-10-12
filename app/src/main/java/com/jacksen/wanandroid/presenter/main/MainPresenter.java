@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
+import com.jacksen.wanandroid.base.fragment.BaseFragment;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
 import com.jacksen.wanandroid.model.DataManager;
 import com.jacksen.wanandroid.model.bean.main.login.LoginBean;
@@ -56,9 +57,10 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 .with(BusConstant.LOGIN_STATE, Boolean.class)
                 .observe(this, aBoolean -> {
                     if (aBoolean) {
+                        getView().reload();
                         getView().showLoginOutView();
                     } else {
-                        getView().showLoginView();
+                        logout(false);
                     }
                 });
     }
@@ -67,7 +69,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
     public void doLogOutClick() {
         new AlertDialog.Builder(getActivity())
                 .setTitle(getActivity().getString(R.string.log_out))
-                .setPositiveButton(getActivity().getString(R.string.log_out_sure), (dialog, which) -> logout())
+                .setPositiveButton(getActivity().getString(R.string.log_out_sure), (dialog, which) -> logout(true))
                 .setNegativeButton(getActivity().getString(R.string.log_out_not_sure), (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
@@ -148,10 +150,15 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         }
     }
 
+    @Override
+    public void reloadFragment(BaseFragment fragment) {
+        fragment.reload();
+    }
+
     /**
      * 登出
      */
-    private void logout() {
+    private void logout(final boolean post) {
         addSubscribe(dataManager.logout()
                 .compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleLogoutResult())
                 .subscribeWith(new BaseObserver<LoginBean>(getView()) {
@@ -160,7 +167,17 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                         setLoginState(false);
                         CookiesManager.clearAllCookies();
                         getView().showLoginView();
-                        LiveDataBus.get().with(BusConstant.LOGIN_STATE).postValue(false);
+                        getView().reload();
+                        if (post) {
+                            LiveDataBus.get().with(BusConstant.LOGIN_STATE).postValue(false);
+                        } else {
+                            getView().reload();
+                            //如果当前在收藏或todo界面，则应该返回首页
+                            if (dataManager.getCurrentPage() == Constants.TYPE_COLLECT_PAGER
+                                    || dataManager.getCurrentPage() == Constants.TYPE_TODO_PAGER) {
+                                getView().selectMainTab();
+                            }
+                        }
                     }
                 }));
     }

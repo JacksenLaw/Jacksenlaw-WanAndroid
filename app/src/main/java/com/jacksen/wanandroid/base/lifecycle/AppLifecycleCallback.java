@@ -30,7 +30,7 @@ public class AppLifecycleCallback implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        KLog.i(activity.getClass().getSimpleName() + " is created");
+        KLog.i(activity.getClass().getSimpleName());
         //Activity的管理，将Activity压入栈
         ActivityCollector.addActivity(activity);
 
@@ -46,7 +46,7 @@ public class AppLifecycleCallback implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityStarted(Activity activity) {
-        KLog.d(activity.getClass().getSimpleName() + " is started");
+        KLog.d(activity.getClass().getSimpleName());
         appCount++;
         if (!isForeground) {
             isForeground = true;
@@ -56,18 +56,18 @@ public class AppLifecycleCallback implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityResumed(Activity activity) {
-        KLog.i(activity.getClass().getSimpleName() + " is resumed");
+        KLog.i(activity.getClass().getSimpleName());
         ActivityCollector.setCurrentActivity(activity);
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        KLog.i(activity.getClass().getSimpleName() + " is paused");
+        KLog.i(activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        KLog.i(activity.getClass().getSimpleName() + " is stopped");
+        KLog.i(activity.getClass().getSimpleName());
         appCount--;
         if (!isForGroundAppValue()) {
             isForeground = false;
@@ -77,14 +77,14 @@ public class AppLifecycleCallback implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        KLog.i(activity.getClass().getSimpleName() + " is saveInstanceState");
+        KLog.i(activity.getClass().getSimpleName());
         outState.putBoolean("saveStateKey", true);
         outState.putLong("localTime", System.currentTimeMillis());
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        KLog.i(activity.getClass().getSimpleName() + " is destroyed");
+        KLog.i(activity.getClass().getSimpleName());
         ActivityCollector.finishActivity(activity);
     }
 

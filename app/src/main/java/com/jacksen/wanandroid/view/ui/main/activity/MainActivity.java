@@ -22,6 +22,7 @@ import com.bar.library.StatusBarUtil;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
+import com.jacksen.wanandroid.base.fragment.BaseFragment;
 import com.jacksen.wanandroid.presenter.main.MainContract;
 import com.jacksen.wanandroid.presenter.main.MainPresenter;
 import com.jacksen.wanandroid.util.KLog;
@@ -337,8 +338,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    public void selectMainTab() {
+        startMainPager(Constants.TYPE_MAIN_PAGER);
+        setCurrentLeftNavClick(null);
+    }
+
+    @Override
+    public void reload() {
+        super.reload();
+        mPresenter.reloadFragment((BaseFragment) mFragments.get(mPresenter.getCurrentPage()));
+    }
+
+    @Override
     public void showLoginView() {
-        setUserName();
+        mUserName.setText(getString(R.string.login_in));
         mUserName.setOnClickListener(v -> mPresenter.doTurnLoginClick());
         if (mLeftNavigationView == null) {
             return;
@@ -351,24 +364,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showLoginOutView() {
+        mUserName.setText(mPresenter.getLoginAccount());
+        mUserName.setOnClickListener(null);
         if (mLeftNavigationView == null) {
             return;
         }
-        setUserName();
-        mUserName.setOnClickListener(null);
-        //显示退出登录
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_my_collect).setVisible(true);
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_my_todo).setVisible(true);
         mLeftNavigationView.getMenu().findItem(R.id.nav_item_logout).setVisible(true);
 
-    }
-
-    private void setUserName() {
-        if (mPresenter.isLogin()) {
-            mUserName.setText(mPresenter.getLoginAccount());
-        } else {
-            mUserName.setText(getString(R.string.login_in));
-        }
     }
 
     @Override

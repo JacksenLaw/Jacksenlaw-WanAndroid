@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
+import com.jacksen.aspectj.annotation.Login;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.presenter.BasePresenter;
@@ -164,6 +165,7 @@ public class TodoCreatePresenter extends BasePresenter<TodoCreateContract.View> 
     }
 
     @Override
+    @Login
     public void doCreateClick(String title, String content) {
 
         if (isNewCreateTodo) {

@@ -2,10 +2,7 @@ package com.jacksen.wanandroid.base.activity;
 
 import android.arch.lifecycle.LifecycleObserver;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
-
-import com.jacksen.wanandroid.core.manager.ActivityCollector;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -29,7 +26,6 @@ public abstract class AbstractSimpleActivity extends SkinBaseActivity implements
             setContentView(getLayoutId());
             unbinder = ButterKnife.bind(this);
             mActivity = this;
-            ActivityCollector.addActivity(this);
             onCreateView(savedInstanceState);
             initToolbar();
             initListener();
@@ -40,7 +36,6 @@ public abstract class AbstractSimpleActivity extends SkinBaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityCollector.finishActivity(this);
         if (unbinder != null && unbinder != Unbinder.EMPTY) {
             unbinder.unbind();
             unbinder = null;
