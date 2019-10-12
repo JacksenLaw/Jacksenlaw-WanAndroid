@@ -13,8 +13,9 @@
     skin:enable="true">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/nav_header_login_iv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:contentDescription="@null"
         android:src="@mipmap/ic_launcher" />
 

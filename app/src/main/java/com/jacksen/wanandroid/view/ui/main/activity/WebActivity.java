@@ -8,6 +8,7 @@ import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.jacksen.wanandroid.presenter.detail.ArticleDetailPresenter;
 import com.jacksen.wanandroid.util.CommonUtils;
 import com.jacksen.wanandroid.view.ui.main.web.CustomSettings;
 import com.just.agentweb.AgentWeb;
+import com.just.agentweb.WebChromeClient;
 
 import java.lang.reflect.Method;
 
@@ -118,6 +120,12 @@ public class WebActivity extends BaseActivity<ArticleDetailPresenter> implements
                 .useDefaultIndicator()
                 .setMainFrameErrorView(R.layout.webview_error_view, R.id.error_reload_tv)
                 .setAgentWebWebSettings(new CustomSettings(mPresenter.isNightMode(), mPresenter.isNoImageModel(), mPresenter.isNoCacheModel()))
+                .setWebChromeClient(new WebChromeClient(){
+                    @Override
+                    public void onReceivedTitle(WebView view, String title) {
+                        mToolbarTitle.setText(title);
+                    }
+                })
                 .createAgentWeb()
                 .ready()
                 .go(articleLink);

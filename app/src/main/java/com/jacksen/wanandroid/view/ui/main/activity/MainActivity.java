@@ -16,9 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bar.library.StatusBarUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.activity.BaseActivity;
@@ -137,6 +141,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private void initNavigationView() {
         mUserName = mLeftNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_tv);
+        ImageView mUserImage = mLeftNavigationView.getHeaderView(0).findViewById(R.id.nav_header_login_iv);
+        Glide.with(this).load(R.mipmap.ic_launcher).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(mUserImage);
         if (mPresenter.isLogin()) {
             showLoginOutView();
         } else {
