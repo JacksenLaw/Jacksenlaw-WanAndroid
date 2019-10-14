@@ -12,7 +12,7 @@
         android:transitionName="@string/share_view"
         app:elevation="0dp">
 
-        <include layout="@layout/toolbar_common" />
+        <include layout="@layout/include_toolbar_common" />
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
@@ -21,15 +21,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/knowledge_hierarchy_detail_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
-            app:tabMode="scrollable"
-            app:tabTextColor="@color/tabTextColor"
-            app:tabSelectedTextColor="@color/colorTabSelect"
-            app:tabIndicatorColor="@color/layoutBackground"
-            android:background="@color/colorPrimary" />
+        <include layout="@layout/include_tablayout_common" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/knowledge_hierarchy_detail_viewpager"

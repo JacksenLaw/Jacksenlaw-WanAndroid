@@ -26,6 +26,7 @@
     <string name="todo_completed">已完成</string>
     <string name="todo_add">新建待办事项</string>
     <string name="todo_filter">筛选</string>
+    <string name="search_hint">搜索%1$s公众号内更多干货</string>
 
     //登录
     <string name="login_title">账号密码登录</string>

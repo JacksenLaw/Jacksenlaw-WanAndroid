@@ -29,7 +29,7 @@ import butterknife.BindView;
  */
 public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implements ProjectContract.View {
 
-    @BindView(R.id.project_tab_layout)
+    @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
     @BindView(R.id.project_divider)
     View mDivider;

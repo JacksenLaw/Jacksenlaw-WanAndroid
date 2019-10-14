@@ -69,4 +69,6 @@ public class BusConstant {
     //todo状态改变为未完成状态，需要刷新待办事项页面
     public static final String TODO_STATUS_UNDONE = "todo_status_undone";
 
+    //隐藏or显示Toolbar
+    public static final String HIDE_TOOLBAR = "hide_toolbar";
 }

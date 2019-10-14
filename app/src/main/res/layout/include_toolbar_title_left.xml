@@ -5,7 +5,7 @@
     xmlns:skin="http://schemas.android.com/android/skin"
     android:id="@+id/left_title_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="@dimen/dp_48"
     app:elevation="@dimen/dp_2"
     skin:enable="true"
     android:background="@color/colorPrimary"

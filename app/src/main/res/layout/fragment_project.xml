@@ -13,17 +13,7 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/project_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
-            android:paddingLeft="@dimen/dp_5"
-            android:paddingRight="@dimen/dp_5"
-            android:background="@color/colorPrimary"
-            app:tabMode="scrollable"
-            app:tabTextColor="@color/tabTextColor"
-            app:tabSelectedTextColor="@color/colorTabSelect"
-            app:tabIndicatorColor="@color/layoutBackground" />
+        <include layout="@layout/include_tablayout_common"/>
 
         <View
             android:id="@+id/project_divider"

@@ -34,7 +34,7 @@ public class KnowledgeDetailActivity extends BaseActivity<KnowledgeActivityPrese
     Toolbar mToolbar;
     @BindView(R.id.common_toolbar_title_tv)
     TextView mTitleTv;
-    @BindView(R.id.knowledge_hierarchy_detail_tab_layout)
+    @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
     @BindView(R.id.knowledge_hierarchy_detail_viewpager)
     ViewPager mViewPager;

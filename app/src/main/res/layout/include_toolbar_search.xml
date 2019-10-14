@@ -3,7 +3,7 @@
     xmlns:skin="http://schemas.android.com/android/skin"
     android:id="@+id/search_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_56"
+    android:layout_height="@dimen/dp_48"
     android:background="@color/colorPrimarySearchToolbar"
     android:gravity="center_vertical"
     android:orientation="horizontal"

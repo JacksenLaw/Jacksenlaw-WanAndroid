@@ -25,6 +25,7 @@
     <string name="todo_completed">Completed</string>
     <string name="todo_add">New to-do</string>
     <string name="todo_filter">Screen</string>
+    <string name="search_hint">Search More dry goods in the %1$s public number</string>
 
     //Login
     <string name="login_title">Login Password</string>

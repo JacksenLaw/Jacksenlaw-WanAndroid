@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="@dimen/dp_6">
 
-        <include layout="@layout/toolbar_search" />
+        <include layout="@layout/include_toolbar_search" />
 
     </android.support.design.widget.AppBarLayout>
 

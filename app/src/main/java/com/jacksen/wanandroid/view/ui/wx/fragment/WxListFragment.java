@@ -6,32 +6,25 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
+import com.jacksen.wanandroid.model.bus.BusConstant;
+import com.jacksen.wanandroid.model.bus.LiveDataBus;
 import com.jacksen.wanandroid.presenter.wx.list.WxListContract;
 import com.jacksen.wanandroid.presenter.wx.list.WxListPresenter;
 import com.jacksen.wanandroid.util.KLog;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 import com.jacksen.wanandroid.view.ui.mainpager.adapter.ArticleListAdapter;
-import com.jakewharton.rxbinding2.view.RxView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.wingsofts.byeburgernavigationview.ByeBurgerBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 
@@ -48,14 +41,6 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.we_detail_list_recycler_view)
     RecyclerView mRecyclerView;
-    @BindView(R.id.search_tint_tv)
-    TextView mSearchTintTv;
-    @BindView(R.id.search_edit)
-    EditText mSearchEdit;
-    @BindView(R.id.search_tv)
-    TextView mSearchTv;
-    @BindView(R.id.search_toolbar)
-    Toolbar mToolbar;
 
     private ArticleListAdapter mAdapter;
     private List<ViewFeedArticleListData.ViewFeedArticleItem> data;
@@ -81,14 +66,12 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
 
     @Override
     protected void initOnCreateView() {
-        mToolbar.setNavigationIcon(null);
         initRecyclerView();
     }
 
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mSearchTintTv.setText(mPresenter.getSearchHint());
         mPresenter.onRefresh();
     }
 
@@ -121,36 +104,6 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
             }
         });
 
-        mSearchEdit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() == 0) {
-                    mSearchTintTv.setText(mPresenter.getSearchHint());
-                } else {
-                    mSearchTintTv.setText("");
-                }
-            }
-        });
-
-        mPresenter.addRxBindingSubscribe(RxView.clicks(mSearchTv)
-                .throttleFirst(1000, TimeUnit.MILLISECONDS)
-                .filter(s -> !TextUtils.isEmpty(mSearchEdit.getText().toString().trim()))
-                .subscribe(o -> {
-                    KeyboardUtils.hideSoftInput(_mActivity);
-                    mPresenter.doSearchClick(mSearchEdit.getText().toString());
-                })
-        );
-
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             /**
              * recyclerView的滑动状态，
@@ -161,20 +114,44 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 KeyboardUtils.hideSoftInput(_mActivity);
-//                if(newState > 100){
-//                    ByeBurgerBehavior.from(mToolbar).hide();
-//                }else{
-//
-//                }
             }
 
+            /**
+             *
+             * @param recyclerView recyclerView
+             * @param dx dx > 0：代表手指向左拖动，RecyclerView则从右向左滚动
+             *           dx < 0：代表手指向右拖动，RecyclerView则从左向右滚动
+             * @param dy dy > 0：代表手指向上拖动，RecyclerView则从上向下滚动（就是我们最常见的，从顶部开始往下滚动）
+             *           dy < 0：代表手指向下拖动，RecyclerView则从下向上滚动（就是从列表底部往回挥动）
+             */
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                KLog.i("dx = " + dx + "    dy = " + dx);
+                KLog.i("dx = " + dx + "    dy = " + dy);
+                if (dy > 1 || dy < -50) {
+                    LiveDataBus.get()
+                            .with(BusConstant.HIDE_TOOLBAR).postValue(true);
+                }
+                if (dy < 0) {
+                    LiveDataBus.get()
+                            .with(BusConstant.HIDE_TOOLBAR).postValue(false);
+                }
             }
 
-
         });
+
+    }
+
+    public void showRecyclerView() {
+        mRefreshLayout.setEnableRefresh(true);
+        mRefreshLayout.setEnableLoadMore(true);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mAdapter.setNewData(mPresenter.getOriginalData());
+    }
+
+    public void doSearchClick(String searchText) {
+        mRefreshLayout.setEnableRefresh(false);
+        mRefreshLayout.setEnableLoadMore(false);
+        mPresenter.doSearchClick(searchText);
     }
 
     @Override
@@ -201,8 +178,6 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
     public void showWxList(ViewFeedArticleListData feedArticleListBean) {
         if (RECYCLER_VIEW_STATE == REFRESH) {
             mRefreshLayout.setEnableLoadMore(true);
-            mSearchTintTv.setText(mPresenter.getSearchHint());
-            mSearchEdit.setText("");
             mRefreshLayout.finishRefresh(500);
             data.clear();
         }

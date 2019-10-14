@@ -24,6 +24,7 @@ import com.just.agentweb.WebListenerManager;
  * 更新时间： 2019/8/17
  * 本次更新内容：
  */
+@SuppressWarnings("All")
 public class CustomSettings extends AbsAgentWebSettings {
 
     private boolean isNightMode;
@@ -76,14 +77,15 @@ public class CustomSettings extends AbsAgentWebSettings {
             getWebSettings().setAllowFileAccessFromFileURLs(false); //通过 file mUrl 加载的 Javascript 读取其他的本地文件 .建议关闭
             getWebSettings().setAllowUniversalAccessFromFileURLs(false);//允许通过 file mUrl 加载的 Javascript 可以访问其他的源，包括其他的文件和 http，https 等其他的源
         }
+        getWebSettings().setJavaScriptEnabled(true);//设置支持JavaScript， 默认为false
         getWebSettings().setNeedInitialFocus(true);
-        getWebSettings().setSupportMultipleWindows(true);
-        getWebSettings().setSupportZoom(true);
+        getWebSettings().setSupportMultipleWindows(false);//设置支持多窗口， 默认为false
+        getWebSettings().setSupportZoom(true);//设置支持缩放
         getWebSettings().setLoadWithOverviewMode(true);
             getWebSettings().setDefaultTextEncodingName("utf-8");//设置编码格式
         getWebSettings().setDefaultFontSize(16);
         getWebSettings().setMinimumFontSize(12);//设置 WebView 支持的最小字体大小，默认为 8
-        getWebSettings().setGeolocationEnabled(true);
+        getWebSettings().setGeolocationEnabled(true);//设置支持定位
         getWebSettings().setUserAgentString(getWebSettings().getUserAgentString().concat("agentweb/3.1.0"));
         return this;
     }

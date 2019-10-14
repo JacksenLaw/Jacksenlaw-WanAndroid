@@ -22,6 +22,7 @@ import com.jacksen.wanandroid.util.JudgeUtils;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,6 +43,13 @@ public class WxListPresenter extends BasePresenter<WxListContract.View> implemen
 
     private int authorId;
     private String authorName;
+
+    //原始数据
+    private List<ViewFeedArticleListData.ViewFeedArticleItem> originalData = new ArrayList<>();
+
+    public List<ViewFeedArticleListData.ViewFeedArticleItem> getOriginalData() {
+        return originalData;
+    }
 
     public String getSearchHint() {
         return "搜索" + authorName + "公众号内更多干货";
@@ -110,13 +118,17 @@ public class WxListPresenter extends BasePresenter<WxListContract.View> implemen
                         ViewFeedArticleListData viewFeedArticleListData = new ViewFeedArticleListData(listItems);
                         getView().showWxList(viewFeedArticleListData);
                         getView().showNormal();
+                        if (pageNo == 0) {
+                            originalData.clear();
+                        }
+                        originalData.addAll(viewFeedArticleListData.getItems());
                     }
                 }));
     }
 
     @Override
     public void doSearchClick(String searchText) {
-        addSubscribe(dataManager.getWxSearchSumData(authorId, pageNo, searchText)
+        addSubscribe(dataManager.getWxSearchSumData(authorId, 0, searchText)
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .subscribeWith(new BaseObserver<FeedArticleListBean>(getView(),
