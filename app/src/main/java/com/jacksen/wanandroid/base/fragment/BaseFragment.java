@@ -53,7 +53,6 @@ public abstract class BaseFragment<T extends AbstractPresenter> extends Abstract
     protected void initEventAndData() {
         if (mPresenter != null) {
             mPresenter.injectEvent();
-            mPresenter.showLoadingView();
         }
     }
 

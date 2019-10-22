@@ -81,6 +81,7 @@ dependencies {
     implementation rootProject.ext.dependencies["flowlayout-lib"]
     implementation rootProject.ext.dependencies["AgentWeb"]
     implementation rootProject.ext.dependencies["Downloader"]
+    implementation rootProject.ext.dependencies["gloading"]
 
     //Material风格dialog
     implementation rootProject.ext.dependencies["material-dialogs-core"]

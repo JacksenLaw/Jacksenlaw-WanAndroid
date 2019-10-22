@@ -85,7 +85,7 @@ public class ProjectFragment extends BaseRootFragment<ProjectPresenter> implemen
     }
 
     private void initViewPagerAndTabLayout(ArrayList<ViewProjectClassifyBean.ViewProjectClassifyItemBean> itemBeans) {
-        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setOffscreenPageLimit(30);
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

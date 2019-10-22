@@ -7,8 +7,8 @@ ext {
             buildToolsVersion    : "28.0.3",
             minSdkVersion        : 19,
             targetSdkVersion     : 28,
-            versionCode          : 11004,
-            versionName          : "1.1.0.04",
+            versionCode          : 11005,
+            versionName          : "1.1.0.05",
             renderscriptTargetApi: 21
     ]
 
@@ -108,5 +108,8 @@ ext {
 
             //切面aop
             "aspectj"                 : "org.aspectj:aspectjrt:1.8.9",
+
+            //加载动画
+            "gloading"                 : "com.billy.android:gloading:1.0.0",
     ]
 }

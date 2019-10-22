@@ -11,6 +11,7 @@ import android.view.View;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.jacksen.wanandroid.R;
 import com.jacksen.wanandroid.app.Constants;
+import com.jacksen.wanandroid.base.fragment.BaseFragment;
 import com.jacksen.wanandroid.base.fragment.BaseRootFragment;
 import com.jacksen.wanandroid.model.bus.BusConstant;
 import com.jacksen.wanandroid.model.bus.LiveDataBus;
@@ -70,6 +71,11 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
     }
 
     @Override
+    protected boolean isInnerFragment() {
+        return true;
+    }
+
+    @Override
     protected void initEventAndData() {
         super.initEventAndData();
         mPresenter.onRefresh();
@@ -116,6 +122,9 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
                 KeyboardUtils.hideSoftInput(_mActivity);
             }
 
+            private static final int HIDE_THRESHOLD = 20;
+            private int scrolledDistance = 0;
+            private boolean controlsVisible = true;
             /**
              *
              * @param recyclerView recyclerView
@@ -127,13 +136,24 @@ public class WxListFragment extends BaseRootFragment<WxListPresenter> implements
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 KLog.i("dx = " + dx + "    dy = " + dy);
-                if (dy > 1 || dy < -50) {
-                    LiveDataBus.get()
-                            .with(BusConstant.HIDE_TOOLBAR).postValue(true);
-                }
-                if (dy < 0) {
-                    LiveDataBus.get()
-                            .with(BusConstant.HIDE_TOOLBAR).postValue(false);
+                int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                if (firstVisibleItem >= 1) {
+                    if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
+                        // 隐藏toolbar
+                        LiveDataBus.get()
+                                .with(BusConstant.HIDE_TOOLBAR).postValue(true);
+                        controlsVisible = false;
+                        scrolledDistance = 0;
+                    } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
+                        // 显示toolbar
+                        LiveDataBus.get()
+                                .with(BusConstant.HIDE_TOOLBAR).postValue(false);
+                        controlsVisible = true;
+                        scrolledDistance = 0;
+                    }
+                    if ((controlsVisible && dy > 0) || (!controlsVisible && dy < 0)) {
+                        scrolledDistance += dy;
+                    }
                 }
             }
 

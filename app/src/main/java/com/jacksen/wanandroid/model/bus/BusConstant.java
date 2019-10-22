@@ -36,8 +36,6 @@ public class BusConstant {
     public static String SCROLL_TO_KNOWLEDGE_PAGE = "scroll_to_knowledge_page";
     //公众号
     public static String SCROLL_TO_WX_PAGE = "scroll_to_wx_page";
-    //公众号列表
-    public static String SCROLL_TO_WX_LIST_PAGE = "scroll_to_wx_list_page";
     //导航
     public static String SCROLL_TO_NAVI_PAGE = "scroll_to_navi_page";
     //项目

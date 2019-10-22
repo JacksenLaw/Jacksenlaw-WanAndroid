@@ -137,7 +137,7 @@ public class CollectPresenter extends BasePresenter<CollectContract.View> implem
      * @param feedArticleData FeedArticleBean
      */
     private void cancelCollectArticle(int position, ViewFeedArticleListData.ViewFeedArticleItem feedArticleData) {
-        addSubscribe(dataManager.cancelCollectArticle(feedArticleData.getData(FEED_ARTICLE_ID))
+        addSubscribe(dataManager.cancelCollectPageArticle(feedArticleData.getData(FEED_ARTICLE_ID))
                 .compose(RxUtils.rxSchedulerHelper())
                 .compose(RxUtils.handleCollectResult())
                 .subscribeWith(new BaseObserver<FeedArticleListBean>(getView()) {

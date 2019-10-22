@@ -1,5 +1,6 @@
 package com.jacksen.wanandroid.base.fragment;
 
+import android.support.annotation.CallSuper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -63,6 +64,9 @@ public abstract class BaseRootFragment<T extends AbstractPresenter> extends Base
         mLoadingView.setVisibility(View.GONE);
         mNormalView.setVisibility(View.VISIBLE);
         super.initEventAndData();
+        if (mPresenter != null) {
+            mPresenter.showLoadingView();
+        }
     }
 
     @Override

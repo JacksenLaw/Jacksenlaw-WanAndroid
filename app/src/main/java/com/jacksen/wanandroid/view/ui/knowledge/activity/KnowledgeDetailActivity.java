@@ -92,7 +92,7 @@ public class KnowledgeDetailActivity extends BaseActivity<KnowledgeActivityPrese
     }
 
     private void initViewPagerAndTabLayout(List<String> pageTitle, boolean isSingleChapter, String chapterName) {
-        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setOffscreenPageLimit(30);
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

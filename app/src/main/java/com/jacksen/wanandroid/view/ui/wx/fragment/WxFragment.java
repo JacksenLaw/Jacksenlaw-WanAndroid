@@ -1,7 +1,6 @@
 package com.jacksen.wanandroid.view.ui.wx.fragment;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -53,8 +52,6 @@ public class WxFragment extends BaseRootFragment<WxPresenter> implements WxContr
     TextView mSearchTv;
     @BindView(R.id.include_toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.appBarLayout)
-    AppBarLayout mAppBar;
 
     private CharSequence authorName;
     private int mPosition;
@@ -70,19 +67,31 @@ public class WxFragment extends BaseRootFragment<WxPresenter> implements WxContr
         return fragment;
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_wx;
+    }
+
+    @Override
+    public void reload() {
+        super.reload();
+        showLoading();
+        mPresenter.getWxAuthorList();
+    }
+
+    @Override
+    protected void initEventAndData() {
+        super.initEventAndData();
+        mPresenter.getWxAuthorList();
+    }
+
 
     @Override
     protected void initOnCreateView() {
         mToolbar.setNavigationIcon(null);
         LiveDataBus.get()
-                .with(BusConstant.HIDE_TOOLBAR,Boolean.class)
-                .observe(this, b -> {
-                    if(b) {
-                        mToolbar.setVisibility(View.GONE);
-                    }else{
-                        mToolbar.setVisibility(View.VISIBLE);
-                    }
-                });
+                .with(BusConstant.HIDE_TOOLBAR, Boolean.class)
+                .observe(this, b -> mToolbar.setVisibility(b ? View.GONE : View.VISIBLE));
     }
 
     @Override
@@ -158,24 +167,6 @@ public class WxFragment extends BaseRootFragment<WxPresenter> implements WxContr
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_wx;
-    }
-
-    @Override
-    public void reload() {
-        super.reload();
-        showLoading();
-        mPresenter.getWxAuthorList();
-    }
-
-    @Override
-    protected void initEventAndData() {
-        super.initEventAndData();
-        mPresenter.getWxAuthorList();
-    }
-
-    @Override
     public void showWxAuthor(ViewWxAuthorBean itemBeans) {
         mFragments.clear();
         for (ViewWxAuthorBean.ViewWxAuthorItemBean itemBean : itemBeans.getItems()) {
@@ -185,7 +176,7 @@ public class WxFragment extends BaseRootFragment<WxPresenter> implements WxContr
     }
 
     private void initViewPagerAndTabLayout(ArrayList<ViewWxAuthorBean.ViewWxAuthorItemBean> itemBeans) {
-        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setOffscreenPageLimit(30);
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

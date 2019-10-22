@@ -233,7 +233,7 @@ public interface GeeksApis {
     Observable<BaseResponse<FeedArticleListBean>> getCollectList(@Path("page") int page);
 
     /**
-     * 取消站内文章
+     * 取消收藏页面内的文章
      * http://www.wanandroid.com/lg/uncollect_originId/2333/json
      *
      * @param id       article id
@@ -245,7 +245,7 @@ public interface GeeksApis {
     Observable<BaseResponse<FeedArticleListBean>> cancelCollectPageArticle(@Path("id") int id, @Field("originId") int originId);
 
     /**
-     * 取消收藏页面站内文章
+     * 取消列表页面的文章
      * http://www.wanandroid.com/lg/uncollect_originId/2333/json
      *
      * @param id       article id

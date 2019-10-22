@@ -20,7 +20,7 @@ import com.just.agentweb.WebListenerManager;
  * 作者： LuoM
  * 时间： 2019/8/17
  * 描述：
- * 版本： v1.0.0
+ * 版本： v1.0.1 修复Web页面点击页面内连接无反应bug
  * 更新时间： 2019/8/17
  * 本次更新内容：
  */

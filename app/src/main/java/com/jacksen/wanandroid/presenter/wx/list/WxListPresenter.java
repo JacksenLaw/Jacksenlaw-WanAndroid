@@ -19,6 +19,7 @@ import com.jacksen.wanandroid.model.event.Collect;
 import com.jacksen.wanandroid.model.http.RxUtils;
 import com.jacksen.wanandroid.model.http.base.BaseObserver;
 import com.jacksen.wanandroid.util.JudgeUtils;
+import com.jacksen.wanandroid.util.KLog;
 import com.jacksen.wanandroid.view.bean.main.ViewFeedArticleListData;
 
 import java.util.ArrayList;
@@ -51,10 +52,6 @@ public class WxListPresenter extends BasePresenter<WxListContract.View> implemen
         return originalData;
     }
 
-    public String getSearchHint() {
-        return "搜索" + authorName + "公众号内更多干货";
-    }
-
     @Inject
     public WxListPresenter(DataManager dataManager) {
         super(dataManager);
@@ -63,9 +60,12 @@ public class WxListPresenter extends BasePresenter<WxListContract.View> implemen
     @Override
     public void injectEvent() {
         super.injectEvent();
+        KLog.i();
         LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_WX_LIST_PAGE, Integer.class)
-                .observe(this, integer -> getView().scrollToTheTop(integer));
+                .with(BusConstant.SCROLL_TO_WX_PAGE, Integer.class)
+                .observe(this, integer ->
+                        getView().scrollToTheTop(integer)
+                );
         LiveDataBus.get()
                 .with(BusConstant.COLLECT, Collect.class)
                 .observe(this, collect -> {

@@ -30,16 +30,6 @@ public class WxPresenter extends BasePresenter<WxContract.View> implements WxCon
     }
 
     @Override
-    public void injectEvent() {
-        super.injectEvent();
-        LiveDataBus.get()
-                .with(BusConstant.SCROLL_TO_WX_PAGE, Integer.class)
-                .observe(this, integer ->
-                        LiveDataBus.get().with(BusConstant.SCROLL_TO_WX_LIST_PAGE).postValue(integer)
-                );
-    }
-
-    @Override
     public void getWxAuthorList() {
         addSubscribe(dataManager.getWxAuthorListData()
                 .compose(RxUtils.rxSchedulerHelper())
